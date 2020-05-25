@@ -1,13 +1,11 @@
 <?php namespace App\Controllers;
 
-use CodeIgniter\Controller;
-
-class Pages extends Controller
+class Pages extends BaseController
 {
-    public function index()
+    /*public function index()
     {
         return view('welcome_message');
-    }
+    }*/
 
     public function view($page = 'home')
     {
@@ -19,8 +17,18 @@ class Pages extends Controller
 
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
-        echo view('templates/header', $data);
-        echo view('pages/'.$page, $data);
-        echo view('templates/footer', $data);
+        if ($page == 'login')
+        {
+            echo view('templates/header', $data);
+            echo view('pages/'.$page, $data);
+            echo view('templates/footer', $data);
+        }
+        else {
+            echo view('templates/header', $data);
+            echo view('templates/navbar', $data);
+            echo view('pages/'.$page, $data);
+            echo view('templates/footer', $data);
+        }
+
     }
 }
