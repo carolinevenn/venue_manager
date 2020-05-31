@@ -16,16 +16,16 @@
                 <a class="nav-link" id="Home" href="<?= base_url(); ?>">Calendar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Bookings" href="<?= base_url(); ?>/bookings">Bookings</a>
+                <a class="nav-link" id="Bookings" href="<?= base_url('/bookings'); ?>">Bookings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Customers" href="<?= base_url(); ?>/customers">Customers</a>
+                <a class="nav-link" id="Customers" href="<?= base_url('/customers'); ?>">Customers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Venue" href="<?= base_url(); ?>/venue">Venue</a>
+                <a class="nav-link" id="Venue" href="<?= base_url('/venue'); ?>">Venue</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="About" href="<?= base_url(); ?>/about">About</a>
+                <a class="nav-link" id="About" href="<?= base_url('/about'); ?>">About</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Log out</a>

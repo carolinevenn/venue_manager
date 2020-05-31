@@ -22,7 +22,7 @@
 
     <section class="row">
         <div class="col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-            <a href="#" class='w-100 d-flex align-items-stretch text-reset'>
+            <a href="<?= base_url('/customer_details'); ?>" class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
                     <h6 class="card-header">Customer name</h6>
                     <div class='card-body py-2'>
