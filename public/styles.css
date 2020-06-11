@@ -10,6 +10,9 @@ a:hover {
     text-decoration: none;
 }
 
+[data-href] {
+    cursor: pointer;
+}
 
 
 /* Login Page */

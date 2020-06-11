@@ -1,12 +1,9 @@
-<main class="container-fluid">
-    <section class="row">
-        <div class="col">
-            <h1><?= esc($title); ?></h1>
+<main class="container-xl">
+    <section class="row my-4">
+        <div class="col-md-auto">
+            <h2>Customers</h2>
         </div>
-    </section>
-
-    <section class="row mb-4">
-        <div class="col-md-4">
+        <div class="col-md-6 ml-md-5">
             <!-- Search bar -->
             <form class="mx-auto">
                 <div class="input-group mx-auto">
@@ -22,7 +19,8 @@
 
     <section class="row">
         <div class="col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-            <a href="<?= base_url('/customer_details'); ?>" class='w-100 d-flex align-items-stretch text-reset'>
+            <a href="<?= base_url('/customer_details'); ?>"
+               class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
                     <h6 class="card-header">Customer name</h6>
                     <div class='card-body py-2'>

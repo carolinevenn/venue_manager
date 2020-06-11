@@ -33,7 +33,3 @@
         </ul>
     </div>
 </nav>
-
-<script>
-    document.getElementById("<?= esc($title); ?>").classList.add("active");
-</script>
