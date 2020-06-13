@@ -1,11 +1,14 @@
 <main class="container-xl">
-    <section class="row my-4">
-        <div class="col-md-auto">
+    <section class="row d-flex justify-content-between my-4">
+        <div class="col-auto">
             <h2>Customers</h2>
         </div>
-        <div class="col-md-6 ml-md-5">
+        <div class="col-auto order-md-3 mb-2 mb-md-0">
+            <a class="btn btn-primary" href="<?= base_url('/customer_add'); ?>">New Customer</a>
+        </div>
+        <div class="col-md-6 order-md-2">
             <!-- Search bar -->
-            <form class="mx-auto">
+            <?= form_open(current_url(), 'class="mx-auto"'); ?>
                 <div class="input-group mx-auto">
                     <input type="search" class="form-control" id="search" name="search"
                            placeholder="Search customers" aria-label="Search">
@@ -13,8 +16,9 @@
                         <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-            </form>
+            <?= form_close(); ?>
         </div>
+
     </section>
 
     <section class="row">

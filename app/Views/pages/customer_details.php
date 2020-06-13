@@ -4,9 +4,14 @@
             <a href="<?= base_url('/customers'); ?>">&lt; Back to customer list</a>
         </div>
     </section>
-    <section class="row mt-3 mb-4">
-        <div class="col">
+    <section class="row mt-3 mb-4 justify-content-between">
+        <div class="col-auto">
             <h2>Company name</h2>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="<?= base_url('/booking_add'); ?>">New Booking</a>
+            <a class="btn btn-outline-primary" href="<?= base_url('/customer_edit'); ?>">
+                Edit customer details</a>
         </div>
     </section>
 

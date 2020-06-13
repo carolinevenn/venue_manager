@@ -16,5 +16,12 @@
         crossorigin="anonymous"></script>
 <!-- Custom JavaScript-->
 <script src="scripts.js"></script>
+<!-- Navbar highlighting -->
+<script>
+    var pageTitle =  document.getElementById("<?= esc($title); ?>");
+    if(pageTitle) {
+        pageTitle.classList.add("active");
+    }
+</script>
 </body>
 </html>

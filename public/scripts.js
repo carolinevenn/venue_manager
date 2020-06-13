@@ -5,5 +5,3 @@ jQuery(document).ready(function($) {
     });
 });
 
-// Navbar highlighting
-document.getElementById("<?= esc($title); ?>").classList.add("active");

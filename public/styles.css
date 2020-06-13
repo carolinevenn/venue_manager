@@ -14,6 +14,14 @@ a:hover {
     cursor: pointer;
 }
 
+a .card:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.tab-pane table {
+    border: 1px solid #dee2e6;
+}
+
 
 /* Login Page */
 #login-page {
