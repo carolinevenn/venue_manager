@@ -9,8 +9,8 @@
             <h2>Company name</h2>
         </div>
         <div class="col-auto">
-            <a class="btn btn-primary" href="<?= base_url('/booking_add'); ?>">New Booking</a>
-            <a class="btn btn-outline-primary" href="<?= base_url('/customer_edit'); ?>">
+            <a class="btn btn-info" href="<?= base_url('/booking_add'); ?>">New Booking</a>
+            <a class="btn btn-outline-info" href="<?= base_url('/customer_edit'); ?>">
                 Edit customer details</a>
         </div>
     </section>
@@ -22,7 +22,7 @@
                 <dd class="col-sm-7">Address<br>Town<br>County<br>Postcode</dd>
                 <dt class="col-sm-5"><h6>Phone number:</h6></dt>
                 <dd class="col-sm-7">01234 567890</dd>
-                <dt class="col-sm-5"><h6>Email address:</h6></dt>
+                <dt class="col-sm-5"><h6>Email:</h6></dt>
                 <dd class="col-sm-7">email@example.com</dd>
                 <dt class="col-sm-5"><h6>Contact name:</h6></dt>
                 <dd class="col-sm-7">Mr John Smith</dd>
@@ -30,6 +30,8 @@
                 <dd class="col-sm-7">123456789</dd>
                 <dt class="col-sm-5"><h6>Customer ID:</h6></dt>
                 <dd class="col-sm-7">12345</dd>
+                <dt class="col-sm-5"><h6>Other details:</h6></dt>
+                <dd class="col-sm-7">Any other details about the customer that might be considered relevant</dd>
             </dl>
         </div>
 
@@ -65,7 +67,7 @@
                                     <td>Advanced Ballet</td>
                                     <td>Confirmed</td>
                                 </tr>
-                                <tr class="table-info" data-href="<?= base_url('/booking_details'); ?>">
+                                <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
                                     <th scope="row">6 June 2021</th>
                                     <td>Auditorium</td>
                                     <td>Summer Showcase</td>
@@ -83,7 +85,7 @@
                                     <td>Tap for Beginners</td>
                                     <td>Reserved</td>
                                 </tr>
-                                <tr class="table-danger" data-href="<?= base_url('/booking_details'); ?>">
+                                <tr class="table-secondary" data-href="<?= base_url('/booking_details'); ?>">
                                     <th scope="row">3 December 2021</th>
                                     <td>Auditorium</td>
                                     <td>Christmas Showcase</td>
@@ -107,19 +109,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="table-info" data-href="<?= base_url('/booking_details'); ?>">
+                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
                                 <th scope="row">12 May 2020</th>
                                 <td>Dance Studio</td>
                                 <td>Advanced Ballet</td>
                                 <td>Paid</td>
                             </tr>
-                            <tr class="table-info" data-href="<?= base_url('/booking_details'); ?>">
+                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
                                 <th scope="row">6 June 2020</th>
                                 <td>Auditorium</td>
                                 <td>Summer Showcase</td>
                                 <td>Paid</td>
                             </tr>
-                            <tr class="table-info" data-href="<?= base_url('/booking_details'); ?>">
+                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
                                 <th scope="row">15 May 2020</th>
                                 <td>Dance Studio</td>
                                 <td>Ballet for Beginners</td>
@@ -132,7 +134,7 @@
                                 <td>Cancelled</td>
                             </tr>
                             <tr class="table-danger" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">3 December 2020</th>
+                                <th scope="row">3 December 2019</th>
                                 <td>Auditorium</td>
                                 <td>Christmas Showcase</td>
                                 <td>Enquiry</td>

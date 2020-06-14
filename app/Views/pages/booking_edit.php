@@ -1,8 +1,21 @@
 <main class="container-xl">
-    <section class="row">
+    <section class="row mt-2">
         <div class="col">
-            <h1><?= esc($title); ?></h1>
+            <a href="<?= base_url('/booking_details'); ?>">&lt; Back to booking</a>
         </div>
     </section>
+    <section class="row my-4">
+        <div class="col">
+            <h2>Edit Booking</h2>
+        </div>
+    </section>
+
+    <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
+        <section class="row">
+            <div class="col">
+
+            </div>
+        </section>
+    <?= form_close(); ?>
 
 </main>

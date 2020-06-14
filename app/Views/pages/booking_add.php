@@ -1,7 +1,12 @@
 <main class="container-xl">
-    <section class="row">
+    <section class="row mt-2">
         <div class="col">
-            <h1><?= esc($title); ?></h1>
+            <a href="<?= base_url('/bookings'); ?>">&lt; Back to booking list</a>
+        </div>
+    </section>
+    <section class="row my-4">
+        <div class="col">
+            <h2>New Booking</h2>
         </div>
     </section>
 

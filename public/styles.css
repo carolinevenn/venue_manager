@@ -3,6 +3,7 @@ body {
     height: 100%;
 }
 body {
+    /* Leave space for navbar */
     padding-top: 56px;
 }
 
@@ -10,17 +11,42 @@ a:hover {
     text-decoration: none;
 }
 
+
+/* Cards */
 [data-href] {
     cursor: pointer;
 }
-
 a .card:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
+.card-primary {
+    background-color: #b8daff;
+}
+.card-secondary {
+    background-color: #d6d8db;
+}
+.card-success {
+    background-color: #c3e6cb;
+}
+.card-danger {
+    background-color: #f5c6cb;
+}
+.card-warning {
+    background-color: #ffeeba;
+}
 
+
+/* Tab panes */
 .tab-pane table {
     border: 1px solid #dee2e6;
 }
+
+/* Search bar */
+.input-group-append .btn-light {
+    border: 1px solid #ced4da;
+    border-left-style: none;
+}
+
 
 
 /* Login Page */

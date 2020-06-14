@@ -4,7 +4,7 @@
             <h2>Customers</h2>
         </div>
         <div class="col-auto order-md-3 mb-2 mb-md-0">
-            <a class="btn btn-primary" href="<?= base_url('/customer_add'); ?>">New Customer</a>
+            <a class="btn btn-info" href="<?= base_url('/customer_add'); ?>">New Customer</a>
         </div>
         <div class="col-md-6 order-md-2">
             <!-- Search bar -->

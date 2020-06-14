@@ -22,10 +22,11 @@
                 <label for="status">Status:</label>
                 <select class="form-control d-block w-100" id="status" name="status" onchange="this.form.submit();">
                     <option>All</option>
+                    <option>Paid</option>
                     <option>Confirmed</option>
                     <option>Enquiry</option>
-                    <option>Paid</option>
                     <option>Reserved</option>
+                    <option>Historical</option>
                 </select>
             </div>
             <!-- Filter by room -->
@@ -58,7 +59,7 @@
             <a href="<?= base_url('/booking_details'); ?>"
                class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
-                    <h6 class="card-header">Event title</h6>
+                    <h6 class="card-header card-primary">Event title</h6>
                     <div class='card-body py-2'>
                         <p class='card-text'>Date, room, etc.</p>
                     </div>
@@ -69,7 +70,7 @@
             <a href="<?= base_url('/booking_details'); ?>"
                class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
-                    <h6 class="card-header">Event title</h6>
+                    <h6 class="card-header card-success">Event title</h6>
                     <div class='card-body py-2'>
                         <p class='card-text'>Date, room, etc.</p>
                     </div>
@@ -79,7 +80,7 @@
             <a href="<?= base_url('/booking_details'); ?>"
                class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
-                    <h6 class="card-header">Event title</h6>
+                    <h6 class="card-header card-primary">Event title</h6>
                     <div class='card-body py-2'>
                         <p class='card-text'>Date, room, etc.</p>
                     </div>
@@ -89,7 +90,7 @@
             <a href="<?= base_url('/booking_details'); ?>"
                class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
-                    <h6 class="card-header">Event title</h6>
+                    <h6 class="card-header card-danger">Event title</h6>
                     <div class='card-body py-2'>
                         <p class='card-text'>Date, room, etc.</p>
                     </div>
@@ -99,7 +100,7 @@
             <a href="<?= base_url('/booking_details'); ?>"
                class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
-                    <h6 class="card-header">Event title</h6>
+                    <h6 class="card-header card-warning">Event title</h6>
                     <div class='card-body py-2'>
                         <p class='card-text'>Date, room, etc.</p>
                     </div>
@@ -109,7 +110,7 @@
             <a href="<?= base_url('/booking_details'); ?>"
                class='w-100 d-flex align-items-stretch text-reset'>
                 <div class='card w-100 mb-4'>
-                    <h6 class="card-header">Event title</h6>
+                    <h6 class="card-header card-secondary">Event title</h6>
                     <div class='card-body py-2'>
                         <p class='card-text'>Date, room, etc.</p>
                     </div>
