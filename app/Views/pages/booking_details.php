@@ -9,7 +9,7 @@
             <h2>Event Title</h2>
         </div>
         <div class="col-auto">
-            <a class="btn btn-info" href="#">New Document</a>
+            <a class="btn btn-info" href="#">Export</a>
             <a class="btn btn-outline-info" href="<?= base_url('/booking_edit'); ?>">
                 Edit booking details</a>
         </div>

@@ -10,7 +10,7 @@
         </div>
     </section>
 
-    <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
+    <?= form_open_multipart(current_url(), 'class="needs-validation" novalidate'); ?>
         <section class="row">
             <div class="col">
 
