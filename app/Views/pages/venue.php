@@ -4,8 +4,9 @@
             <h2>Venue</h2>
         </div>
         <div class="col-auto">
-            <a class="btn btn-info" href="<?= base_url('/staff_add'); ?>">New Staff Member</a>
-            <a class="btn btn-info" href="<?= base_url('/room_add'); ?>">New Room</a>
+            <a class="btn btn-info mb-2" href="<?= base_url('/staff_add'); ?>">New Staff Member</a>
+            <a class="btn btn-info mb-2" href="<?= base_url('/room_add'); ?>">New Room</a>
+            <a class="btn btn-outline-info mb-2" href="<?= base_url('/venue_edit'); ?>">Venue Details</a>
         </div>
     </section>
 

@@ -53,6 +53,7 @@
                         <select class="form-control d-block w-100" id="access" name="access" required>
                             <option value="">Choose...</option>
                             <option>Staff</option>
+                            <option>Manager</option>
                             <option>Administrator</option>
                         </select>
                         <div class="invalid-feedback">

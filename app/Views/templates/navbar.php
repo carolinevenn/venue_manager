@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-info">
     <!-- Logo with link to homepage -->
     <a class="navbar-brand" href="<?= base_url(); ?>">Venue Manager</a>
     <!-- Navbar toggler -->
@@ -10,6 +10,11 @@
     </button>
     <!-- Collapsible links -->
     <div class="collapse navbar-collapse text-center" id="navbarContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" id="Current_user" href="<?= base_url('/user_edit'); ?>">Jane Doe</a>
+            </li>
+        </ul>
         <!-- Navigation links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -25,7 +30,7 @@
                 <a class="nav-link" id="Venue" href="<?= base_url('/venue'); ?>">Venue</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="About" href="<?= base_url('/about'); ?>">About</a>
+                <a class="nav-link" id="About" href="<?= base_url('/about'); ?>">Help</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Log out</a>
