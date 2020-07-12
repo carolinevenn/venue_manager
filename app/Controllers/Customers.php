@@ -9,7 +9,7 @@ class Customers extends BaseController
         $model = new Customer_model();
 
         $data = [
-            'customers' => $model->getCustomers(),
+            'customers' => $model->get_customers(),
             'title' => 'Customers',
         ];
 
@@ -23,12 +23,12 @@ class Customers extends BaseController
     {
         $model = new Customer_model();
 
-        $data['customer'] = $model->getCustomers($id);
+        $data['customer'] = $model->get_customers($id);
 
-        echo view('templates/header', $data);
+        echo view('templates/header');
         echo view('templates/navbar');
         echo view('customers/view', $data);
-        echo view('templates/footer', $data);
+        echo view('templates/footer');
     }
 
     public function update()
@@ -36,8 +36,12 @@ class Customers extends BaseController
 
     }
 
-    public function create()
+    public function add()
     {
+        echo view('templates/header');
+        echo view('templates/navbar');
+        echo view('customers/create');
+        echo view('templates/footer');
 
     }
 }

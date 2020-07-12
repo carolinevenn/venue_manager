@@ -4,18 +4,18 @@
             <h2>Customers</h2>
         </div>
         <div class="col-auto order-md-3 mb-2 mb-md-0">
-            <a class="btn btn-info" href="<?= base_url('/customer_add'); ?>">New Customer</a>
+            <a class="btn btn-info" href="<?= base_url('/customers/add'); ?>">New Customer</a>
         </div>
         <div class="col-md-6 order-md-2">
             <!-- Search bar -->
             <?= form_open(current_url(), 'class="mx-auto"'); ?>
-            <div class="input-group mx-auto">
-                <input type="search" class="form-control" id="search" name="search"
-                       placeholder="Search customers" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                <div class="input-group mx-auto">
+                    <input type="search" class="form-control" id="search" name="search"
+                           placeholder="Search customers" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-            </div>
             <?= form_close(); ?>
         </div>
 
