@@ -30,6 +30,8 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('customers/(:num)', 'Customers::view/$1');
+$routes->get('customers', 'Customers::index');
 $routes->get('/', 'Pages::view');
 $routes->get('(:any)', 'Pages::view/$1');
 

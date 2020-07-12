@@ -33,7 +33,7 @@
                 <a class="nav-link" id="About" href="<?= base_url('/about'); ?>">Help</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Log out</a>
+                <a class="nav-link" href="<?= base_url('/login'); ?>">Log out</a>
             </li>
         </ul>
     </div>

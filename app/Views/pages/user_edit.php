@@ -1,7 +1,7 @@
 <main class="container-xl">
 
     <section class="row my-4">
-        <div class="col-md-8 col-lg-6 mx-auto">
+        <div class="col-sm-auto mx-auto">
             <h2>Change Password</h2>
         </div>
     </section>
@@ -11,15 +11,17 @@
             <div class="col-md-8 col-lg-6 mx-auto">
                 <div class="row">
                     <!-- Password -->
-                    <div class="col-sm-6 mb-3">
+                    <div class="col-sm-8 mb-3 mx-auto">
                         <label for="password1">New Password</label>
                         <input type="password" class="form-control" id="password1" name="password1" required>
                         <div class="invalid-feedback">
                             Please enter a password
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <!-- Password confirmation -->
-                    <div class="col-sm-6 mb-3">
+                    <div class="col-sm-8 mb-3 mx-auto">
                         <label for="password2">Confirm Password</label>
                         <input type="password" class="form-control" id="password2" name="password2" required>
                         <div class="invalid-feedback">

@@ -18,10 +18,12 @@
 <script src="scripts.js"></script>
 <!-- Navbar highlighting -->
 <script>
-    var pageTitle =  document.getElementById("<?= esc($title); ?>");
-    if(pageTitle) {
-        pageTitle.classList.add("active");
-    }
+    <?php if (isset($title)) : ?>
+        var pageTitle =  document.getElementById("<?= esc($title); ?>");
+        if(pageTitle) {
+            pageTitle.classList.add("active");
+        }
+    <?php endif ?>
 </script>
 </body>
 </html>

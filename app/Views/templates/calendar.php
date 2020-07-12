@@ -6,6 +6,7 @@
 
 <!-- FullCalendar scripts -->
 <script src='fullcalendar/core/main.js'></script>
+<script src='fullcalendar/core/locales/en-gb.js'></script>
 <script src='fullcalendar/daygrid/main.js'></script>
 <script src='fullcalendar/timegrid/main.js'></script>
 <script src='fullcalendar/resource-common/main.js'></script>
@@ -19,33 +20,35 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+            locale: 'en-gb',
             plugins: [ 'resourceTimeGrid', 'bootstrap' ],
             defaultView: 'resourceTimeGridDay',
+            header: {
+                left: 'resourceTimeGridDay,resourceTimeGridWeek',
+                center: 'title',
+                right: 'today prev,next'
+            },
+            datesAboveResources: true,
             resources: [
                 {
-                    id: 'a',
+                    id: '1',
                     title: 'Auditorium'
                 },
                 {
-                    id: 'b',
+                    id: '2',
                     title: 'Drama Studio'
                 },
                 {
-                    id: 'c',
+                    id: '3',
                     title: 'Dance Studio'
                 }
             ],
             themeSystem: 'bootstrap',
-            scrollTime: '08:00:00'
+            scrollTime: '08:00:00',
         });
 
         calendar.render();
     });
-
-
-
-
-
 </script>
 
 

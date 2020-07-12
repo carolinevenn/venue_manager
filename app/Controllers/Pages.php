@@ -2,11 +2,6 @@
 
 class Pages extends BaseController
 {
-    /*public function index()
-    {
-        return view('welcome_message');
-    }*/
-
     public function view($page = 'home')
     {
         if ( ! is_file(APPPATH.'/Views/pages/'.$page.'.php'))
@@ -25,10 +20,9 @@ class Pages extends BaseController
         }
         else {
             echo view('templates/header', $data);
-            echo view('templates/navbar', $data);
+            echo view('templates/navbar');
             echo view('pages/'.$page, $data);
             echo view('templates/footer', $data);
         }
-
     }
 }

@@ -16,14 +16,14 @@
 
     <!-- FullCalendar initialisation (where required) -->
     <?php
-        if ($title == 'Home')
+        if (isset($title) && $title == 'Home')
         {
             require ("calendar.php");
         }
     ?>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<?= base_url('/styles.css'); ?>">
 
     <title>Venue Manager</title>
 </head>
