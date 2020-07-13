@@ -13,7 +13,7 @@
         crossorigin="anonymous"></script>
 <script src="<?= base_url('/bootstrap/js/bootstrap.min.js'); ?>"></script>
 <!-- Custom JavaScript-->
-<script src="scripts.js"></script>
+<script src="<?= base_url('scripts.js'); ?>"></script>
 
 <?php if (isset($title)) : ?>
     <!-- Navbar highlighting -->

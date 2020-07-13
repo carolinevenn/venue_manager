@@ -4,6 +4,7 @@ use App\Models\Customer_model;
 
 class Customers extends BaseController
 {
+
     public function index()
     {
         $model = new Customer_model();
@@ -38,10 +39,32 @@ class Customers extends BaseController
 
     public function add()
     {
+        if ($this->request->getMethod() == 'post')
+        {
+            $model = new Customer_model();
+            $model->insert($_POST);
+        }
+
         echo view('templates/header');
         echo view('templates/navbar');
         echo view('customers/create');
         echo view('templates/footer');
+
+    /*
+        if (! $this->validate([]))
+        {
+            echo view('templates/header');
+            echo view('templates/navbar');
+            echo view('customers/create', ['validation' => $this->validator]);
+            echo view('templates/footer');
+        }
+        else
+        {
+            echo view('Success');
+        }
+    */
+
+
 
     }
 }

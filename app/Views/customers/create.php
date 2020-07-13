@@ -9,7 +9,9 @@
             <h2>New Customer</h2>
         </div>
     </section>
-
+<!--
+    <?/*=  $validation->listErrors() */?>
+-->
     <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
         <section class="row">
             <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
