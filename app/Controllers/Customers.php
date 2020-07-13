@@ -11,7 +11,7 @@ class Customers extends BaseController
 
         $data = [
             'customers' => $model->get_customers(),
-            'title' => 'Customers',
+            'title'     => 'Customers',
         ];
 
         echo view('templates/header', $data);
@@ -42,20 +42,30 @@ class Customers extends BaseController
         $model = new Customer_model();
 
         if (! $this->validate([
-            'companyName' => 'required',
-            'other' => 'required'
+            'companyName' => 'required'
         ]))
         {
             echo view('templates/header');
             echo view('templates/navbar');
-            echo view('customers/create', ['validation' => $this->validator]);
+            echo view('customers/create', [
+                'validation' => $this->validator,
+                'method'     => $this->request->getMethod()
+            ]);
             echo view('templates/footer');
         }
         else
         {
             $model->save([
-                'company_name' => $this->request->getVar('companyName'),
-                'other_details'  => $this->request->getVar('other'),
+                'company_name'  => $this->request->getVar('companyName'),
+                'address'       => $this->request->getVar('address'),
+                'town'          => $this->request->getVar('town'),
+                'county'        => $this->request->getVar('county'),
+                'postcode'      => $this->request->getVar('postcode'),
+                'phone'         => $this->request->getVar('phone'),
+                'email'         => $this->request->getVar('email'),
+                'contact_name'  => $this->request->getVar('contactName'),
+                'vat_number'    => $this->request->getVar('vat'),
+                'other_details' => $this->request->getVar('other'),
             ]);
 
             return redirect()->to(base_url('/customers'));
