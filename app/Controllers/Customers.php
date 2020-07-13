@@ -43,12 +43,12 @@ class Customers extends BaseController
 
         if (! $this->validate([
             'companyName' => 'required',
-            'other'  => 'required'
+            'other' => 'required'
         ]))
         {
             echo view('templates/header');
             echo view('templates/navbar');
-            echo view('customers/create');
+            echo view('customers/create', ['validation' => $this->validator]);
             echo view('templates/footer');
         }
         else

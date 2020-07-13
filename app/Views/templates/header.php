@@ -23,6 +23,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= base_url('/styles.css'); ?>">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?= base_url('/favicon.png'); ?>">
+
     <title>Venue Manager</title>
 </head>
 <body>

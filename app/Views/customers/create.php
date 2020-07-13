@@ -9,10 +9,8 @@
             <h2>New Customer</h2>
         </div>
     </section>
-<!--
-    <?/*=  $validation->listErrors() */?>
--->
-    <?= \Config\Services::validation()->listErrors(); ?>
+
+    <?=  $validation->listErrors() ?>
 
     <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
         <section class="row">
@@ -32,7 +30,8 @@
                     <!-- Address -->
                     <div class="col-md-6 mb-3">
                         <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
+                        <input type="text" class="form-control" id="address" name="address"
+                               value="<?php echo set_value('address'); ?> "required>
                         <div class="invalid-feedback">
                             Please enter the address
                         </div>

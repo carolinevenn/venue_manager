@@ -30,32 +30,12 @@ class Customer_model extends Model
             return $this->orderBy('company_name', 'ASC')
                 ->findAll();
         }
-
-        return $this->asArray()
-            ->where(['customer_id' => $id])
-            ->first();
+        else
+        {
+            return $this->asArray()
+                ->where(['customer_id' => $id])
+                ->first();
+        }
     }
 
-    public function add_customer()
-    {
-    /*
-        $validationRules = [
-            'companyName' => 'required',
-            'other' => 'required'
-        ];
-
-        $validationMessages = [
-            'other'        => [
-                'required' => 'These details are required!'
-            ]
-        ];
-
-        $data = [
-            'company_name' => $this->request->getVar('companyName'),
-            'other_details' => $this->request->getVar('other'),
-        ];
-
-        $this->insert($data);
-    */
-    }
 }
