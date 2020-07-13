@@ -18,7 +18,6 @@
                 </div>
             <?= form_close(); ?>
         </div>
-
     </section>
 
     <section class="row">

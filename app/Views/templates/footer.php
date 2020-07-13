@@ -11,19 +11,19 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+<script src="<?= base_url('/bootstrap/js/bootstrap.min.js'); ?>"></script>
 <!-- Custom JavaScript-->
 <script src="scripts.js"></script>
-<!-- Navbar highlighting -->
-<script>
-    <?php if (isset($title)) : ?>
+
+<?php if (isset($title)) : ?>
+    <!-- Navbar highlighting -->
+    <script>
         var pageTitle =  document.getElementById("<?= esc($title); ?>");
         if(pageTitle) {
             pageTitle.classList.add("active");
         }
-    <?php endif ?>
-</script>
+    </script>
+<?php endif ?>
+
 </body>
 </html>
