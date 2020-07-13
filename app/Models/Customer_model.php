@@ -46,15 +46,16 @@ class Customer_model extends Model
 
         $validationMessages = [
             'other'        => [
-                'required' => 'These details are extremely important! Please do not leave them out.'
+                'required' => 'These details are required!'
             ]
         ];
 
         $data = [
-            'company_name' => $this->input->post('companyName'),
+            'company_name' => $this->request->getVar('companyName'),
+            'other_details' => $this->request->getVar('other'),
         ];
 
-        return $this->insert($data);
+        $this->insert($data);
     */
     }
 }

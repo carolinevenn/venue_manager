@@ -39,32 +39,27 @@ class Customers extends BaseController
 
     public function add()
     {
-        if ($this->request->getMethod() == 'post')
-        {
-            $model = new Customer_model();
-            $model->insert($_POST);
-        }
+        $model = new Customer_model();
 
-        echo view('templates/header');
-        echo view('templates/navbar');
-        echo view('customers/create');
-        echo view('templates/footer');
-
-    /*
-        if (! $this->validate([]))
+        if (! $this->validate([
+            'companyName' => 'required',
+            'other'  => 'required'
+        ]))
         {
             echo view('templates/header');
             echo view('templates/navbar');
-            echo view('customers/create', ['validation' => $this->validator]);
+            echo view('customers/create');
             echo view('templates/footer');
         }
         else
         {
-            echo view('Success');
+            $model->save([
+                'company_name' => $this->request->getVar('companyName'),
+                'other_details'  => $this->request->getVar('other'),
+            ]);
+
+            return redirect()->to(base_url('/customers'));
         }
-    */
-
-
 
     }
 }
