@@ -24,12 +24,23 @@ class Customers extends BaseController
     {
         $model = new Customer_model();
 
-        $data['customer'] = $model->get_customers($id);
+        $data = [
+            'customer' => $model->get_customers($id),
+            'current' => $model->get_current($id),
+            'history' => $model->get_history($id),
+        ];
 
-        echo view('templates/header');
-        echo view('templates/navbar');
-        echo view('customers/view', $data);
-        echo view('templates/footer');
+        if ($data['customer'] != null)
+        {
+            echo view('templates/header');
+            echo view('templates/navbar');
+            echo view('customers/view', $data);
+            echo view('templates/footer');
+        }
+        else
+        {
+            return redirect()->to(base_url('/customers'));
+        }
     }
 
     public function update()
@@ -41,10 +52,12 @@ class Customers extends BaseController
     {
         $model = new Customer_model();
 
+        // Validate data
         if (! $this->validate([
             'companyName' => 'required'
         ]))
         {
+            // If validation fails, load the 'Add Customer' page
             echo view('templates/header');
             echo view('templates/navbar');
             echo view('customers/create', [
@@ -55,7 +68,8 @@ class Customers extends BaseController
         }
         else
         {
-            $model->save([
+            // If validation passes, save the data and view the new customer's details
+            $model->insert([
                 'company_name'  => $this->request->getVar('companyName'),
                 'address'       => $this->request->getVar('address'),
                 'town'          => $this->request->getVar('town'),
@@ -67,9 +81,7 @@ class Customers extends BaseController
                 'vat_number'    => $this->request->getVar('vat'),
                 'other_details' => $this->request->getVar('other'),
             ]);
-
-            return redirect()->to(base_url('/customers'));
+            return redirect()->to(base_url('/customers/'.$model->insertID()));
         }
-
     }
 }

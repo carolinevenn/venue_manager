@@ -60,42 +60,41 @@
                             <thead>
                             <tr>
                                 <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
                                 <th scope="col">Room</th>
                                 <th scope="col">Event Title</th>
                                 <th scope="col">Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="table-success" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">12 May 2021</th>
-                                <td>Dance Studio</td>
-                                <td>Advanced Ballet</td>
-                                <td>Confirmed</td>
-                            </tr>
-                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">6 June 2021</th>
-                                <td>Auditorium</td>
-                                <td>Summer Showcase</td>
-                                <td>Paid</td>
-                            </tr>
-                            <tr class="table-success" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">15 May 2021</th>
-                                <td>Dance Studio</td>
-                                <td>Ballet for Beginners</td>
-                                <td>Confirmed</td>
-                            </tr>
-                            <tr class="table-warning" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">9 May 2021</th>
-                                <td>Drama Studio</td>
-                                <td>Tap for Beginners</td>
-                                <td>Reserved</td>
-                            </tr>
-                            <tr class="table-secondary" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">3 December 2021</th>
-                                <td>Auditorium</td>
-                                <td>Christmas Showcase</td>
-                                <td>Enquiry</td>
-                            </tr>
+                                <?php if (! empty($current) && is_array($current)) :
+                                foreach ($current as $item):
+                                    switch (esc($item['booking_status']))
+                                    {
+                                        case "Confirmed":
+                                            $shading = "table-success";
+                                            break;
+                                        case "Paid":
+                                            $shading = "table-primary";
+                                            break;
+                                        case "Reserved":
+                                            $shading = "table-warning";
+                                            break;
+                                        case "Enquiry":
+                                            $shading = "table-secondary";
+                                            break;
+                                        default:
+                                            $shading = "";
+                                    }?>
+                                    <tr class="<?= $shading ?>" data-href="<?= base_url('/booking_details'); ?>">
+                                        <td><?= esc($item['start_date']); ?></td>
+                                        <td><?= esc($item['end_date']); ?></td>
+                                        <td><?= esc($item['room']); ?></td>
+                                        <td><?= esc($item['event_title']); ?></td>
+                                        <td><?= esc($item['booking_status']); ?></td>
+                                    </tr>
+                                <?php endforeach;
+                                      endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -108,42 +107,40 @@
                             <thead>
                             <tr>
                                 <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
                                 <th scope="col">Room</th>
                                 <th scope="col">Event Title</th>
                                 <th scope="col">Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">12 May 2020</th>
-                                <td>Dance Studio</td>
-                                <td>Advanced Ballet</td>
-                                <td>Paid</td>
-                            </tr>
-                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">6 June 2020</th>
-                                <td>Auditorium</td>
-                                <td>Summer Showcase</td>
-                                <td>Paid</td>
-                            </tr>
-                            <tr class="table-primary" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">15 May 2020</th>
-                                <td>Dance Studio</td>
-                                <td>Ballet for Beginners</td>
-                                <td>Paid</td>
-                            </tr>
-                            <tr class="table-danger" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">9 May 2020</th>
-                                <td>Drama Studio</td>
-                                <td>Tap for Beginners</td>
-                                <td>Cancelled</td>
-                            </tr>
-                            <tr class="table-danger" data-href="<?= base_url('/booking_details'); ?>">
-                                <th scope="row">3 December 2019</th>
-                                <td>Auditorium</td>
-                                <td>Christmas Showcase</td>
-                                <td>Enquiry</td>
-                            </tr>
+                                <?php if (! empty($history) && is_array($history)) :
+                                    foreach ($history as $item):
+                                        switch (esc($item['booking_status']))
+                                        {
+                                            case "Confirmed":
+                                                $shading = "table-success";
+                                                break;
+                                            case "Paid":
+                                                $shading = "table-primary";
+                                                break;
+                                            case "Reserved":
+                                            case "Enquiry":
+                                            case "Cancelled":
+                                                $shading = "table-danger";
+                                                break;
+                                            default:
+                                                $shading = "";
+                                        }?>
+                                        <tr class="<?= $shading ?>" data-href="<?= base_url('/booking_details'); ?>">
+                                            <td><?= esc($item['start_date']); ?></td>
+                                            <td><?= esc($item['end_date']); ?></td>
+                                            <td><?= esc($item['room']); ?></td>
+                                            <td><?= esc($item['event_title']); ?></td>
+                                            <td><?= esc($item['booking_status']); ?></td>
+                                        </tr>
+                                    <?php endforeach;
+                                endif; ?>
                             </tbody>
                         </table>
                     </div>
