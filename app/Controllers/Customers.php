@@ -47,6 +47,12 @@ class Customers extends BaseController
 
     public function edit($id)
     {
+        // Redirect if the ID is not numeric
+        if (!is_numeric($id))
+        {
+            return redirect()->to(base_url('/customers'));
+        }
+
         $model = new Customer_model();
 
         $data = [
