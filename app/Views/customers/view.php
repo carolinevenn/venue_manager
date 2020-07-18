@@ -10,7 +10,7 @@
         </div>
         <div class="col-auto">
             <a class="btn btn-info" href="<?= base_url('/booking_add'); ?>">New Booking</a>
-            <a class="btn btn-outline-info" href="<?= base_url('/customer_edit'); ?>">
+            <a class="btn btn-outline-info" href="<?= base_url('/customers/edit/' .  esc($customer['customer_id'])); ?>">
                 Edit customer details</a>
         </div>
     </section>
@@ -86,7 +86,7 @@
                                         default:
                                             $shading = "";
                                     }?>
-                                    <tr class="<?= $shading ?>" data-href="<?= base_url('/booking_details'); ?>">
+                                    <tr class="<?= $shading ?>" data-href="<?= base_url('/bookings/' . esc($item['contract_id'])); ?>">
                                         <td><?= esc($item['start_date']); ?></td>
                                         <td><?= esc($item['end_date']); ?></td>
                                         <td><?= esc($item['room']); ?></td>
@@ -132,7 +132,7 @@
                                             default:
                                                 $shading = "";
                                         }?>
-                                        <tr class="<?= $shading ?>" data-href="<?= base_url('/booking_details'); ?>">
+                                        <tr class="<?= $shading ?>" data-href="<?= base_url('/bookings/' . esc($item['contract_id'])); ?>">
                                             <td><?= esc($item['start_date']); ?></td>
                                             <td><?= esc($item['end_date']); ?></td>
                                             <td><?= esc($item['room']); ?></td>

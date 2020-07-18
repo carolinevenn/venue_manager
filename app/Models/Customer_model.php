@@ -38,6 +38,7 @@ class Customer_model extends Model
         }
     }
 
+    // Return current bookings
     public function get_current($id)
     {
         $query = $this->query("SELECT CONT.contract_id, 
@@ -63,6 +64,7 @@ class Customer_model extends Model
         return $query->getResultArray();
     }
 
+    // Return historical bookings
     public function get_history($id)
     {
         $query = $this->query("SELECT CONT.contract_id, 
