@@ -11,9 +11,9 @@
             <?= form_open(current_url(), 'class="mx-auto"'); ?>
                 <div class="input-group mx-auto">
                     <input type="search" class="form-control" id="search" name="search"
-                           placeholder="Search customers" aria-label="Search">
+                           placeholder="Search for company name or ID" aria-label="Search">
                     <div class="input-group-append">
-                        <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-light" type="submit"><i class="fas fa-search" alt="Search"></i></button>
                     </div>
                 </div>
             <?= form_close(); ?>

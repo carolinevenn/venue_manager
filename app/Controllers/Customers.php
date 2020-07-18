@@ -9,8 +9,17 @@ class Customers extends BaseController
     {
         $model = new Customer_model();
 
+        if ($this->request->getMethod() == 'post')
+        {
+            $search = $this->request->getPost('search');
+        }
+        else
+        {
+            $search = false;
+        }
+
         $data = [
-            'customers' => $model->get_customers(),
+            'customers' => $model->get_customers($id = false, $search),
             'title'     => 'Customers',
         ];
 
