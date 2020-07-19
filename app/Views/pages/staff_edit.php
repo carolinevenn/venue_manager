@@ -42,10 +42,7 @@
                     <!-- Role -->
                     <div class="col-sm-6 mb-3">
                         <label for="role">Role</label>
-                        <input type="text" class="form-control" id="role" name="role" required>
-                        <div class="invalid-feedback">
-                            Please enter a role
-                        </div>
+                        <input type="text" class="form-control" id="role" name="role">
                     </div>
                     <!-- Access Level -->
                     <div class="col-sm-6 mb-3">
