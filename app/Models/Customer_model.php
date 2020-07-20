@@ -25,26 +25,33 @@ class Customer_model extends Model
  //   protected $validationRules    = [];
  //   protected $validationMessages = [];
 
-    public function get_customers($id = false, $search = false)
+    // Return a single customer
+    public function get_customer($id = false)
     {
         if ($id === false)
         {
-            if ($search === false)
-            {
-                return $this->orderBy('company_name', 'ASC')
-                    ->findAll();
-            }
-            else
-            {
-                return $this->like('company_name', $search)
-                    ->orLike('customer_id', $search)
-                    ->orderBy('company_name', 'ASC')
-                    ->findAll();
-            }
+            return null;
         }
         else
         {
             return $this->find($id);
+        }
+    }
+
+    // Return multiple customers
+    public function get_all_customers($search = false)
+    {
+        if ($search === false)
+        {
+            return $this->orderBy('company_name', 'ASC')
+                ->findAll();
+        }
+        else
+        {
+            return $this->like('company_name', $search)
+                ->orLike('customer_id', $search)
+                ->orderBy('company_name', 'ASC')
+                ->findAll();
         }
     }
 

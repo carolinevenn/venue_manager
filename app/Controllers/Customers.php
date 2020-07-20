@@ -19,7 +19,7 @@ class Customers extends BaseController
         }
 
         $data = [
-            'customers' => $model->get_customers($id = false, $search),
+            'customers' => $model->get_all_customers($search),
             'title'     => 'Customers',
         ];
 
@@ -35,7 +35,7 @@ class Customers extends BaseController
         $model = new Customer_model();
 
         $data = [
-            'customer' => $model->get_customers($id),
+            'customer' => $model->get_customer($id),
             'current' => $model->get_current($id),
             'history' => $model->get_history($id),
         ];
@@ -65,7 +65,7 @@ class Customers extends BaseController
         $model = new Customer_model();
 
         $data = [
-            'customer'   => $model->get_customers($id),
+            'customer'   => $model->get_customer($id),
             'method'     => $this->request->getMethod()
         ];
 

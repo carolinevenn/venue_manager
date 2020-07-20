@@ -40,8 +40,7 @@
             <?php endforeach; ?>
 
         <?php else : ?>
-            <h3>No Customers</h3>
-            <p>Unable to find any customers.</p>
+            <p class="col mt-5">Unable to find any customers</p>
         <?php endif ?>
 
     </section>
