@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use App\Models\Calendar_model;
+
 class Pages extends BaseController
 {
     public function view($page = 'home')
@@ -12,7 +14,23 @@ class Pages extends BaseController
 
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
-        if ($page == 'login')
+        if ($page == 'home')
+        {
+            $model = new Calendar_model();
+
+            $data = [
+                'title'  => 'Home',
+                'room'   => $model->get_rooms(),
+                'booking'  => $model->get_bookings(),
+
+            ];
+
+            echo view('templates/header', $data);
+            echo view('templates/navbar');
+            echo view('pages/home', $data);
+            echo view('templates/footer', $data);
+        }
+        else if ($page == 'login')
         {
             echo view('templates/header', $data);
             echo view('pages/'.$page, $data);

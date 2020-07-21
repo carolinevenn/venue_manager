@@ -30,18 +30,27 @@
             },
             datesAboveResources: true,
             resources: [
+                <?php if (! empty($room) && is_array($room)) :
+                foreach ($room as $item): ?>
                 {
-                    id: '1',
-                    title: 'Auditorium'
+                    id: '<?= esc($item['room_id']); ?>',
+                    title: '<?= esc($item['name']); ?>'
                 },
+                <?php endforeach;
+                      endif; ?>
+            ],
+            events: [
+                <?php if (! empty($booking) && is_array($booking)) :
+                foreach ($booking as $item): ?>
                 {
-                    id: '2',
-                    title: 'Drama Studio'
+                    id: '<?= esc($item['booking_id']); ?>',
+                    resourceId: '<?= esc($item['room_id']); ?>',
+                    title: '<?= esc($item['event_title']); ?>',
+                    start: '<?= esc($item['start_time']); ?>',
+                    end: '<?= esc($item['end_time']); ?>'
                 },
-                {
-                    id: '3',
-                    title: 'Dance Studio'
-                }
+                <?php endforeach;
+                endif; ?>
             ],
             themeSystem: 'bootstrap',
             scrollTime: '08:00:00',
