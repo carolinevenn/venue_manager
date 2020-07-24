@@ -31,6 +31,9 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+$routes->get('contracts/(:num)', 'Contracts::view/$1');
+$routes->match(['get', 'post'],'contracts/(:any)', 'Contracts::$1');
+$routes->match(['get', 'post'],'contracts', 'Contracts::index');
 $routes->get('customers/(:num)', 'Customers::view/$1');
 $routes->match(['get', 'post'],'customers/(:any)', 'Customers::$1');
 $routes->match(['get', 'post'],'customers', 'Customers::index');

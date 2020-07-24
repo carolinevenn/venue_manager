@@ -4,8 +4,8 @@ use CodeIgniter\Model;
 
 class Calendar_model extends Model
 {
-    protected $table = 'contract';
-    protected $primaryKey = 'contract_id';
+    protected $table = 'booking';
+    protected $primaryKey = 'booking_id';
 
     protected $returnType = 'array';
 

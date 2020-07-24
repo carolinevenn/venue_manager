@@ -21,7 +21,7 @@
                 <a class="nav-link" id="Home" href="<?= base_url(); ?>">Calendar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Bookings" href="<?= base_url('/bookings'); ?>">Bookings</a>
+                <a class="nav-link" id="Contracts" href="<?= base_url('/contracts'); ?>">Contracts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Customers" href="<?= base_url('/customers'); ?>">Customers</a>
