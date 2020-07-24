@@ -1,18 +1,31 @@
+<?php
+function getColor($status)
+{
+    switch ($status)
+    {
+        case "Confirmed":
+            echo "#28a745";
+            break;
+        case "Paid":
+            echo "#007bff";
+            break;
+        case "Reserved":
+            echo "#ffc107";
+            break;
+        case "Enquiry":
+            echo "#a0a6ac";
+            break;
+        default:
+            echo "#dc3545";
+    }
+}
+?>
+
 <!-- FullCalendar stylesheets -->
-<link href='fullcalendar/core/main.css' rel='stylesheet' />
-<link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-<link href='fullcalendar/timegrid/main.css' rel='stylesheet' />
-<link href='fullcalendar/bootstrap/main.css' rel='stylesheet' />
+<link href='fullcalendar-scheduler/lib/main.css' rel='stylesheet' />
 
 <!-- FullCalendar scripts -->
-<script src='fullcalendar/core/main.js'></script>
-<script src='fullcalendar/core/locales/en-gb.js'></script>
-<script src='fullcalendar/daygrid/main.js'></script>
-<script src='fullcalendar/timegrid/main.js'></script>
-<script src='fullcalendar/resource-common/main.js'></script>
-<script src='fullcalendar/resource-daygrid/main.js'></script>
-<script src='fullcalendar/resource-timegrid/main.js'></script>
-<script src='fullcalendar/bootstrap/main.js'></script>
+<script src='fullcalendar-scheduler/lib/main.js'></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -21,14 +34,31 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
             locale: 'en-gb',
-            plugins: [ 'resourceTimeGrid', 'bootstrap' ],
-            defaultView: 'resourceTimeGridDay',
-            header: {
-                left: 'resourceTimeGridDay,resourceTimeGridWeek',
+            timeZone: 'local',
+            initialDate: new Date(),
+            initialView: 'resourceTimeGridDay',
+            resourceAreaHeaderContent: 'Rooms',
+            editable: true,
+            selectable: true,
+            dayMaxEvents: true, // allow "more" link when too many events
+            dayMinWidth: 100,
+            headerToolbar: {
+                left: 'prev,next,today',
                 center: 'title',
-                right: 'today prev,next'
+                right: 'resourceTimeGridDay,resourceTimeGridWeek,resourceTimelineWeek'
             },
+            themeSystem: 'bootstrap',
+            eventOverlap: false, // will cause the event to take up entire resource height
+            resourceAreaWidth: 150,
             datesAboveResources: true,
+            scrollTime: '08:00:00',
+            views: {
+                resourceTimelineWeek: {
+                    slotDuration: '04:00:00',
+                    scrollTime: '00:00:00',
+                    buttonText: 'timeline'
+                }
+            },
             resources: [
                 <?php if (! empty($room) && is_array($room)) :
                 foreach ($room as $item): ?>
@@ -47,13 +77,13 @@
                     resourceId: '<?= esc($item['room_id']); ?>',
                     title: '<?= esc($item['event_title']); ?>',
                     start: '<?= esc($item['start_time']); ?>',
-                    end: '<?= esc($item['end_time']); ?>'
+                    end: '<?= esc($item['end_time']); ?>',
+                    color: '<?php getColor(esc($item['booking_status']));?>',
                 },
                 <?php endforeach;
                 endif; ?>
             ],
-            themeSystem: 'bootstrap',
-            scrollTime: '08:00:00',
+
         });
 
         calendar.render();

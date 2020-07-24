@@ -24,10 +24,13 @@ class Calendar_model extends Model
 
     public function get_bookings()
     {
-        $query = $this->query("SELECT B.*, E.event_title 
+        $query = $this->query("SELECT B.*, E.event_title, C.booking_status 
                                 FROM `booking` B 
                                 LEFT JOIN event_details E 
-                                ON B.contract_id = E.contract_id;");
+                                ON B.contract_id = E.contract_id
+                                LEFt JOIN contract C
+                                ON B.contract_id = C.contract_id  
+                                WHERE NOT C.booking_status = 'Cancelled'");
         return $query->getResultArray();
     }
 
