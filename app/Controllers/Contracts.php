@@ -11,14 +11,16 @@ class Contracts extends BaseController
         if ($this->request->getMethod() == 'post')
         {
             $search = $this->request->getPost('search');
+            $status = $this->request->getPost('status');
         }
         else
         {
             $search = false;
+            $status = false;
         }
 
         $data = [
-            'contracts' => $model->get_all_contracts($search),
+            'contracts' => $model->get_all_contracts($search, $status),
             'title'     => 'Contracts',
         ];
 

@@ -24,9 +24,9 @@ class Contract_model extends Model
     }
 
     // Return multiple contracts
-    public function get_all_contracts($search = false)
+    public function get_all_contracts($search = false, $status = false)
     {
-        if ($search === false) {
+        if ($search === false && $status === false) {
             $query = $this->query("SELECT C.contract_id, 
                                       C.booking_status,
                                       DATE_FORMAT(MIN(B.start_time), \"%d %b %Y\") AS start_date, 
@@ -41,9 +41,21 @@ class Contract_model extends Model
                                 ORDER BY C.updated_on DESC");
             return $query->getResultArray();
         } else {
-            return $this->like('event_title', $search)
-                ->orLike('contract_id', $search)
-                ->orderBy('contract_id', 'ASC')
+            return $this->select('contract.contract_id, contract.booking_status, contract.updated_on, 
+                                event_details.event_title, room.name AS room')
+                ->select('DATE_FORMAT(MIN(booking.start_time), "%d %b %Y") AS start_date')
+                ->select('DATE_FORMAT(MAX(booking.end_time), "%d %b %Y") As end_date')
+                ->join('booking', 'booking.contract_id = contract.contract_id', 'left')
+                ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
+                ->join('room', 'room.room_id = booking.room_id', 'left')
+                ->where('contract.booking_status', $status)
+                ->groupStart()
+                    ->like('event_details.event_title', $search)
+                    ->orLike('contract.contract_id', $search)
+                ->groupEnd()
+
+                ->groupBy('booking.contract_id')
+                ->orderBy('contract.contract_id', 'ASC')
                 ->findAll();
         }
 
