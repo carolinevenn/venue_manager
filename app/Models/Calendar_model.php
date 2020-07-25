@@ -16,12 +16,6 @@ class Calendar_model extends Model
     ];
 */
 
-    public function get_rooms()
-    {
-        $query = $this->query("SELECT * FROM room;");
-        return $query->getResultArray();
-    }
-
     public function get_bookings()
     {
         $query = $this->query("SELECT B.*, E.event_title, C.booking_status 

@@ -102,7 +102,7 @@ class Customer_model extends Model
                                 WHERE CUST.customer_id = ".$this->escape($id)."
                                 GROUP BY B.contract_id
                                 HAVING MAX(B.end_time) < '".date('Y-m-d')."'
-                                OR CONT.booking_status = \"Cancelled\"
+                                OR CONT.booking_status = 'Cancelled'
                                 ORDER BY start_date ASC;");
         return $query->getResultArray();
     }

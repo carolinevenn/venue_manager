@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Models\Calendar_model;
+use App\Models\Venue_model;
 
 class Pages extends BaseController
 {
@@ -16,12 +17,13 @@ class Pages extends BaseController
 
         if ($page == 'home')
         {
-            $model = new Calendar_model();
+            $cal = new Calendar_model();
+            $venue = new Venue_model();
 
             $data = [
                 'title'  => 'Home',
-                'room'   => $model->get_rooms(),
-                'booking'  => $model->get_bookings(),
+                'room'   => $venue->get_rooms(),
+                'booking'  => $cal->get_bookings(),
 
             ];
 

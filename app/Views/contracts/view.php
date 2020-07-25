@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col">
-            <a href="<?= base_url('/bookings'); ?>">&lt; Back to bookings list</a>
+            <a href="<?= base_url('/contracts'); ?>">&lt; Back to contract list</a>
         </div>
     </section>
     <section class="row mt-3 mb-4 justify-content-between">
@@ -10,7 +10,7 @@
         </div>
         <div class="col-auto">
             <a class="btn btn-info" href="#">Export</a>
-            <a class="btn btn-outline-info" href="<?= base_url('/booking_edit'); ?>">
+            <a class="btn btn-outline-info" href="<?= base_url('contracts/edit/' .  esc($contract['contract_id'])); ?>">
                 Edit booking details</a>
         </div>
     </section>

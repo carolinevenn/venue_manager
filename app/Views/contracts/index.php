@@ -11,7 +11,7 @@
             <!-- Search bar -->
             <div class="input-group mx-auto">
                 <input type="search" class="form-control" id="search" name="search"
-                       placeholder="Search contracts" aria-label="Search">
+                       placeholder="Search contracts" aria-label="Search" value="<?= set_value('search'); ?>">
                 <div class="input-group-append">
                     <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
                 </div>
@@ -20,35 +20,36 @@
         <!-- Filter by status -->
         <div class="col-sm-auto mb-3 mb-sm-0">
             <label for="status">Status:</label>
-            <select class="form-control d-block w-100" id="status" name="status" onchange="this.form.submit();">
-                <option>All</option>
-                <option>Paid</option>
-                <option>Confirmed</option>
-                <option>Enquiry</option>
-                <option>Reserved</option>
-                <option>Historical</option>
-            </select>
+            <?php
+            $status = array("All"=>"All",
+                            "Paid"=>"Paid",
+                            "Confirmed"=>"Confirmed",
+                            "Enquiry"=>"Enquiry",
+                            "Reserved"=>"Reserved",
+                            "Cancelled"=>"Cancelled",
+                            "History"=>"Historical");
+            echo form_dropdown('status', $status, set_value('status'),
+                'class="form-control d-block w-100" onchange="this.form.submit();"');
+            ?>
+
         </div>
         <!-- Filter by room -->
         <div class="col-sm-auto mb-3 mb-sm-0">
             <label for="room">Room:</label>
-            <select class="form-control d-block w-100" id="room" name="room" onchange="this.form.submit();">
-                <option>All</option>
-                <option>Auditorium</option>
-                <option>Dance Studio</option>
-                <option>Drama Studio</option>
-                <option>Bar</option>
-            </select>
+            <?= form_dropdown('room', $rooms, set_value('room'),
+                'class="form-control d-block w-100" onchange="this.form.submit();"'); ?>
         </div>
         <!-- Sort products -->
         <div class="col-sm-auto">
             <label for="sort">Sort by:</label>
-            <select class="form-control d-block w-100" id="sort" name="sort" onchange="this.form.submit();">
-                <option>Most recently altered</option>
-                <option>Booking Date</option>
-                <option>Event Title (A-Z)</option>
-                <option>Event Title (Z-A)</option>
-            </select>
+            <?php
+            $sort = array("altered"=>"Most recently altered",
+                "booking"=>"Booking Date",
+                "az"=>"Event Title (A-Z)",
+                "za"=>"Event Title (Z-A)");
+            echo form_dropdown('sort', $sort, set_value('sort'),
+                'class="form-control d-block w-100" onchange="this.form.submit();"');
+            ?>
         </div>
     </section>
     <?= form_close(); ?>	<!-- End of 'sort and filter' form -->

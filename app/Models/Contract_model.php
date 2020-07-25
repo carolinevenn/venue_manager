@@ -21,12 +21,31 @@ class Contract_model extends Model
         } else {
             return $this->find($id);
         }
+        // Also need event_details table!!!
+    }
+
+    // Return room booking details for a single contract
+    public function get_bookings($id)
+    {
+
+    }
+
+    // Return event instance details for a single contract
+    public function get_events($id)
+    {
+
+    }
+
+    // Return invoice details for a single contract
+    public function get_invoices($id)
+    {
+
     }
 
     // Return multiple contracts
-    public function get_all_contracts($search = false, $status = false)
+    public function get_all_contracts($search = false, $status, $room, $sort)
     {
-        if ($search === false && $status === false) {
+        if ($search === false) {
             $query = $this->query("SELECT C.contract_id, 
                                       C.booking_status,
                                       DATE_FORMAT(MIN(B.start_time), \"%d %b %Y\") AS start_date, 
@@ -41,24 +60,56 @@ class Contract_model extends Model
                                 ORDER BY C.updated_on DESC");
             return $query->getResultArray();
         } else {
-            return $this->select('contract.contract_id, contract.booking_status, contract.updated_on, 
+            $query = $this->select('contract.contract_id, contract.booking_status, contract.updated_on, 
                                 event_details.event_title, room.name AS room')
                 ->select('DATE_FORMAT(MIN(booking.start_time), "%d %b %Y") AS start_date')
                 ->select('DATE_FORMAT(MAX(booking.end_time), "%d %b %Y") As end_date')
                 ->join('booking', 'booking.contract_id = contract.contract_id', 'left')
                 ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
                 ->join('room', 'room.room_id = booking.room_id', 'left')
-                ->where('contract.booking_status', $status)
                 ->groupStart()
                     ->like('event_details.event_title', $search)
                     ->orLike('contract.contract_id', $search)
                 ->groupEnd()
+                ->groupBy('booking.contract_id');
 
-                ->groupBy('booking.contract_id')
-                ->orderBy('contract.contract_id', 'ASC')
-                ->findAll();
+            // Select by status
+            if ($status =="History")
+            {
+                $query->Having('MAX(booking.end_time) <', date('Y-m-d'));
+            }
+            elseif ($status != "All")
+            {
+                $query->where('contract.booking_status', $status)
+                    ->Having('MAX(booking.end_time) >=', date('Y-m-d'));
+            }
+
+            // Select by room
+            if ($room != "All")
+            {
+                $query->where('room.room_id', $room);
+            }
+
+            // Sort results
+            switch ($sort)
+            {
+                case "altered":
+                    $query->orderBy('contract.updated_on', 'DESC');
+                    break;
+                case "booking":
+                    $query->orderBy('booking.start_time', 'ASC');
+                    break;
+                case "az":
+                    $query->orderBy('event_details.event_title', 'ASC');
+                    break;
+                case "za":
+                    $query->orderBy('event_details.event_title', 'DESC');
+                    break;
+            }
+
+            return $query->findAll();
         }
-
-
     }
+
+
 }
