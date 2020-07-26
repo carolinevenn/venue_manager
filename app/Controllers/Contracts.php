@@ -53,16 +53,16 @@ class Contracts extends BaseController
 
         $contract = $model->get_contract($id);
 
-        $data = [
-            'contract' => $contract,
-            'customer' => $customer->get_customer($contract['customer_id']),
-            'bookings' => $model->get_bookings($id),
-            'events'   => $model->get_events($id),
-            'invoices' => $model->get_invoices($id)
-        ];
-
-        if ($data['contract'] != null)
+        if ($contract != null)
         {
+            $data = [
+                'contract' => $contract,
+                'customer' => $customer->get_customer($contract['customer_id']),
+                'bookings' => $model->get_bookings($id),
+                'events'   => $model->get_events($id),
+                'invoices' => $model->get_invoices($id)
+            ];
+
             echo view('templates/header');
             echo view('templates/navbar');
             echo view('contracts/view', $data);

@@ -19,27 +19,36 @@ class Contract_model extends Model
         if ($id === false) {
             return null;
         } else {
-            return $this->find($id);
+            return $this->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
+                ->find($id);
         }
-        // Also need event_details table!!!
     }
 
-    // Return room booking details for a single contract
+    // Return all room booking details for a single contract
     public function get_bookings($id)
     {
-
+        $query = $this->query("SELECT * FROM booking
+                                LEFT JOIN room ON booking.room_id = room.room_id
+                                WHERE contract_id =".$this->escape($id)."
+                                ORDER BY booking.start_time ASC");
+        return $query->getResultArray();
     }
 
-    // Return event instance details for a single contract
+    // Return all event instance details for a single contract
     public function get_events($id)
     {
-
+        $query = $this->query("SELECT event_instance.* FROM event_instance
+                                LEFT JOIN event_details ON event_details.event_id = event_instance.event_id
+                                WHERE event_details.contract_id =".$this->escape($id));
+        return $query->getResultArray();
     }
 
-    // Return invoice details for a single contract
+    // Return all invoice details for a single contract
     public function get_invoices($id)
     {
-
+        $query = $this->query("SELECT * FROM invoice
+                                WHERE contract_id =".$this->escape($id));
+        return $query->getResultArray();
     }
 
     // Return multiple contracts
