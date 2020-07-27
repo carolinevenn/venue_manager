@@ -84,6 +84,100 @@ function getColor($status)
                 endif; ?>
             ],
 
+            select: function(arg) {
+                console.log(
+                    'select',
+                    arg.startStr,
+                    arg.endStr,
+                    arg.resource ? arg.resource.id : '(no resource)'
+                );
+            },
+            eventClick: function(info) {
+                alert('Event: ' + info.event.title);
+                // change the border color just for fun
+                info.el.style.borderColor = 'red';
+            },
+            eventDrop: function(info) {
+
+                if (!confirm("Are you sure about this change?")) {
+                    info.revert();
+                }
+                else
+                {
+                    //console.log(info);
+
+                    var start = calendar.formatIso(new Date(info.event.start));
+
+                    var end = calendar.formatIso(new Date(info.event.end));
+
+                    var id = info.event.id;
+
+                    var room =  info.newResource ? info.newResource.id : info.event._def.resourceIds[0];
+
+                    $.ajax({
+                        url: "<?php echo site_url('Ajax/update');?>",
+                        headers: {'X-Requested-With': 'XMLHttpRequest'},
+                        type: "POST",
+                        data:{start:start, end:end, id:id, room:room},
+                        success: function()
+                        {
+                            alert("Room booking updated");
+                        },
+                        fail: function()
+                        {
+                            alert( "Cannot update this room booking." );
+                        },
+                        always: function()
+                        {
+                            calendar.refetchEvents();
+                        }
+                    });
+                }
+            },
+            eventResize: function(info) {
+
+                if (!confirm("Are you sure about this change?")) {
+                    info.revert();
+                }
+                else
+                {
+                    console.log(info);
+
+                    var start = calendar.formatIso(new Date(info.event.start));
+
+                    var end = calendar.formatIso(new Date(info.event.end));
+
+                    var id = info.event.id;
+
+                    var room =  info.newResource ? info.newResource.id : info.event._def.resourceIds[0];
+
+                    $.ajax({
+                        url: "<?php echo site_url('Ajax/update');?>",
+                        headers: {'X-Requested-With': 'XMLHttpRequest'},
+                        type: "POST",
+                        data:{start:start, end:end, id:id, room:room},
+                        success: function()
+                        {
+                            alert("Room booking updated");
+                        },
+                        fail: function()
+                        {
+                            alert( "Cannot update this room booking." );
+                        },
+                        always: function()
+                        {
+                            calendar.refetchEvents();
+                        }
+                    });
+                }
+            },
+            dateClick: function(arg) {
+                console.log(
+                    'dateClick',
+                    arg.date,
+                    arg.resource ? arg.resource.id : '(no resource)'
+                );
+            }
         });
 
         calendar.render();

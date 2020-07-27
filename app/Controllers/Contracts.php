@@ -89,9 +89,58 @@ class Contracts extends BaseController
 
     public function add()
     {
+        $model = new Contract_model();
 
+        // Validate data
+        if (! $this->validate([
+            'customer' => 'required',
+            'event'    => 'required',
+            'status'   => 'required'
+        ]))
+        {
+            $data = [
+                'validation' => $this->validator,
+                'method'     => $this->request->getMethod()
+            ];
+
+            // If validation fails, load the 'Add Contract' page
+            echo view('templates/header');
+            echo view('templates/navbar');
+            echo view('contracts/create', $data);
+            echo view('templates/footer');
+        }
+        else
+        {
+            // If validation passes, save the contract data
+            $model->insert([
+                'customer_id'    => $this->request->getPost('customer'),
+                'price_agreed'   => $this->request->getPost('price'),
+                'deposit'        => $this->request->getPost('deposit'),
+                'contract_type'  => $this->request->getPost('type'),
+                'revenue_split'  => $this->request->getPost('split'),
+                'requirements'   => $this->request->getPost('requirements'),
+                'booking_status' => $this->request->getPost('status'),
+                'ticket_sales'   => $this->request->getPost('sales'),
+                'get_in'         => $this->request->getPost('getIn'),
+                'get_out'        => $this->request->getPost('getOut'),
+                'misc_terms'     => $this->request->getPost('terms'),
+                'updated_on'     => date('Y-m-d H:i:s'),
+                // 'updated_by'     =>
+                // 2 document uploads
+            ]);
+            // Retrieve the new contract ID
+            $id = $model->insertID();
+            // Save the event data
+            $model->save_event([
+                'contract_id'  => $id,
+                'event_title'  => $this->request->getPost('event'),
+                'running_time'  => $this->request->getPost('runTime'),
+                'genre'  => $this->request->getPost('genre'),
+                'guidance'  => $this->request->getPost('guidance')
+            ]);
+            // View the new contract
+            return redirect()->to(base_url('/contracts/'.$id));
+        }
     }
-
-
 
 }

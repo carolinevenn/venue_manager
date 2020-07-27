@@ -1,7 +1,10 @@
 <main class="container-xl">
-    <section class="row mt-4">
-        <div class="col">
+    <section class="row mt-4 justify-content-between">
+        <div class="col-auto">
             <h2>Contracts</h2>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-info" href="<?= base_url('/contracts/add'); ?>">New Contract</a>
         </div>
     </section>
     <!-- 'Search and filter' form -->

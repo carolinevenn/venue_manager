@@ -9,12 +9,13 @@ class Calendar_model extends Model
 
     protected $returnType = 'array';
 
-/*
     protected $allowedFields = [
-        '',
-
+        'room_id',
+        'contract_id',
+        'start_time',
+        'end_time'
     ];
-*/
+
 
     public function get_bookings()
     {
@@ -26,6 +27,18 @@ class Calendar_model extends Model
                                 ON B.contract_id = C.contract_id  
                                 WHERE NOT C.booking_status = 'Cancelled'");
         return $query->getResultArray();
+    }
+
+    public function update_booking($id, $start, $end, $room)
+    {
+        $data = [
+            'room_id'    => $room,
+            'start_time' => $start,
+            'end_time'   => $end
+        ];
+        return $this->where('booking_id', $id)
+            ->set($data)
+            ->update();
     }
 
 

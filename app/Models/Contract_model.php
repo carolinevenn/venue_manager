@@ -10,7 +10,21 @@ class Contract_model extends Model
     protected $returnType = 'array';
 
     protected $allowedFields = [
-
+        'customer_id',
+        'price_agreed',
+        'deposit',
+        'contract_type',
+        'revenue_split',
+        'requirements' ,
+        'booking_status',
+        'ticket_sales',
+        'get_in',
+        'get_out' ,
+        'misc_terms',
+        'updated_on',
+        'updated_by',
+        'quote',
+        'contract'
     ];
 
     // Return a single contract
@@ -19,7 +33,11 @@ class Contract_model extends Model
         if ($id === false) {
             return null;
         } else {
-            return $this->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
+            return $this->select('contract.*, event_details.*')
+                ->select('DATE_FORMAT(contract.get_in, "%e %b %Y %H:%i") AS get_in')
+                ->select('DATE_FORMAT(contract.get_out, "%e %b %Y %H:%i") AS get_out')
+                ->select('DATE_FORMAT(contract.updated_on, "%e %b %Y %H:%i") AS updated_on')
+                ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
                 ->find($id);
         }
     }
@@ -123,6 +141,14 @@ class Contract_model extends Model
 
             return $query->findAll();
         }
+    }
+
+    public function save_event($event)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('event_details');
+        return $builder->set($event)
+            ->insert();
     }
 
 

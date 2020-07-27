@@ -39,6 +39,7 @@ $routes->match(['get', 'post'],'customers/(:any)', 'Customers::$1');
 $routes->match(['get', 'post'],'customers', 'Customers::index');
 $routes->get('/', 'Pages::view');
 $routes->get('(:any)', 'Pages::view/$1');
+$routes->post('(:any)', 'Ajax::update');
 
 /**
  * --------------------------------------------------------------------
