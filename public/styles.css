@@ -47,21 +47,32 @@ a .card:hover {
     background-color: #ffeeba;
 }
 
+
 /* Pills */
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     background-color: #17a2b8;
 }
 
+
 /* Tab panes */
 .tab-pane table {
     border: 1px solid #dee2e6;
 }
 
+
 /* Search bar */
 .input-group-append .btn-light {
     border: 1px solid #ced4da;
     border-left-style: none;
+}
+
+
+/* Border separating two columns form */
+@media (min-width: 992px) {
+    .borderLeft {
+        border-left: 1px solid #b6c0c8 !important;
+    }
 }
 
 

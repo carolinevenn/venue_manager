@@ -106,58 +106,32 @@
                      aria-labelledby="room-tab">
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Start Time - End Time</h3>
+                            <h5>Room name</h5>
+                            <p>Start Time - End Time</p>
                         </div>
                     </div>
-                    <dl class="row mb-4">
-                        <dt class="col-sm-4"><h6>Room:</h6></dt>
-                        <dd class="col-sm-8">Room name</dd>
-                        <dt class="col-sm-4"><h6>Price:</h6></dt>
-                        <dd class="col-sm-8">Hourly rate and/or Daily rate</dd>
-                        <dt class="col-sm-4"><h6>Capacity:</h6></dt>
-                        <dd class="col-sm-8">250 seated</dd>
-                        <dt class="col-sm-4"><h6>Resources:</h6></dt>
-                        <dd class="col-sm-8">E.g. projector, audio equipment, lights etc.</dd>
-                    </dl>
 
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Start Time - End Time</h3>
+                            <h5>Room name</h5>
+                            <p>Start Time - End Time</p>
                         </div>
                     </div>
-                    <dl class="row mb-4">
-                        <dt class="col-sm-4"><h6>Room:</h6></dt>
-                        <dd class="col-sm-8">Room name</dd>
-                        <dt class="col-sm-4"><h6>Price:</h6></dt>
-                        <dd class="col-sm-8">Hourly rate and/or Daily rate</dd>
-                        <dt class="col-sm-4"><h6>Capacity:</h6></dt>
-                        <dd class="col-sm-8">250 seated</dd>
-                        <dt class="col-sm-4"><h6>Resources:</h6></dt>
-                        <dd class="col-sm-8">E.g. projector, audio equipment, lights etc.</dd>
-                    </dl>
+
 
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Start Time - End Time</h3>
+                            <h5>Room name</h5>
+                            <p>Start Time - End Time</p>
                         </div>
                     </div>
-                    <dl class="row mb-4">
-                        <dt class="col-sm-4"><h6>Room:</h6></dt>
-                        <dd class="col-sm-8">Room name</dd>
-                        <dt class="col-sm-4"><h6>Price:</h6></dt>
-                        <dd class="col-sm-8">Hourly rate and/or Daily rate</dd>
-                        <dt class="col-sm-4"><h6>Capacity:</h6></dt>
-                        <dd class="col-sm-8">250 seated</dd>
-                        <dt class="col-sm-4"><h6>Resources:</h6></dt>
-                        <dd class="col-sm-8">E.g. projector, audio equipment, lights etc.</dd>
-                    </dl>
                 </div>
 
                 <div class="tab-pane fade" id="event-panel" role="tabpanel"
                      aria-labelledby="event-tab">
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Show Time</h3>
+                            <h5>Show Time</h5>
                         </div>
                     </div>
                     <dl class="row mb-4">
@@ -171,7 +145,7 @@
 
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Show Time</h3>
+                            <h5>Show Time</h5>
                         </div>
                     </div>
                     <dl class="row mb-4">
@@ -185,7 +159,7 @@
 
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Show Time</h3>
+                            <h5>Show Time</h5>
                         </div>
                     </div>
                     <dl class="row mb-4">
@@ -202,7 +176,7 @@
                      aria-labelledby="invoice-tab">
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Invoice date</h3>
+                            <h5>Invoice date</h5>
                         </div>
                     </div>
                     <dl class="row mb-4">
@@ -216,7 +190,7 @@
 
                     <div class="row mb-2 justify-content-between">
                         <div class="col">
-                            <h3>Invoice date</h3>
+                            <h5>Invoice date</h5>
                         </div>
                     </div>
                     <dl class="row mb-4">

@@ -27,7 +27,9 @@ class Contract_model extends Model
     // Return all room booking details for a single contract
     public function get_bookings($id)
     {
-        $query = $this->query("SELECT * FROM booking
+        $query = $this->query("SELECT *, DATE_FORMAT(booking.start_time, \"%e %b %Y %H:%i\") AS 'start',
+                                    DATE_FORMAT(booking.end_time, \"%e %b %Y %H:%i\") AS 'end'
+                                FROM booking
                                 LEFT JOIN room ON booking.room_id = room.room_id
                                 WHERE contract_id =".$this->escape($id)."
                                 ORDER BY booking.start_time ASC");
@@ -37,16 +39,19 @@ class Contract_model extends Model
     // Return all event instance details for a single contract
     public function get_events($id)
     {
-        $query = $this->query("SELECT event_instance.* FROM event_instance
+        $query = $this->query("SELECT event_instance.*, DATE_FORMAT(event_instance.show_time, \"%e %b %Y @ %H:%i\") AS 'show'
+                                FROM event_instance
                                 LEFT JOIN event_details ON event_details.event_id = event_instance.event_id
-                                WHERE event_details.contract_id =".$this->escape($id));
+                                WHERE event_details.contract_id =".$this->escape($id)."
+                                ORDER BY event_instance.show_time");
         return $query->getResultArray();
     }
 
     // Return all invoice details for a single contract
     public function get_invoices($id)
     {
-        $query = $this->query("SELECT * FROM invoice
+        $query = $this->query("SELECT *, DATE_FORMAT(date, \"%e %b %Y\") AS 'invoice_date'
+                                FROM invoice
                                 WHERE contract_id =".$this->escape($id));
         return $query->getResultArray();
     }

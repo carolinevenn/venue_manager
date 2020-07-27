@@ -24,3 +24,8 @@ jQuery(document).ready(function($) {
         });
     }, false);
 })();
+
+//Make 'file upload' input display file name
+$(document).ready(function () {
+    bsCustomFileInput.init()
+})

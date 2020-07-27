@@ -77,7 +77,7 @@
             <div class="tab-content" id="panels">
                 <div class="tab-pane fade show active" id="customer-panel" role="tabpanel"
                      aria-labelledby="customer-tab">
-                    <div class="row mb-4 justify-content-between">
+                    <div class="row mb-4">
                         <div class="col">
                             <h3><?= esc($customer['company_name']); ?></h3>
                         </div>
@@ -111,10 +111,10 @@
                      aria-labelledby="room-tab">
                     <?php if (! empty($bookings) && is_array($bookings)) :
                         foreach ($bookings as $item): ?>
-                        <div class="row mb-2 justify-content-between">
+                        <div class="row mb-2">
                             <div class="col">
-                                <h5><?= esc($item['name']); ?></h5>
-                                <p><?= esc($item['start_time']); ?> - <?= esc($item['end_time']); ?></p>
+                                <h4><?= esc($item['name']); ?></h4>
+                                <p><?= esc($item['start']); ?> - <?= esc($item['end']); ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -129,9 +129,9 @@
                      aria-labelledby="event-tab">
                     <?php if (! empty($events) && is_array($events)) :
                         foreach ($events as $item): ?>
-                            <div class="row mb-2 justify-content-between">
+                            <div class="row mb-2">
                                 <div class="col">
-                                    <h3><?= esc($item['show_time']); ?></h3>
+                                    <h4><?= esc($item['show']); ?></h4>
                                 </div>
                             </div>
                             <dl class="row mb-4">
@@ -153,9 +153,9 @@
                      aria-labelledby="invoice-tab">
                     <?php if (! empty($invoices) && is_array($invoices)) :
                         foreach ($invoices as $item): ?>
-                            <div class="row mb-2 justify-content-between">
+                            <div class="row mb-2">
                                 <div class="col">
-                                    <h3><?= esc($item['date']); ?></h3>
+                                    <h4><?= esc($item['invoice_date']); ?></h4>
                                 </div>
                             </div>
                             <dl class="row mb-4">
