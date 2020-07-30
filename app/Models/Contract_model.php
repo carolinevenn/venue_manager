@@ -75,7 +75,7 @@ class Contract_model extends Model
     }
 
     // Return multiple contracts
-    public function get_all_contracts($search = false, $status, $room, $sort)
+    public function get_all_contracts($search = false, $status = false, $room = false, $sort = false)
     {
         if ($search === false) {
             $query = $this->query("SELECT C.contract_id, 

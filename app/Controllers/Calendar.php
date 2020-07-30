@@ -2,8 +2,23 @@
 
 use App\Models\Calendar_model;
 
-class Ajax extends BaseController
+class Calendar extends BaseController
 {
+    public function add()
+    {
+        if ($this->request->isAJAX()) {
+
+            $model = new Calendar_model();
+
+            $model->insert([
+                'contract_id' => $this->request->getVar('id'),
+                'room_id' => $this->request->getVar('room'),
+                'start_time' => $this->request->getVar('start'),
+                'end_time' => $this->request->getVar('end')
+            ]);
+        }
+    }
+
     public function update()
     {
         if ($this->request->isAJAX()) {
@@ -19,4 +34,5 @@ class Ajax extends BaseController
         }
 
     }
+
 }

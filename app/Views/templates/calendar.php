@@ -35,17 +35,33 @@ function getColor($status)
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
             locale: 'en-gb',
             timeZone: 'local',
+            height: '100%',
             initialDate: new Date(),
             initialView: 'resourceTimeGridDay',
             resourceAreaHeaderContent: 'Rooms',
             editable: true,
             selectable: true,
             dayMaxEvents: true, // allow "more" link when too many events
+            allDaySlot: false,
             dayMinWidth: 100,
+            customButtons: {
+                nextMonth: {
+                    text: 'next month',
+                    click: function() {
+                        calendar.incrementDate({month: 1});
+                    }
+                },
+                prevMonth: {
+                    text: 'prev. month',
+                    click: function() {
+                        calendar.incrementDate({month: -1});
+                    }
+                }
+            },
             headerToolbar: {
-                left: 'prev,next,today',
+                left: 'resourceTimeGridDay,resourceTimeGridWeek,resourceTimelineWeek',
                 center: 'title',
-                right: 'resourceTimeGridDay,resourceTimeGridWeek,resourceTimelineWeek'
+                right: 'today prev,next prevMonth,nextMonth'
             },
             themeSystem: 'bootstrap',
             eventOverlap: false, // will cause the event to take up entire resource height
@@ -79,24 +95,21 @@ function getColor($status)
                     start: '<?= esc($item['start_time']); ?>',
                     end: '<?= esc($item['end_time']); ?>',
                     color: '<?php getColor(esc($item['booking_status']));?>',
+                    url: '<?= base_url('contracts/'.esc($item['contract_id']));?>'
                 },
                 <?php endforeach;
                 endif; ?>
             ],
 
             select: function(arg) {
-                console.log(
-                    'select',
-                    arg.startStr,
-                    arg.endStr,
-                    arg.resource ? arg.resource.id : '(no resource)'
-                );
+                $("#newBookingModal").modal();
+                $('#room').val(arg.resource ? arg.resource.id : '');
+                $('#start').val(arg.start);
+                $('#end').val(arg.end);
+                $('#startTime').val(arg.startStr);
+                $('#endTime').val(arg.endStr);
             },
-            eventClick: function(info) {
-                alert('Event: ' + info.event.title);
-                // change the border color just for fun
-                info.el.style.borderColor = 'red';
-            },
+
             eventDrop: function(info) {
 
                 if (!confirm("Are you sure about this change?")) {
@@ -104,18 +117,13 @@ function getColor($status)
                 }
                 else
                 {
-                    //console.log(info);
-
-                    var start = calendar.formatIso(new Date(info.event.start));
-
-                    var end = calendar.formatIso(new Date(info.event.end));
-
+                    var start = info.event.startStr;
+                    var end = info.event.endStr;
                     var id = info.event.id;
-
                     var room =  info.newResource ? info.newResource.id : info.event._def.resourceIds[0];
 
                     $.ajax({
-                        url: "<?php echo site_url('Ajax/update');?>",
+                        url: "<?php echo base_url('calendar/update');?>",
                         headers: {'X-Requested-With': 'XMLHttpRequest'},
                         type: "POST",
                         data:{start:start, end:end, id:id, room:room},
@@ -125,7 +133,7 @@ function getColor($status)
                         },
                         fail: function()
                         {
-                            alert( "Cannot update this room booking." );
+                            alert( "Cannot update this room booking" );
                         },
                         always: function()
                         {
@@ -141,18 +149,13 @@ function getColor($status)
                 }
                 else
                 {
-                    console.log(info);
-
-                    var start = calendar.formatIso(new Date(info.event.start));
-
-                    var end = calendar.formatIso(new Date(info.event.end));
-
+                    var start = info.event.startStr;
+                    var end = info.event.endStr;
                     var id = info.event.id;
-
-                    var room =  info.newResource ? info.newResource.id : info.event._def.resourceIds[0];
+                    var room = info.event._def.resourceIds[0];
 
                     $.ajax({
-                        url: "<?php echo site_url('Ajax/update');?>",
+                        url: "<?php echo base_url('calendar/update');?>",
                         headers: {'X-Requested-With': 'XMLHttpRequest'},
                         type: "POST",
                         data:{start:start, end:end, id:id, room:room},
@@ -162,7 +165,7 @@ function getColor($status)
                         },
                         fail: function()
                         {
-                            alert( "Cannot update this room booking." );
+                            alert( "Cannot update this room booking" );
                         },
                         always: function()
                         {
@@ -170,18 +173,40 @@ function getColor($status)
                         }
                     });
                 }
-            },
-            dateClick: function(arg) {
-                console.log(
-                    'dateClick',
-                    arg.date,
-                    arg.resource ? arg.resource.id : '(no resource)'
-                );
             }
         });
 
         calendar.render();
     });
+
+    function saveNewBooking() {
+        var start =  $('#startTime').val();
+        var end = $('#endTime').val();
+        var id = $('#contract').val();
+        var room = $('#room').val();
+
+        $.ajax({
+            url: "<?php echo base_url('calendar/add');?>",
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            type: "POST",
+            data:{start:start, end:end, id:id, room:room},
+            success: function()
+            {
+                alert("Room booking saved");
+                $("#newBookingModal").modal("hide");
+            },
+            fail: function()
+            {
+                alert( "Cannot save this room booking" );
+            },
+            always: function()
+            {
+                calendar.refetchEvents();
+            }
+        });
+    }
 </script>
+
+
 
 

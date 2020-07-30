@@ -20,6 +20,10 @@ a:hover {
     background-color: #117888 !important;
 }
 
+.row.calendar {
+    height: 90vh;
+}
+
 
 
 

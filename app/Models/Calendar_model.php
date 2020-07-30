@@ -17,7 +17,7 @@ class Calendar_model extends Model
     ];
 
 
-    public function get_bookings()
+    public function get_all_bookings()
     {
         $query = $this->query("SELECT B.*, E.event_title, C.booking_status 
                                 FROM `booking` B 
