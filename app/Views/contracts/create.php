@@ -24,7 +24,8 @@
                     <!-- Customer -->
                     <div class="col mb-3">
                         <label for="customer">Customer <span class="font-italic small text-muted">(required)</span></label>
-                        <input type="text" class="form-control" name="customer" required>
+                        <?= form_dropdown('customer', $customer_list, ($customer != null ) ? $customer['customer_id'] : "",
+                            'class="form-control d-block w-100" required'); ?>
                         <div class="invalid-feedback">
                             Please choose a customer
                         </div>
@@ -121,8 +122,8 @@
                         $status = array(""=>"",
                             "Paid"=>"Paid",
                             "Confirmed"=>"Confirmed",
-                            "Enquiry"=>"Enquiry",
                             "Reserved"=>"Reserved",
+                            "Enquiry"=>"Enquiry",
                             "Cancelled"=>"Cancelled");
                         echo form_dropdown('status', $status, set_value('status'),
                             'class="form-control d-block w-100" required');

@@ -87,9 +87,10 @@ class Contracts extends BaseController
     }
 
 
-    public function add()
+    public function add($id = false)
     {
         $model = new Contract_model();
+        $c_model = new Customer_model();
 
         // Validate data
         if (! $this->validate([
@@ -98,9 +99,28 @@ class Contracts extends BaseController
             'status'   => 'required'
         ]))
         {
+            // Find current customer
+            if ($id != false)
+            {
+                $customer = $c_model->get_customer($id);
+            }
+            else
+            {
+                $customer = null;
+            }
+
+            // Create array of customers
+            $c_array[""] = "";
+            $c = $c_model->get_all_customers();
+            foreach ($c as $item):
+                $c_array[$item['customer_id']] = $item['company_name'];
+            endforeach;
+
             $data = [
-                'validation' => $this->validator,
-                'method'     => $this->request->getMethod()
+                'validation'    => $this->validator,
+                'method'        => $this->request->getMethod(),
+                'customer_list' => $c_array,
+                'customer'      => $customer
             ];
 
             // If validation fails, load the 'Add Contract' page

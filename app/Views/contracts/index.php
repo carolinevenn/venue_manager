@@ -27,8 +27,8 @@
             $status = array("All"=>"All",
                             "Paid"=>"Paid",
                             "Confirmed"=>"Confirmed",
-                            "Enquiry"=>"Enquiry",
                             "Reserved"=>"Reserved",
+                            "Enquiry"=>"Enquiry",
                             "Cancelled"=>"Cancelled",
                             "History"=>"Historical");
             echo form_dropdown('status', $status, set_value('status'),

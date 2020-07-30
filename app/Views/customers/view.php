@@ -9,8 +9,8 @@
             <h2><?= esc($customer['company_name']); ?></h2>
         </div>
         <div class="col-auto">
-            <a class="btn btn-info" href="<?= base_url('/booking_add'); ?>">New Booking</a>
-            <a class="btn btn-outline-info" href="<?= base_url('/customers/edit/' .  esc($customer['customer_id'])); ?>">
+            <a class="btn btn-info" href="<?= base_url('/contracts/add/' . esc($customer['customer_id'])); ?>">New Contract</a>
+            <a class="btn btn-outline-info" href="<?= base_url('/customers/edit/' . esc($customer['customer_id'])); ?>">
                 Edit customer details</a>
         </div>
     </section>
@@ -41,22 +41,22 @@
         </div>
 
         <div class="col-lg-8">
-            <ul class="nav nav-tabs" id="bookings" role="tablist">
+            <ul class="nav nav-tabs" id="contracts" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="current-tab" data-toggle="tab" href="#current"
-                       role="tab" aria-controls="current" aria-selected="true">Current Bookings</a>
+                       role="tab" aria-controls="current" aria-selected="true">Current Contracts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="history-tab" data-toggle="tab" href="#history"
                        role="tab" aria-controls="history" aria-selected="false">History</a>
                 </li>
             </ul>
-            <div class="tab-content" id="bookingsContent">
+            <div class="tab-content" id="contractsContent">
                 <div class="tab-pane fade show active" id="current" role="tabpanel"
                      aria-labelledby="current-tab">
                     <div class="table-responsive">
                         <table class="table table-hover">
-                            <caption class="sr-only">List of current bookings</caption>
+                            <caption class="sr-only">List of current contracts</caption>
                             <thead>
                             <tr>
                                 <th scope="col">Start Date</th>
@@ -86,7 +86,7 @@
                                         default:
                                             $shading = "";
                                     }?>
-                                    <tr class="<?= $shading ?>" data-href="<?= base_url('/bookings/' . esc($item['contract_id'])); ?>">
+                                    <tr class="<?= $shading ?>" data-href="<?= base_url('/contracts/' . esc($item['contract_id'])); ?>">
                                         <td><?= esc($item['start_date']); ?></td>
                                         <td><?= esc($item['end_date']); ?></td>
                                         <td><?= esc($item['room']); ?></td>
@@ -103,7 +103,7 @@
                      aria-labelledby="history-tab">
                     <div class="table-responsive">
                         <table class="table table-hover">
-                            <caption class="sr-only">List of historical bookings</caption>
+                            <caption class="sr-only">List of historical contracts</caption>
                             <thead>
                             <tr>
                                 <th scope="col">Start Date</th>
@@ -132,7 +132,7 @@
                                             default:
                                                 $shading = "";
                                         }?>
-                                        <tr class="<?= $shading ?>" data-href="<?= base_url('/bookings/' . esc($item['contract_id'])); ?>">
+                                        <tr class="<?= $shading ?>" data-href="<?= base_url('/contracts/' . esc($item['contract_id'])); ?>">
                                             <td><?= esc($item['start_date']); ?></td>
                                             <td><?= esc($item['end_date']); ?></td>
                                             <td><?= esc($item['room']); ?></td>
