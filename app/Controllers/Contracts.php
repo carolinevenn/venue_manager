@@ -83,7 +83,76 @@ class Contracts extends BaseController
             return redirect()->to(base_url('/contracts'));
         }
 
+        $model = new Contract_model();
 
+        $contract = $model->get_contract($id);
+
+        // If the contract exists
+        if ($contract != null)
+        {
+            // Validate data
+            if (! $this->validate([
+                'customer' => 'required',
+                'event'    => 'required',
+                'status'   => 'required'
+            ]))
+            {
+                // Create array of customers
+                $c_model = new Customer_model();
+                $c_array[""] = "";
+                $c = $c_model->get_all_customers();
+                foreach ($c as $item):
+                    $c_array[$item['customer_id']] = $item['company_name'];
+                endforeach;
+
+                $data = [
+                    'contract'      => $contract,
+                    'validation'    => $this->validator,
+                    'method'        => $this->request->getMethod(),
+                    'customer_list' => $c_array
+                ];
+
+                // If validation fails, load the 'Edit Contract' page
+                echo view('templates/header');
+                echo view('templates/navbar');
+                echo view('contracts/update', $data);
+                echo view('templates/footer');
+            }
+            else
+            {
+                // If validation passes, update the contract
+                $model->update($id, [
+                    'customer_id'    => $this->request->getPost('customer'),
+                    'price_agreed'   => $this->request->getPost('price'),
+                    'deposit'        => $this->request->getPost('deposit'),
+                    'contract_type'  => $this->request->getPost('type'),
+                    'revenue_split'  => $this->request->getPost('split'),
+                    'requirements'   => $this->request->getPost('requirements'),
+                    'booking_status' => $this->request->getPost('status'),
+                    'ticket_sales'   => $this->request->getPost('sales'),
+                    'get_in'         => $this->request->getPost('getIn'),
+                    'get_out'        => $this->request->getPost('getOut'),
+                    'misc_terms'     => $this->request->getPost('terms'),
+                    'updated_on'     => date('Y-m-d H:i:s'),
+                    // 'updated_by'     =>
+                    // 2 document uploads
+                ]);
+                // Update the event data
+                $model->update_event([
+                    'contract_id'  => $id,
+                    'event_title'  => $this->request->getPost('event'),
+                    'running_time'  => $this->request->getPost('runTime'),
+                    'genre'  => $this->request->getPost('genre'),
+                    'guidance'  => $this->request->getPost('guidance')
+                ]);
+                // View the contract
+                return redirect()->to(base_url('/contracts/'.$id));
+            }
+        }
+        else
+        {
+            return redirect()->to(base_url('/contracts'));
+        }
     }
 
 

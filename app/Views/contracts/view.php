@@ -10,7 +10,7 @@
         </div>
         <div class="col-auto">
             <a class="btn btn-info" href="#">Export</a>
-            <a class="btn btn-outline-info" href="<?= base_url('contracts/edit/' .  esc($contract['contract_id'])); ?>">
+            <a class="btn btn-outline-info" href="<?= base_url('contracts/edit/' . esc($contract['contract_id'])); ?>">
                 Edit contract details</a>
         </div>
     </section>
@@ -41,9 +41,9 @@
                         <dt class="col-sm-5"><h6>Running Time:</h6></dt>
                         <dd class="col-sm-7"><?= esc($contract['running_time']); ?> minutes</dd>
                         <dt class="col-sm-5"><h6>Get In:</h6></dt>
-                        <dd class="col-sm-7"><?= esc($contract['get_in']); ?></dd>
+                        <dd class="col-sm-7"><?= esc($contract['formatted_in']); ?></dd>
                         <dt class="col-sm-5"><h6>Get Out:</h6></dt>
-                        <dd class="col-sm-7"><?= esc($contract['get_out']); ?></dd>
+                        <dd class="col-sm-7"><?= esc($contract['formatted_out']); ?></dd>
                         <dt class="col-sm-5"><h6>Requirements:</h6></dt>
                         <dd class="col-sm-7"><?= esc($contract['requirements']); ?></dd>
                         <dt class="col-sm-5"><h6>Contract Type:</h6></dt>
@@ -109,12 +109,24 @@
 
                 <div class="tab-pane fade" id="room-panel" role="tabpanel"
                      aria-labelledby="room-tab">
+                    <div class="row mb-4 justify-content-end">
+                        <div class="col-auto">
+                            <a class="btn btn-outline-info" href="<?= base_url(); ?>">
+                                Add new room booking</a>
+                            <a class="btn btn-outline-info" href="<?= base_url(); ?>">
+                                Edit room bookings</a>
+                        </div>
+                    </div>
                     <?php if (! empty($bookings) && is_array($bookings)) :
                         foreach ($bookings as $item): ?>
                         <div class="row mb-2">
                             <div class="col">
                                 <h4><?= esc($item['name']); ?></h4>
-                                <p><?= esc($item['start']); ?> - <?= esc($item['end']); ?></p>
+                                <p><?= esc($item['start']); ?> - <?= esc($item['end']); ?> &nbsp;
+                                    <a class="btn btn-outline-danger btn-sm"
+                                       href="<?= base_url('calendar/delete/'.esc($item['booking_id'])); ?>">
+                                        Delete</a>
+                                </p>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -127,11 +139,22 @@
 
                 <div class="tab-pane fade" id="event-panel" role="tabpanel"
                      aria-labelledby="event-tab">
+                    <div class="row mb-4 justify-content-end">
+                        <div class="col-auto">
+                            <a class="btn btn-outline-info" href="<?= base_url('events/add'); ?>">
+                                Add new event instance</a>
+                        </div>
+                    </div>
                     <?php if (! empty($events) && is_array($events)) :
                         foreach ($events as $item): ?>
                             <div class="row mb-2">
-                                <div class="col">
+                                <div class="col-auto">
                                     <h4><?= esc($item['show']); ?></h4>
+                                </div>
+                                <div class="col-auto">
+                                    <a class="btn btn-outline-info btn-sm"
+                                       href="<?= base_url('events/edit/'.esc($item['instance_id'])); ?>">
+                                        Edit</a>
                                 </div>
                             </div>
                             <dl class="row mb-4">
@@ -151,11 +174,22 @@
 
                 <div class="tab-pane fade" id="invoice-panel" role="tabpanel"
                      aria-labelledby="invoice-tab">
+                    <div class="row mb-4 justify-content-end">
+                        <div class="col-auto">
+                            <a class="btn btn-outline-info" href="<?= base_url('invoices/add'); ?>">
+                                Add new invoice</a>
+                        </div>
+                    </div>
                     <?php if (! empty($invoices) && is_array($invoices)) :
                         foreach ($invoices as $item): ?>
                             <div class="row mb-2">
-                                <div class="col">
+                                <div class="col-auto">
                                     <h4><?= esc($item['invoice_date']); ?></h4>
+                                </div>
+                                <div class="col-auto">
+                                    <a class="btn btn-outline-info btn-sm"
+                                       href="<?= base_url('invoices/edit/'.esc($item['invoice_id'])); ?>">
+                                        Edit</a>
                                 </div>
                             </div>
                             <dl class="row mb-4">

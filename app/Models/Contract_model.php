@@ -34,8 +34,8 @@ class Contract_model extends Model
             return null;
         } else {
             return $this->select('contract.*, event_details.*')
-                ->select('DATE_FORMAT(contract.get_in, "%e %b %Y %H:%i") AS get_in')
-                ->select('DATE_FORMAT(contract.get_out, "%e %b %Y %H:%i") AS get_out')
+                ->select('DATE_FORMAT(contract.get_in, "%e %b %Y %H:%i") AS formatted_in')
+                ->select('DATE_FORMAT(contract.get_out, "%e %b %Y %H:%i") AS formatted_out')
                 ->select('DATE_FORMAT(contract.updated_on, "%e %b %Y %H:%i:%s") AS updated_on')
                 ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
                 ->find($id);
@@ -149,6 +149,14 @@ class Contract_model extends Model
         $builder = $db->table('event_details');
         return $builder->set($event)
             ->insert();
+    }
+
+    public function update_event($event)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('event_details');
+        return $builder->set($event)
+            ->update();
     }
 
 

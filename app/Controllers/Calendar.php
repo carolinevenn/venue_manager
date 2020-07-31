@@ -35,4 +35,9 @@ class Calendar extends BaseController
 
     }
 
+    public function delete()
+    {
+
+    }
+
 }
