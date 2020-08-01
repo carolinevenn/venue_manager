@@ -138,7 +138,7 @@ class Contracts extends BaseController
                     // 2 document uploads
                 ]);
                 // Update the event data
-                $model->update_event([
+                $model->update_event($contract['event_details.event_id'], [
                     'contract_id'  => $id,
                     'event_title'  => $this->request->getPost('event'),
                     'running_time'  => $this->request->getPost('runTime'),

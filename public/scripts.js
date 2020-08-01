@@ -1,5 +1,5 @@
 // Make table rows clickable
-jQuery(document).ready(function($) {
+$(document).ready(function() {
     $('*[data-href]').on('click', function() {
         window.location = $(this).data("href");
     });
@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
 
 
 // Disable form submissions if there are invalid fields
-(function() {
+$(document).ready(function() {
     'use strict';
     window.addEventListener('load', function() {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -26,6 +26,7 @@ jQuery(document).ready(function($) {
 })();
 
 //Make 'file upload' input display file name
-$(document).ready(function () {
+$(document).ready(function() {
     bsCustomFileInput.init()
-})
+});
+

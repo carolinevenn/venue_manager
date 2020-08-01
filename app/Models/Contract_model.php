@@ -88,7 +88,7 @@ class Contract_model extends Model
                                 LEFT JOIN booking B ON C.contract_id = B.contract_id
                                 LEFT JOIN event_details E ON C.contract_id = E.contract_id
                                 LEFT JOIN room R ON B.room_id = R.room_id
-                                GROUP BY B.contract_id
+                                GROUP BY C.contract_id
                                 ORDER BY C.updated_on DESC");
             return $query->getResultArray();
         } else {
@@ -103,17 +103,18 @@ class Contract_model extends Model
                     ->like('event_details.event_title', $search)
                     ->orLike('contract.contract_id', $search)
                 ->groupEnd()
-                ->groupBy('booking.contract_id');
+                ->groupBy('contract.contract_id');
 
             // Select by status
             if ($status =="History")
             {
-                $query->Having('MAX(booking.end_time) <', date('Y-m-d'));
+                $query->having('MAX(booking.end_time) <', date('Y-m-d'));
             }
             elseif ($status != "All")
             {
                 $query->where('contract.booking_status', $status)
-                    ->Having('MAX(booking.end_time) >=', date('Y-m-d'));
+                    ->having('MAX(booking.end_time) >=', date('Y-m-d'))
+                    ->orHaving('MAX(booking.end_time) IS NULL');
             }
 
             // Select by room
@@ -151,11 +152,12 @@ class Contract_model extends Model
             ->insert();
     }
 
-    public function update_event($event)
+    public function update_event($id, $event)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('event_details');
-        return $builder->set($event)
+        return $builder->where('event_id', $id)
+            ->set($event)
             ->update();
     }
 

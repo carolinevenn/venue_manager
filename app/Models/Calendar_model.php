@@ -29,6 +29,7 @@ class Calendar_model extends Model
         return $query->getResultArray();
     }
 
+
     public function update_booking($id, $start, $end, $room)
     {
         $data = [

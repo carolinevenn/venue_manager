@@ -123,10 +123,33 @@
                             <div class="col">
                                 <h4><?= esc($item['name']); ?></h4>
                                 <p><?= esc($item['start']); ?> - <?= esc($item['end']); ?> &nbsp;
-                                    <a class="btn btn-outline-danger btn-sm"
-                                       href="<?= base_url('calendar/delete/'.esc($item['booking_id'])); ?>">
-                                        Delete</a>
+                                    <button class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                            data-target="#delete<?= esc($item['booking_id']); ?>">
+                                        Delete</button>
                                 </p>
+                            </div>
+                        </div>
+                        <!-- Delete Booking Modal -->
+                        <div class="modal fade" id="delete<?= esc($item['booking_id']); ?>" tabindex="-1" role="dialog"
+                             aria-labelledby="delete<?= esc($item['booking_id']); ?>Label" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="delete<?= esc($item['booking_id']); ?>Label">Delete Room Booking</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure you want to permanently delete this room booking?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <?= form_open(base_url('calendar/delete/'.esc($item['booking_id']))); ?>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            <button type="submit" class="btn btn-danger">Yes</button>
+                                        <?= form_close(); ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -141,7 +164,7 @@
                      aria-labelledby="event-tab">
                     <div class="row mb-4 justify-content-end">
                         <div class="col-auto">
-                            <a class="btn btn-outline-info" href="<?= base_url('events/add'); ?>">
+                            <a class="btn btn-outline-info" href="<?= base_url('events/add/'. esc($contract['event_id'])); ?>">
                                 Add new event instance</a>
                         </div>
                     </div>
@@ -176,7 +199,7 @@
                      aria-labelledby="invoice-tab">
                     <div class="row mb-4 justify-content-end">
                         <div class="col-auto">
-                            <a class="btn btn-outline-info" href="<?= base_url('invoices/add'); ?>">
+                            <a class="btn btn-outline-info" href="<?= base_url('invoices/add/'. esc($contract['contract_id'])); ?>">
                                 Add new invoice</a>
                         </div>
                     </div>

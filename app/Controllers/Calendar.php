@@ -35,8 +35,22 @@ class Calendar extends BaseController
 
     }
 
-    public function delete()
+    public function delete($id)
     {
+        $model = new Calendar_model();
+
+        if ($this->request->getMethod() == 'post')
+        {
+            $model->where('booking_id', $id)
+                ->delete();
+
+            return redirect()->back();
+        }
+        else
+        {
+            return redirect()->to(base_url('/contracts'));
+        }
+
 
     }
 
