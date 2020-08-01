@@ -17,6 +17,19 @@ class Event_model extends Model
         'student'
     ];
 
+    // Return a single event instance
+    public function get_event_instance($id = false)
+    {
+        if ($id === false)
+        {
+            return null;
+        }
+        else
+        {
+            return $this->find($id);
+        }
+    }
+
     public function get_contract_id($event)
     {
         $query = $this->query("SELECT * FROM event_details WHERE event_id =".$event);

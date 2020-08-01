@@ -50,8 +50,6 @@ class Calendar extends BaseController
         {
             return redirect()->to(base_url('/contracts'));
         }
-
-
     }
 
 }
