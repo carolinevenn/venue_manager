@@ -70,7 +70,8 @@ class Contract_model extends Model
     {
         $query = $this->query("SELECT *, DATE_FORMAT(date, \"%e %b %Y\") AS 'invoice_date'
                                 FROM invoice
-                                WHERE contract_id =".$this->escape($id));
+                                WHERE contract_id =".$this->escape($id)."
+                                ORDER BY date DESC");
         return $query->getResultArray();
     }
 

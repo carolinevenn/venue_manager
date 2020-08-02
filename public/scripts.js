@@ -1,5 +1,5 @@
 // Make table rows clickable
-$(document).ready(function() {
+jQuery(document).ready(function($) {
     $('*[data-href]').on('click', function() {
         window.location = $(this).data("href");
     });
@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 
 // Disable form submissions if there are invalid fields
-$(document).ready(function() {
+(function() {
     'use strict';
     window.addEventListener('load', function() {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
