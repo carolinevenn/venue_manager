@@ -122,7 +122,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="status">Booking Status <span class="font-italic small text-muted">(required)</span></label>
                         <?php
-                        $status = array(""=>"",
+                        $status = array(""=>"Choose...",
                             "Paid"=>"Paid",
                             "Confirmed"=>"Confirmed",
                             "Reserved"=>"Reserved",

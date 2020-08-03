@@ -25,7 +25,7 @@
                         <div class="row">
                             <!-- Show Time -->
                             <div class="col form-group">
-                                <label for="showTime">Show Time</label>
+                                <label for="showTime">Show Time <span class="font-italic small text-muted">(required)</span></label>
                                 <input type="datetime-local" class="form-control" name="showTime" required>
                                 <div class="invalid-feedback">
                                     Please enter the show time

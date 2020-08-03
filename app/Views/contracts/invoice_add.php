@@ -25,7 +25,7 @@
                         <div class="row">
                             <!-- Invoice Date -->
                             <div class="col-md-6 form-group">
-                                <label for="date">Invoice Date</label>
+                                <label for="date">Invoice Date <span class="font-italic small text-muted">(required)</span></label>
                                 <input type="date" class="form-control" id="date" name="date"
                                        required>
                                 <div class="invalid-feedback">
@@ -34,7 +34,7 @@
                             </div>
                             <!-- Invoice Number -->
                             <div class="col-md-6 form-group">
-                                <label for="number">Invoice Number</label>
+                                <label for="number">Invoice Number <span class="font-italic small text-muted">(required)</span></label>
                                 <input type="text" class="form-control" id="number" name="number"
                                        required>
                                 <div class="invalid-feedback">
@@ -46,7 +46,7 @@
                         <div class="row">
                             <!-- Invoice Amount -->
                             <div class="col-md-6 form-group">
-                                <label for="amount">Invoice Amount</label>
+                                <label for="amount">Invoice Amount <span class="font-italic small text-muted">(required)</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">£</div>
@@ -60,7 +60,7 @@
                             </div>
                             <!-- Invoice Paid? -->
                             <div class="col-md-6 form-group">
-                                <label for="paidYes paidNo">Invoice Paid?</label><br>
+                                <label for="paidYes paidNo">Invoice Paid? <span class="font-italic small text-muted">(required)</span></label><br>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="paidYes" name="paid" value="1"
                                            class="custom-control-input" required>

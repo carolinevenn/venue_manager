@@ -23,7 +23,7 @@
                 <div class="row">
                     <!-- Company name -->
                     <div class="col mb-3">
-                        <label for="companyName">Company Name</label>
+                        <label for="companyName">Company Name <span class="font-italic small text-muted">(required)</span></label>
                         <input type="text" class="form-control" id="companyName"
                                name="companyName" value="<?= set_value('companyName'); ?>"
                                required>

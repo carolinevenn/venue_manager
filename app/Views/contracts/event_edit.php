@@ -25,7 +25,7 @@
                         <div class="row">
                             <!-- Show Time -->
                             <div class="col form-group">
-                                <label for="showTime">Show Time</label>
+                                <label for="showTime">Show Time <span class="font-italic small text-muted">(required)</span></label>
                                 <input type="datetime-local" class="form-control" name="showTime"
                                        value="<?= esc($event['show_time']); ?>" required>
                                 <div class="invalid-feedback">
@@ -90,12 +90,12 @@
 
             <!-- Delete Event Instance -->
             <section class="row mt-5">
-                <div class="col">
+                <div class="col-auto mx-auto">
                     <h4>Delete Event Instance</h4>
                 </div>
             </section>
             <section class="row mt-2">
-                <div class="col">
+                <div class="col-auto mx-auto">
                     <button class="btn btn-outline-danger" data-toggle="modal"
                             data-target="#deleteModal">Delete</button>
                 </div>

@@ -40,6 +40,12 @@ $routes->match(['get', 'post'],'customers', 'Customers::index');
 $routes->post('calendar/(:any)', 'Calendar::$1');
 $routes->match(['get', 'post'],'events/(:any)', 'Events::$1');
 $routes->match(['get', 'post'],'invoices/(:any)', 'Invoices::$1');
+$routes->get('rooms/(:num)', 'Rooms::view/$1');
+$routes->match(['get', 'post'],'rooms/(:any)', 'Rooms::$1');
+$routes->get('staff/(:num)', 'Staff::view/$1');
+$routes->match(['get', 'post'],'staff/(:any)', 'Staff::$1');
+$routes->match(['get', 'post'],'venue/(:any)', 'Venue::$1');
+$routes->get('venue', 'Venue::index');
 $routes->get('/', 'Pages::view');
 $routes->get('(:any)', 'Pages::view/$1');
 
