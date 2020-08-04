@@ -41,10 +41,12 @@ class Calendar extends BaseController
 
         if ($this->request->getMethod() == 'post')
         {
+            $contract = $model->get_contract_id($id);
+
             $model->where('booking_id', $id)
                 ->delete();
 
-            return redirect()->back();
+            return redirect()->to(base_url('/contracts/'.$contract));
         }
         else
         {

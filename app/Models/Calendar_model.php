@@ -42,5 +42,11 @@ class Calendar_model extends Model
             ->update();
     }
 
+    public function get_contract_id($bookingId)
+    {
+        $booking = $this->find($bookingId);
+        return $booking['contract_id'];
+    }
+
 
 }

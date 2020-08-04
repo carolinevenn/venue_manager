@@ -135,7 +135,7 @@ function getColor($status)
                         {
                             alert( "Cannot update this room booking" );
                         },
-                        always: function()
+                        complete: function()
                         {
                             calendar.refetchEvents();
                         }
@@ -167,7 +167,7 @@ function getColor($status)
                         {
                             alert( "Cannot update this room booking" );
                         },
-                        always: function()
+                        complete: function()
                         {
                             calendar.refetchEvents();
                         }
@@ -199,9 +199,9 @@ function getColor($status)
             {
                 alert( "Cannot save this room booking" );
             },
-            always: function()
+            complete: function()
             {
-                calendar.refetchEvents();
+                location.reload();
             }
         });
     }
