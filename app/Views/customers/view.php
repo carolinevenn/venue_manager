@@ -6,17 +6,26 @@
     </section>
     <section class="row mt-3 mb-4 justify-content-between">
         <div class="col-auto">
+            <!-- Company Name -->
             <h2><?= esc($customer['company_name']); ?></h2>
         </div>
         <div class="col-auto">
-            <a class="btn btn-info" href="<?= base_url('/contracts/add/' . esc($customer['customer_id'])); ?>">New Contract</a>
-            <a class="btn btn-outline-info" href="<?= base_url('/customers/edit/' . esc($customer['customer_id'])); ?>">
-                Edit customer details</a>
+            <!-- Create new contract for this customer -->
+            <a class="btn btn-info"
+               href="<?= base_url('/contracts/add/'.esc($customer['customer_id'])); ?>">
+                New Contract
+            </a>
+            <!-- Edit this customer -->
+            <a class="btn btn-outline-info"
+               href="<?= base_url('/customers/edit/'.esc($customer['customer_id'])); ?>">
+                Edit customer details
+            </a>
         </div>
     </section>
 
     <section class="row">
         <div class="col-lg-4">
+            <!-- Customer details -->
             <dl class="row">
                 <dt class="col-sm-5"><h6>Address:</h6></dt>
                 <dd class="col-sm-7">
@@ -40,18 +49,22 @@
             </dl>
         </div>
 
+        <!-- Display contracts belonging to this customer -->
         <div class="col-lg-8">
             <ul class="nav nav-tabs" id="contracts" role="tablist">
+                <!-- Current Contracts tab -->
                 <li class="nav-item">
                     <a class="nav-link active" id="current-tab" data-toggle="tab" href="#current"
                        role="tab" aria-controls="current" aria-selected="true">Current Contracts</a>
                 </li>
+                <!-- Historical Contracts tab -->
                 <li class="nav-item">
                     <a class="nav-link" id="history-tab" data-toggle="tab" href="#history"
                        role="tab" aria-controls="history" aria-selected="false">History</a>
                 </li>
             </ul>
             <div class="tab-content" id="contractsContent">
+                <!-- Current Contracts panel -->
                 <div class="tab-pane fade show active" id="current" role="tabpanel"
                      aria-labelledby="current-tab">
                     <div class="table-responsive">
@@ -67,8 +80,10 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <!-- Create a table row for each contract -->
                                 <?php if (! empty($current) && is_array($current)) :
                                 foreach ($current as $item):
+                                    // Set the row shading according to booking status
                                     switch (esc($item['booking_status']))
                                     {
                                         case "Confirmed":
@@ -86,7 +101,9 @@
                                         default:
                                             $shading = "";
                                     }?>
-                                    <tr class="<?= $shading ?>" data-href="<?= base_url('/contracts/' . esc($item['contract_id'])); ?>">
+                                    <!-- Contract details -->
+                                    <tr class="<?= $shading ?>" data-href="<?= base_url(
+                                            '/contracts/'.esc($item['contract_id'])); ?>">
                                         <td><?= esc($item['start_date']); ?></td>
                                         <td><?= esc($item['end_date']); ?></td>
                                         <td><?= esc($item['room']); ?></td>
@@ -99,6 +116,8 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Historical Contracts panel -->
                 <div class="tab-pane fade" id="history" role="tabpanel"
                      aria-labelledby="history-tab">
                     <div class="table-responsive">
@@ -114,8 +133,10 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <!-- Create a table row for each contract -->
                                 <?php if (! empty($history) && is_array($history)) :
                                     foreach ($history as $item):
+                                        // Set the row shading according to booking status
                                         switch (esc($item['booking_status']))
                                         {
                                             case "Confirmed":
@@ -132,7 +153,9 @@
                                             default:
                                                 $shading = "";
                                         }?>
-                                        <tr class="<?= $shading ?>" data-href="<?= base_url('/contracts/' . esc($item['contract_id'])); ?>">
+                                        <!-- Contract details -->
+                                        <tr class="<?= $shading ?>" data-href="<?= base_url(
+                                                '/contracts/'.esc($item['contract_id'])); ?>">
                                             <td><?= esc($item['start_date']); ?></td>
                                             <td><?= esc($item['end_date']); ?></td>
                                             <td><?= esc($item['room']); ?></td>
@@ -149,4 +172,3 @@
         </div>
     </section>
 </main>
-

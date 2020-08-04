@@ -122,4 +122,32 @@ class Staff extends BaseController
             return redirect()->to(base_url('/venue'));
         }
     }
+
+    public function delete($id)
+    {
+        // Check id is numeric
+        if (!is_numeric($id))
+        {
+            return redirect()->to(base_url('/venue'));
+        }
+
+        $model = new Venue_model();
+
+        $staff = $model->get_staff_member($id);
+
+        if ($staff != null)
+        {
+            if ($this->request->getMethod() == 'post')
+            {
+                $model->where('staff_id', $id)
+                    ->delete();
+            }
+            return redirect()->to(base_url('/venue/'));
+        }
+        else
+        {
+            return redirect()->to(base_url('/venue'));
+        }
+    }
+
 }

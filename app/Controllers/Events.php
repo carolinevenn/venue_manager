@@ -97,6 +97,12 @@ class Events extends BaseController
 
     public function delete($id)
     {
+        // Check id is numeric
+        if (!is_numeric($id))
+        {
+            return redirect()->to(base_url('/contracts'));
+        }
+
         $model = new Event_model();
         $event_instance = $model->get_event_instance($id);
         $contract = $model->get_contract_id($event_instance['event_id']);

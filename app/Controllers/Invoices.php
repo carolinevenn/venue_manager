@@ -24,10 +24,16 @@ class Invoices extends BaseController
 
         // Validate data
         if (! $this->validate([
-            'date'   => 'required',
-            'number' => 'required',
-            'amount' => 'required',
-            'paid'   => 'required'
+            'date'          => 'required',
+            'number'        => 'required',
+            'amount'        => 'required',
+            'paid'          => 'required',
+            'invoiceUpload' => 'ext_in[invoiceUpload,pdf,docx,xlsx]'
+        ],[
+            // Validation error messages
+            'invoiceUpload' => [
+                'ext_in' => 'Only .pdf .docx or .xlsx files can be uploaded. Please try again.'
+            ]
         ]))
         {
             $data = [
@@ -36,7 +42,7 @@ class Invoices extends BaseController
                 'contract'   => $contract
             ];
 
-            // If validation fails, load the 'Add Customer' page
+            // If validation fails, load the 'New Invoice' page
             echo view('templates/header');
             echo view('templates/navbar');
             echo view('contracts/invoice_add', $data);
@@ -44,16 +50,36 @@ class Invoices extends BaseController
         }
         else
         {
-            // If validation passes, save the data and view the new customer's details
+            // If validation passes, save the data
             $model->insert([
                 'contract_id'    => $contract,
                 'date'           => $this->request->getPost('date'),
                 'invoice_number' => $this->request->getPost('number'),
                 'amount'         => $this->request->getPost('amount'),
-                'paid'           => $this->request->getPost('paid'),
-                // Invoice upload
+                'paid'           => $this->request->getPost('paid')
             ]);
 
+            // Get the new invoice ID
+            $id = $model->insertID();
+
+            // Retrieve the uploaded file
+            $file = $this->request->getFile('invoiceUpload');
+
+            // Check that the file was uploaded without errors
+            if ($file->isValid())
+            {
+                // Move the uploaded file
+                $filename = 'invoice_'.$id.'.'.$file->getExtension();
+                $file->store('../../public/uploads/', $filename);
+                $path = 'uploads/'.$filename;
+
+                // Update the database to include the file path
+                $model->update($id, [
+                    'invoice' => $path
+                ]);
+            }
+
+            // Return to the contract view
             return redirect()->to(base_url('/contracts/'.$contract));
         }
     }
@@ -74,10 +100,16 @@ class Invoices extends BaseController
         {
             // Validate data
             if (! $this->validate([
-                'date'   => 'required',
-                'number' => 'required',
-                'amount' => 'required',
-                'paid'   => 'required'
+                'date'          => 'required',
+                'number'        => 'required',
+                'amount'        => 'required',
+                'paid'          => 'required',
+                'invoiceUpload' => 'ext_in[invoiceUpload,pdf,docx,xlsx]'
+            ],[
+                // Validation error messages
+                'invoiceUpload' => [
+                    'ext_in' => 'Only .pdf .docx or .xlsx files can be uploaded. Please try again.'
+                ]
             ]))
             {
                 $data = [
@@ -86,7 +118,7 @@ class Invoices extends BaseController
                     'invoice'   => $invoice
                 ];
 
-                // If validation fails, load the 'Add Customer' page
+                // If validation fails, load the 'Edit Invoice' page
                 echo view('templates/header');
                 echo view('templates/navbar');
                 echo view('contracts/invoice_edit', $data);
@@ -94,13 +126,29 @@ class Invoices extends BaseController
             }
             else
             {
-                // If validation passes, save the data and view the new customer's details
+                // Retrieve the uploaded file
+                $file = $this->request->getFile('invoiceUpload');
+
+                // Check that the file was uploaded without errors
+                if ($file->isValid())
+                {
+                    // Move the uploaded file
+                    $filename = 'invoice_'.esc($id).'.'.$file->getExtension();
+                    $file->move('uploads/', $filename, true);
+                    $path = 'uploads/'.$filename;
+                }
+                else
+                {
+                    $path = $invoice['invoice'];
+                }
+
+                // If validation passes, save the data and return to the contract view
                 $model->update($id, [
                     'date'           => $this->request->getPost('date'),
                     'invoice_number' => $this->request->getPost('number'),
                     'amount'         => $this->request->getPost('amount'),
                     'paid'           => $this->request->getPost('paid'),
-                    // Invoice upload
+                    'invoice'        => $path
                 ]);
 
                 return redirect()->to(base_url('/contracts/'.$invoice['contract_id']));
@@ -133,13 +181,14 @@ class Invoices extends BaseController
             {
                 $model->where('invoice_id', $id)
                     ->delete();
+            }
 
-                return redirect()->to(base_url('/contracts/'.$contract));
-            }
-            else
-            {
-                return redirect()->to(base_url('/contracts'));
-            }
+            return redirect()->to(base_url('/contracts/' . $contract));
         }
+        else
+        {
+            return redirect()->to(base_url('/contracts'));
+        }
+
     }
 }

@@ -75,86 +75,6 @@ class Contracts extends BaseController
     }
 
 
-    public function edit($id)
-    {
-        // Redirect if the ID is not numeric
-        if (!is_numeric($id))
-        {
-            return redirect()->to(base_url('/contracts'));
-        }
-
-        $model = new Contract_model();
-
-        $contract = $model->get_contract($id);
-
-        // If the contract exists
-        if ($contract != null)
-        {
-            // Validate data
-            if (! $this->validate([
-                'customer' => 'required',
-                'event'    => 'required',
-                'status'   => 'required'
-            ]))
-            {
-                // Create array of customers
-                $c_model = new Customer_model();
-                $c_array[""] = "";
-                $c = $c_model->get_all_customers();
-                foreach ($c as $item):
-                    $c_array[$item['customer_id']] = $item['company_name'];
-                endforeach;
-
-                $data = [
-                    'contract'      => $contract,
-                    'validation'    => $this->validator,
-                    'method'        => $this->request->getMethod(),
-                    'customer_list' => $c_array
-                ];
-
-                // If validation fails, load the 'Edit Contract' page
-                echo view('templates/header');
-                echo view('templates/navbar');
-                echo view('contracts/update', $data);
-                echo view('templates/footer');
-            }
-            else
-            {
-                // If validation passes, update the contract
-                $model->update($id, [
-                    'customer_id'    => $this->request->getPost('customer'),
-                    'price_agreed'   => $this->request->getPost('price'),
-                    'deposit'        => $this->request->getPost('deposit'),
-                    'contract_type'  => $this->request->getPost('type'),
-                    'revenue_split'  => $this->request->getPost('split'),
-                    'requirements'   => $this->request->getPost('requirements'),
-                    'booking_status' => $this->request->getPost('status'),
-                    'ticket_sales'   => $this->request->getPost('sales'),
-                    'get_in'         => $this->request->getPost('getIn'),
-                    'get_out'        => $this->request->getPost('getOut'),
-                    'misc_terms'     => $this->request->getPost('terms'),
-                    'updated_on'     => date('Y-m-d H:i:s'),
-                    // 'updated_by'     =>
-                    // 2 document uploads
-                ]);
-                // Update the event data
-                $model->update_event($contract['event_details.event_id'], [
-                    'contract_id'  => $id,
-                    'event_title'  => $this->request->getPost('event'),
-                    'running_time'  => $this->request->getPost('runTime'),
-                    'genre'  => $this->request->getPost('genre'),
-                    'guidance'  => $this->request->getPost('guidance')
-                ]);
-                // View the contract
-                return redirect()->to(base_url('/contracts/'.$id));
-            }
-        }
-        else
-        {
-            return redirect()->to(base_url('/contracts'));
-        }
-    }
-
 
     public function add($id = false)
     {
@@ -165,7 +85,17 @@ class Contracts extends BaseController
         if (! $this->validate([
             'customer' => 'required',
             'event'    => 'required',
-            'status'   => 'required'
+            'status'   => 'required',
+            'contract' => 'ext_in[contract,pdf,docx,xlsx]',
+            'quote'    => 'ext_in[quote,pdf,docx,xlsx]'
+        ],[
+            // Validation error messages
+            'contract' => [
+                'ext_in' => 'Only .pdf .docx or .xlsx files can be uploaded. Please try again.'
+            ],
+            'quote' => [
+                'ext_in' => 'Only .pdf .docx or .xlsx files can be uploaded. Please try again.'
+            ]
         ]))
         {
             // Find current customer
@@ -215,10 +145,43 @@ class Contracts extends BaseController
                 'misc_terms'     => $this->request->getPost('terms'),
                 'updated_on'     => date('Y-m-d H:i:s'),
                 // 'updated_by'     =>
-                // 2 document uploads
             ]);
+
             // Retrieve the new contract ID
             $id = $model->insertID();
+
+            // Retrieve the uploaded files
+            $contractFile = $this->request->getFile('contract');
+            $quoteFile = $this->request->getFile('quote');
+
+            // Check that the contract file was uploaded without errors
+            if ($contractFile->isValid())
+            {
+                // Move the uploaded file
+                $filename = 'contract_'.$id.'.'.$contractFile->getExtension();
+                $contractFile->store('../../public/uploads/', $filename);
+                $path = 'uploads/'.$filename;
+
+                // Update the database to include the file path
+                $model->update($id, [
+                    'contract' => $path
+                ]);
+            }
+
+            // Check that the quote file was uploaded without errors
+            if ($quoteFile->isValid())
+            {
+                // Move the uploaded file
+                $filename = 'quote_'.$id.'.'.$quoteFile->getExtension();
+                $quoteFile->store('../../public/uploads/', $filename);
+                $path = 'uploads/'.$filename;
+
+                // Update the database to include the file path
+                $model->update($id, [
+                    'quote' => $path
+                ]);
+            }
+
             // Save the event data
             $model->save_event([
                 'contract_id'  => $id,
@@ -227,8 +190,134 @@ class Contracts extends BaseController
                 'genre'  => $this->request->getPost('genre'),
                 'guidance'  => $this->request->getPost('guidance')
             ]);
+
             // View the new contract
             return redirect()->to(base_url('/contracts/'.$id));
+        }
+    }
+
+
+
+    public function edit($id)
+    {
+        // Redirect if the ID is not numeric
+        if (!is_numeric($id))
+        {
+            return redirect()->to(base_url('/contracts'));
+        }
+
+        $model = new Contract_model();
+
+        $contract = $model->get_contract($id);
+
+        // If the contract exists
+        if ($contract != null)
+        {
+            // Validate data
+            if (! $this->validate([
+                'customer' => 'required',
+                'event'    => 'required',
+                'status'   => 'required',
+                'contract' => 'ext_in[contract,pdf,docx,xlsx]',
+                'quote'    => 'ext_in[quote,pdf,docx,xlsx]'
+            ],[
+                // Validation error messages
+                'contract' => [
+                    'ext_in' => 'Only .pdf .docx or .xlsx files can be uploaded. Please try again.'
+                ],
+                'quote' => [
+                    'ext_in' => 'Only .pdf .docx or .xlsx files can be uploaded. Please try again.'
+                ]
+            ]))
+            {
+                // Create array of customers
+                $c_model = new Customer_model();
+                $c_array[""] = "";
+                $c = $c_model->get_all_customers();
+                foreach ($c as $item):
+                    $c_array[$item['customer_id']] = $item['company_name'];
+                endforeach;
+
+                $data = [
+                    'contract'      => $contract,
+                    'validation'    => $this->validator,
+                    'method'        => $this->request->getMethod(),
+                    'customer_list' => $c_array
+                ];
+
+                // If validation fails, load the 'Edit Contract' page
+                echo view('templates/header');
+                echo view('templates/navbar');
+                echo view('contracts/update', $data);
+                echo view('templates/footer');
+            }
+            else
+            {
+                // Retrieve the uploaded files
+                $contractFile = $this->request->getFile('contract');
+                $quoteFile = $this->request->getFile('quote');
+
+                // Check that the contract file was uploaded without errors
+                if ($contractFile->isValid())
+                {
+                    // Move the uploaded file
+                    $filename = 'contract_'.$id.'.'.$contractFile->getExtension();
+                    $contractFile->move('uploads/', $filename, true);
+                    $contractPath = 'uploads/'.$filename;
+                }
+                else
+                {
+                    $contractPath = $contract['contract'];
+                }
+
+                // Check that the quote file was uploaded without errors
+                if ($quoteFile->isValid())
+                {
+                    // Move the uploaded file
+                    $filename = 'quote_'.$id.'.'.$quoteFile->getExtension();
+                    $quoteFile->move('uploads/', $filename, true);
+                    $quotePath = 'uploads/'.$filename;
+                }
+                else
+                {
+                    $quotePath = $contract['quote'];
+                }
+
+                // If validation passes, update the contract
+                $model->update($id, [
+                    'customer_id'    => $this->request->getPost('customer'),
+                    'price_agreed'   => $this->request->getPost('price'),
+                    'deposit'        => $this->request->getPost('deposit'),
+                    'contract_type'  => $this->request->getPost('type'),
+                    'revenue_split'  => $this->request->getPost('split'),
+                    'requirements'   => $this->request->getPost('requirements'),
+                    'booking_status' => $this->request->getPost('status'),
+                    'ticket_sales'   => $this->request->getPost('sales'),
+                    'get_in'         => $this->request->getPost('getIn'),
+                    'get_out'        => $this->request->getPost('getOut'),
+                    'misc_terms'     => $this->request->getPost('terms'),
+                    'updated_on'     => date('Y-m-d H:i:s'),
+   // 'updated_by'     =>
+                    'contract'       => $contractPath,
+                    'quote'          => $quotePath
+                ]);
+
+                // Update the event data
+                $model->update_event($contract['event_id'], [
+                    'contract_id'  => $id,
+                    'event_title'  => $this->request->getPost('event'),
+                    'running_time'  => $this->request->getPost('runTime'),
+                    'genre'  => $this->request->getPost('genre'),
+                    'guidance'  => $this->request->getPost('guidance')
+                ]);
+
+                // View the contract
+                return redirect()->to(base_url('/contracts/'.$id));
+            }
+        }
+        else
+        {
+            return redirect()->to(base_url('/contracts'));
         }
     }
 

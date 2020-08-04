@@ -12,6 +12,7 @@
                 </div>
             </section>
 
+            <!-- Edit Venue form -->
             <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
                 <section class="row">
                     <div class="col">
@@ -28,12 +29,12 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-7">
-                                <!-- Button -->
+                                <!-- Save Changes -->
                                 <button class="btn btn-success btn-lg btn-block" type="submit"
                                         id="btnSave" name="btnSave">Save changes</button>
                             </div>
                             <div class="col-5">
-                                <!-- Button -->
+                                <!-- Cancel Changes -->
                                 <a class="btn btn-outline-danger btn-lg btn-block"
                                    href="<?= base_url('/venue'); ?>">Cancel</a>
                             </div>

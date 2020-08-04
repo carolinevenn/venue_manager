@@ -3,7 +3,9 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
             <section class="row mt-2">
                 <div class="col">
-                    <a href="<?= base_url('/contracts/'.$invoice['contract_id']); ?>">&lt; Back to contract</a>
+                    <a href="<?= base_url('/contracts/'.$invoice['contract_id']); ?>">
+                        &lt; Back to contract
+                    </a>
                 </div>
             </section>
             <section class="row my-4">
@@ -13,19 +15,23 @@
             </section>
 
             <?php
+            // Display any validation errors
             if ($method === 'post')
             {
                 echo $validation->listErrors();
             }
             ?>
 
+            <!-- Edit Invoice form -->
             <?= form_open_multipart(current_url(), 'class="needs-validation" novalidate'); ?>
                 <section class="row">
                     <div class="col">
                         <div class="row">
                             <!-- Invoice Date -->
                             <div class="col-md-6 form-group">
-                                <label for="date">Invoice Date <span class="font-italic small text-muted">(required)</span></label>
+                                <label for="date">Invoice Date
+                                    <span class="font-italic small text-muted">(required)</span>
+                                </label>
                                 <input type="date" class="form-control" id="date" name="date"
                                        value="<?= esc($invoice['date']); ?>" required>
                                 <div class="invalid-feedback">
@@ -34,7 +40,9 @@
                             </div>
                             <!-- Invoice Number -->
                             <div class="col-md-6 form-group">
-                                <label for="number">Invoice Number <span class="font-italic small text-muted">(required)</span></label>
+                                <label for="number">Invoice Number
+                                    <span class="font-italic small text-muted">(required)</span>
+                                </label>
                                 <input type="text" class="form-control" id="number" name="number"
                                        value="<?= esc($invoice['invoice_number']); ?>" required>
                                 <div class="invalid-feedback">
@@ -46,7 +54,9 @@
                         <div class="row">
                             <!-- Invoice Amount -->
                             <div class="col-md-6 form-group">
-                                <label for="amount">Invoice Amount <span class="font-italic small text-muted">(required)</span></label>
+                                <label for="amount">Invoice Amount
+                                    <span class="font-italic small text-muted">(required)</span>
+                                </label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">£</div>
@@ -61,13 +71,17 @@
                             </div>
                             <!-- Invoice Paid? -->
                             <div class="col-md-6 form-group">
-                                <label for="paidYes paidNo">Invoice Paid? <span class="font-italic small text-muted">(required)</span></label><br>
+                                <label for="paidYes paidNo">Invoice Paid?
+                                    <span class="font-italic small text-muted">(required)</span>
+                                </label><br>
+                                <!-- 'Yes' radio -->
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="paidYes" name="paid" value="1"
                                            class="custom-control-input" required
                                            <?= (esc($invoice['paid']) == '1') ? "checked" : ""; ?>>
                                     <label class="custom-control-label" for="paidYes">Yes</label>
                                 </div>
+                                <!-- 'No' radio -->
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="paidNo" name="paid" value="0"
                                            class="custom-control-input" required
@@ -80,13 +94,18 @@
                             </div>
                         </div>
 
+                        <!-- Upload invoice document -->
                         <div class="row mt-4 mb-1">
                             <div class="col">
-                                <h6>Upload Invoice Document</h6>
+                                <h6>Upload Invoice Document
+                                    <span class="font-italic small text-muted">
+                                        (PDF, DOCX, or XLSX files only)
+                                    </span>
+                                </h6>
                             </div>
                         </div>
                         <div class="row">
-                            <!-- Invoice upload -->
+                            <!-- File upload -->
                             <div class="col form-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="invoiceUpload"
@@ -100,12 +119,12 @@
 
                         <div class="row mt-2">
                             <div class="col-7">
-                                <!-- Button -->
+                                <!-- Save changes -->
                                 <button class="btn btn-success btn-lg btn-block" type="submit"
                                         name="btnSave">Save changes</button>
                             </div>
                             <div class="col-5">
-                                <!-- Button -->
+                                <!-- Cancel changes -->
                                 <a class="btn btn-outline-danger btn-lg btn-block"
                                    href="<?= base_url('/contracts/'.$invoice['contract_id']); ?>">
                                     Cancel
@@ -116,7 +135,7 @@
                 </section>
             <?= form_close(); ?>
 
-            <!-- Delete Invoice -->
+            <!-- Launch Delete Invoice modal -->
             <section class="row mt-5">
                 <div class="col-auto mx-auto">
                     <h4>Delete Invoice</h4>

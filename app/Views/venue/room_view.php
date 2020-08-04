@@ -9,15 +9,19 @@
 
             <section class="row mt-3 mb-4 justify-content-between">
                 <div class="col-auto">
+                    <!-- Room Name -->
                     <h2><?= esc($room['name']); ?></h2>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-info" href="<?= base_url('/rooms/edit/'.esc($room['room_id'])); ?>">
+                    <!-- Edit Room details -->
+                    <a class="btn btn-info" href="<?= base_url(
+                            '/rooms/edit/'.esc($room['room_id'])); ?>">
                         Edit room details
                     </a>
                 </div>
             </section>
 
+            <!-- Room Details -->
             <dl class="row">
                 <dt class="col-sm-4"><h6>Price:</h6></dt>
                 <dd class="col-sm-8"><?= esc($room['price']); ?></dd>
