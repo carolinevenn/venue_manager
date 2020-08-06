@@ -12,6 +12,14 @@
         </div>
     </section>
 
+    <?php
+    // Display any validation errors
+    if ($method === 'post')
+    {
+        echo $validation->listErrors();
+    }
+    ?>
+
     <!-- Edit Room form -->
     <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
         <section class="row">

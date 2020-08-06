@@ -11,11 +11,15 @@
         </div>
         <div class="col-auto">
             <!-- Export contract data -->
-            <a class="btn btn-info" href="#">Export</a>
+            <a class="btn btn-info"
+               href="<?= base_url('contracts/export/'.esc($contract['contract_id'])); ?>">
+                Export
+            </a>
             <!-- Link to edit this contract -->
             <a class="btn btn-outline-info"
                href="<?= base_url('contracts/edit/'.esc($contract['contract_id'])); ?>">
-                Edit contract details</a>
+                Edit contract details
+            </a>
         </div>
     </section>
 

@@ -78,7 +78,7 @@
                             Cancel
                         </button>
                         <!-- Save booking -->
-                        <button type="button" class="btn btn-success" onclick="saveNewBooking()">
+                        <button type="button" class="btn btn-success" id="mdlSave">
                             Save booking
                         </button>
                     </div>

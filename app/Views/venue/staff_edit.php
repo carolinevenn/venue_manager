@@ -10,11 +10,23 @@
         </div>
     </section>
 
+    <!-- Display any validation errors -->
+    <?php if ($method === 'post') : ?>
+        <section class="row">
+            <div class="col-auto mx-auto alert alert-danger">
+                <?= $validation->listErrors(); ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
     <!-- Edit Staff form -->
     <?= form_open(current_url(), 'class="needs-validation" novalidate'); ?>
         <section class="row">
             <div class="col-md-8 col-lg-6 mx-auto">
                 <div class="row">
+                    <!-- Staff ID (hidden) -->
+                    <input type="hidden" id="staffId" name="staffId"
+                           value="<?= esc($staff['staff_id']); ?>">
                     <!-- Staff name -->
                     <div class="col form-group">
                         <label for="name">Name
@@ -71,30 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Password -->
-                    <div class="col-sm-6 form-group">
-                        <label for="password1">Password
-                            <span class="font-italic small text-muted">(required)</span>
-                        </label>
-                        <input type="password" class="form-control" id="password1" name="password1"
-                               required>
-                        <div class="invalid-feedback">
-                            Please enter a password
-                        </div>
-                    </div>
-                    <!-- Password confirmation -->
-                    <div class="col-sm-6 form-group">
-                        <label for="password2">Confirm Password
-                            <span class="font-italic small text-muted">(required)</span>
-                        </label>
-                        <input type="password" class="form-control" id="password2" name="password2"
-                               required>
-                        <div class="invalid-feedback">
-                            Please re-enter the password
-                        </div>
-                    </div>
-                </div>
+
                 <div class="row mt-2">
                     <div class="col-7">
                         <!-- Save Changes -->
@@ -110,6 +99,21 @@
             </div>
         </section>
     <?= form_close(); ?>
+
+    <!-- Reset Password -->
+    <section class="row mt-5">
+        <div class="col-auto mx-auto">
+            <h4>Reset Password</h4>
+        </div>
+    </section>
+    <section class="row mt-2">
+        <div class="col-auto mx-auto">
+            <a class="btn btn-outline-danger"
+               href="<?= base_url('/staff/password/'.esc($staff['staff_id'])); ?>">
+                Reset
+            </a>
+        </div>
+    </section>
 
     <!-- Launch Delete Staff modal -->
     <section class="row mt-5">

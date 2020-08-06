@@ -38,9 +38,21 @@ class Staff extends BaseController
         // Validate data
         if (! $this->validate([
             'name' => 'required',
-            'email' => 'required',
-            'password1' => 'required',
+            'email' => 'required|valid_email|is_unique[staff.email]',
+            'password1' => 'required|min_length[8]',
+            'password2' => 'required|matches[password1]',
             'access' => 'required',
+        ],[
+            // Validation error messages
+            'password1' => [
+                'min_length' => 'The password must contain at least 8 characters'
+            ],
+            'password2' => [
+                'matches' => 'The passwords must match'
+            ],
+            'email' => [
+                'is_unique' => 'That email address belongs to another user'
+            ]
         ]))
         {
             $data = [
@@ -56,11 +68,15 @@ class Staff extends BaseController
         }
         else
         {
-            // If validation passes, save the data and view the new staff member's details
+            // If validation passes, create a password hash
+            $password = $this->request->getPost('password1');
+            $passHash = password_hash(trim($password), PASSWORD_DEFAULT);
+
+            // Save the data and view the new staff member's details
             $model->insert([
                 'name'         => $this->request->getPost('name'),
                 'email'        => $this->request->getPost('email'),
-                'password'     => $this->request->getPost('password1'),
+                'password'     => $passHash,
                 'access_level' => $this->request->getPost('access'),
                 'role'         => $this->request->getPost('role'),
                 'phone'        => $this->request->getPost('phone'),
@@ -90,14 +106,18 @@ class Staff extends BaseController
             // Validate data
             if (! $this->validate([
                 'name' => 'required',
-                'email' => 'required',
-                'password1' => 'required',
+                'email' => 'required|valid_email|is_unique[staff.email,staff_id,{staffId}]',
                 'access' => 'required',
+            ],[
+                // Validation error messages
+                'email' => [
+                    'is_unique' => 'That email address belongs to another user'
+                ]
             ]))
             {
                 $data ['validation'] = $this->validator;
 
-                // If validation fails, load the 'Edit Customer' page
+                // If validation fails, load the 'Edit Staff' page
                 echo view('templates/header');
                 echo view('templates/navbar');
                 echo view('venue/staff_edit', $data);
@@ -105,11 +125,10 @@ class Staff extends BaseController
             }
             else
             {
-                // If validation passes, save the data and view the new customer's details
+                // If validation passes, save the data and return to the staff record
                 $model->update($id, [
                     'name'         => $this->request->getPost('name'),
                     'email'        => $this->request->getPost('email'),
-                    'password'     => $this->request->getPost('password1'),
                     'access_level' => $this->request->getPost('access'),
                     'role'         => $this->request->getPost('role'),
                     'phone'        => $this->request->getPost('phone'),
@@ -122,6 +141,67 @@ class Staff extends BaseController
             return redirect()->to(base_url('/venue'));
         }
     }
+
+
+    public function password($id)
+    {
+        // Redirect if the ID is not numeric
+        if (!is_numeric($id))
+        {
+            return redirect()->to(base_url('/venue'));
+        }
+
+        $model = new Venue_model();
+
+        $staff = $model->get_staff_member($id);
+
+        if ($staff != null)
+        {
+            // Validate data
+            if (! $this->validate([
+                'password1' => 'required|min_length[8]',
+                'password2' => 'required|matches[password1]'
+            ],[
+                // Validation error messages
+                'password1' => [
+                    'min_length' => 'The password must contain at least 8 characters'
+                ],
+                'password2' => [
+                    'matches' => 'The passwords must match'
+                ]
+            ]))
+            {
+                $data = [
+                    'method'     => $this->request->getMethod(),
+                    'validation' => $this->validator,
+                    'url'        => "staff/".$id
+                ];
+
+                // If validation fails, load the 'Edit Password' page
+                echo view('templates/header');
+                echo view('templates/navbar');
+                echo view('venue/password_edit', $data);
+                echo view('templates/footer');
+            }
+            else
+            {
+                // If validation passes, create a password hash
+                $password = $this->request->getPost('password1');
+                $passHash = password_hash(trim($password), PASSWORD_DEFAULT);
+
+                // Save the data and view the new customer's details
+                $model->update($id, [
+                    'password' => $passHash
+                ]);
+                return redirect()->to(base_url('/staff/'.$id));
+            }
+        }
+        else
+        {
+            return redirect()->to(base_url('/venue'));
+        }
+    }
+
 
     public function delete($id)
     {

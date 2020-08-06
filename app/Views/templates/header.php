@@ -21,7 +21,7 @@
     <?php
         if (isset($title) && $title == 'Home')
         {
-            require ("calendar.php");
+            require 'calendar.php';
         }
     ?>
 

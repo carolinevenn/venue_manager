@@ -131,6 +131,7 @@ class Contracts extends BaseController
         else
         {
             // If validation passes, save the contract data
+            $model->transStart();
             $model->insert([
                 'customer_id'    => $this->request->getPost('customer'),
                 'price_agreed'   => $this->request->getPost('price'),
@@ -190,6 +191,7 @@ class Contracts extends BaseController
                 'genre'  => $this->request->getPost('genre'),
                 'guidance'  => $this->request->getPost('guidance')
             ]);
+            $model->transComplete();
 
             // View the new contract
             return redirect()->to(base_url('/contracts/'.$id));
@@ -284,6 +286,7 @@ class Contracts extends BaseController
                 }
 
                 // If validation passes, update the contract
+                $model->transStart();
                 $model->update($id, [
                     'customer_id'    => $this->request->getPost('customer'),
                     'price_agreed'   => $this->request->getPost('price'),
@@ -310,10 +313,43 @@ class Contracts extends BaseController
                     'genre'  => $this->request->getPost('genre'),
                     'guidance'  => $this->request->getPost('guidance')
                 ]);
+                $model->transComplete();
 
                 // View the contract
                 return redirect()->to(base_url('/contracts/'.$id));
             }
+        }
+        else
+        {
+            return redirect()->to(base_url('/contracts'));
+        }
+    }
+
+
+    public function export($id)
+    {
+        $model = new Contract_model();
+
+        $contract = $model->get_contract_export($id);
+
+        if ($contract != null)
+        {
+            $array = [
+                'headings' => array_keys($contract),
+                'contract' => $contract,
+            ];
+
+            // Open output stream, "writing only" mode
+            $f = fopen('php://output', 'w');
+            // Loop over the array
+            foreach ($array as $line) {
+                // Generate csv lines from the inner arrays
+                fputcsv($f, $line);
+            }
+            // Tell the browser it's going to be a csv file
+            header('Content-Type: application/csv');
+            // Tell the browser we want to save it instead of displaying it
+            header('Content-Disposition: attachment; filename="contract_'.$id.'.csv";');
         }
         else
         {

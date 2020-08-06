@@ -27,6 +27,7 @@ class Contract_model extends Model
         'contract'
     ];
 
+
     // Return a single contract
     public function get_contract($id = false)
     {
@@ -42,6 +43,7 @@ class Contract_model extends Model
         }
     }
 
+
     // Return all room booking details for a single contract
     public function get_bookings($id)
     {
@@ -54,6 +56,7 @@ class Contract_model extends Model
         return $query->getResultArray();
     }
 
+
     // Return all event instance details for a single contract
     public function get_events($id)
     {
@@ -65,6 +68,7 @@ class Contract_model extends Model
         return $query->getResultArray();
     }
 
+
     // Return all invoice details for a single contract
     public function get_invoices($id)
     {
@@ -75,6 +79,7 @@ class Contract_model extends Model
         return $query->getResultArray();
     }
 
+
     // Return multiple contracts
     public function get_all_contracts($search = false, $status = false, $room = false, $sort = false)
     {
@@ -82,7 +87,7 @@ class Contract_model extends Model
             $query = $this->query("SELECT C.contract_id, 
                                       C.booking_status,
                                       DATE_FORMAT(MIN(B.start_time), \"%d %b %Y\") AS start_date, 
-                                      DATE_FORMAT(MAX(B.end_time), \"%d %b %Y\") As end_date, 
+                                      DATE_FORMAT(MAX(B.end_time), \"%d %b %Y\") AS end_date, 
                                       E.event_title, 
                                       R.name AS room 
                                 FROM contract C
@@ -96,7 +101,7 @@ class Contract_model extends Model
             $query = $this->select('contract.contract_id, contract.booking_status, contract.updated_on, 
                                 event_details.event_title, room.name AS room')
                 ->select('DATE_FORMAT(MIN(booking.start_time), "%d %b %Y") AS start_date')
-                ->select('DATE_FORMAT(MAX(booking.end_time), "%d %b %Y") As end_date')
+                ->select('DATE_FORMAT(MAX(booking.end_time), "%d %b %Y") AS end_date')
                 ->join('booking', 'booking.contract_id = contract.contract_id', 'left')
                 ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
                 ->join('room', 'room.room_id = booking.room_id', 'left')
@@ -145,6 +150,8 @@ class Contract_model extends Model
         }
     }
 
+
+    // Create new event
     public function save_event($event)
     {
         $db      = \Config\Database::connect();
@@ -153,6 +160,8 @@ class Contract_model extends Model
             ->insert();
     }
 
+
+    // Update an event
     public function update_event($id, $event)
     {
         $db      = \Config\Database::connect();
@@ -162,5 +171,16 @@ class Contract_model extends Model
             ->update();
     }
 
+
+    // Return contract, event and customer details for export
+    public function get_contract_export($id)
+    {
+        return $this->select('customer.*, contract.*, event_details.*')
+            ->select('DATE_FORMAT(get_in, "%d %b %Y %H:%i") AS get_in')
+            ->select('DATE_FORMAT(get_out, "%d %b %Y %H:%i") AS get_out')
+            ->join('customer', 'customer.customer_id = contract.customer_id', 'left')
+            ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
+            ->find($id);
+    }
 
 }

@@ -12,13 +12,14 @@
         </div>
     </section>
 
-    <?php
-    // Display any validation errors
-    if ($method === 'post')
-    {
-        echo $validation->listErrors();
-    }
-    ?>
+    <!-- Display any validation errors -->
+    <?php if ($method === 'post') : ?>
+        <section class="row">
+            <div class="col-auto mx-auto alert alert-danger">
+                <?= $validation->listErrors(); ?>
+            </div>
+        </section>
+    <?php endif; ?>
 
     <!-- Update Contract form -->
     <?= form_open_multipart(current_url(), 'class="needs-validation" novalidate'); ?>

@@ -102,12 +102,40 @@ function getColor($status)
             ],
 
             select: function(arg) {
-                $("#newBookingModal").modal();
+                $('#newBookingModal').modal();
                 $('#room').val(arg.resource ? arg.resource.id : '');
                 $('#start').val(arg.start);
                 $('#end').val(arg.end);
                 $('#startTime').val(arg.startStr);
                 $('#endTime').val(arg.endStr);
+                $('#mdlSave').off("click");
+                $('#mdlSave').click(function() {
+
+                    var start =  $('#startTime').val();
+                    var end = $('#endTime').val();
+                    var id = $('#contract').val();
+                    var room = $('#room').val();
+
+                    $.ajax({
+                        url: "<?php echo base_url('calendar/add');?>",
+                        headers: {'X-Requested-With': 'XMLHttpRequest'},
+                        type: "POST",
+                        data:{start:start, end:end, id:id, room:room},
+                        success: function()
+                        {
+                            alert("Room booking saved");
+                            $("#newBookingModal").modal("hide");
+                        },
+                        fail: function()
+                        {
+                            alert( "Cannot save this room booking" );
+                        },
+                        complete: function()
+                        {
+                            location.reload();
+                        }
+                    });
+                });
             },
 
             eventDrop: function(info) {
@@ -179,32 +207,6 @@ function getColor($status)
         calendar.render();
     });
 
-    function saveNewBooking() {
-        var start =  $('#startTime').val();
-        var end = $('#endTime').val();
-        var id = $('#contract').val();
-        var room = $('#room').val();
-
-        $.ajax({
-            url: "<?php echo base_url('calendar/add');?>",
-            headers: {'X-Requested-With': 'XMLHttpRequest'},
-            type: "POST",
-            data:{start:start, end:end, id:id, room:room},
-            success: function()
-            {
-                alert("Room booking saved");
-                $("#newBookingModal").modal("hide");
-            },
-            fail: function()
-            {
-                alert( "Cannot save this room booking" );
-            },
-            complete: function()
-            {
-                location.reload();
-            }
-        });
-    }
 </script>
 
 
