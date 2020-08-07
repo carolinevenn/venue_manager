@@ -4,7 +4,7 @@ use App\Models\Venue_model;
 
 class Rooms extends BaseController
 {
-    public function view($id)
+    public function view($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
@@ -65,7 +65,7 @@ class Rooms extends BaseController
         }
     }
 
-    public function edit($id)
+    public function edit($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
@@ -112,4 +112,5 @@ class Rooms extends BaseController
             return redirect()->to(base_url('/venue'));
         }
     }
+
 }

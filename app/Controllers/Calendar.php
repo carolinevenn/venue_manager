@@ -35,12 +35,18 @@ class Calendar extends BaseController
 
     }
 
-    public function delete($id)
+    public function delete($id = false)
     {
         $model = new Calendar_model();
 
         if ($this->request->getMethod() == 'post')
         {
+            // Redirect if the ID is not numeric
+            if (!is_numeric($id))
+            {
+                return redirect()->to(base_url());
+            }
+
             $contract = $model->get_contract_id($id);
 
             $model->where('booking_id', $id)

@@ -5,7 +5,7 @@ use App\Models\Invoice_model;
 
 class Invoices extends BaseController
 {
-    public function add($contract)
+    public function add($contract = false)
     {
         // Check $contract value is numeric
         if (!is_numeric($contract))
@@ -84,7 +84,7 @@ class Invoices extends BaseController
         }
     }
 
-    public function edit($id)
+    public function edit($id = false)
     {
         // Check id is numeric
         if (!is_numeric($id))
@@ -161,7 +161,7 @@ class Invoices extends BaseController
 
     }
 
-    public function delete($id)
+    public function delete($id = false)
     {
         // Check id is numeric
         if (!is_numeric($id))
@@ -189,6 +189,6 @@ class Invoices extends BaseController
         {
             return redirect()->to(base_url('/contracts'));
         }
-
     }
+
 }

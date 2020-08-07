@@ -34,7 +34,15 @@ class Event_model extends Model
     {
         $query = $this->query("SELECT * FROM event_details WHERE event_id =".$event);
         $contract = $query->getRowArray();
-        return $contract['contract_id'];
+        if ($contract != null)
+        {
+            return $contract['contract_id'];
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
 

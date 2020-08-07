@@ -30,8 +30,14 @@ class Customers extends BaseController
     }
 
 
-    public function view($id)
+    public function view($id = false)
     {
+        // Redirect if the ID is not numeric
+        if (!is_numeric($id))
+        {
+            return redirect()->to(base_url('/customers'));
+        }
+
         $model = new Customer_model();
 
         $data = [
@@ -54,7 +60,7 @@ class Customers extends BaseController
     }
 
 
-    public function edit($id)
+    public function edit($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
@@ -147,4 +153,5 @@ class Customers extends BaseController
             return redirect()->to(base_url('/customers/'.$model->insertID()));
         }
     }
+
 }

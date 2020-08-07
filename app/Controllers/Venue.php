@@ -21,7 +21,7 @@ class Venue extends BaseController
         echo view('templates/footer', $data);
     }
 
-    public function edit($id)
+    public function edit($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))

@@ -4,7 +4,7 @@ use App\Models\Venue_model;
 
 class Staff extends BaseController
 {
-    public function view($id)
+    public function view($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
@@ -86,7 +86,7 @@ class Staff extends BaseController
         }
     }
 
-    public function edit($id)
+    public function edit($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
@@ -143,7 +143,7 @@ class Staff extends BaseController
     }
 
 
-    public function password($id)
+    public function password($id = false)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
@@ -203,9 +203,9 @@ class Staff extends BaseController
     }
 
 
-    public function delete($id)
+    public function delete($id = false)
     {
-        // Check id is numeric
+        // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
             return redirect()->to(base_url('/venue'));
