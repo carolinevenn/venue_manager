@@ -157,7 +157,7 @@ class Contracts extends BaseController
                 'get_out'        => $this->request->getPost('getOut'),
                 'misc_terms'     => $this->request->getPost('terms'),
                 'updated_on'     => date('Y-m-d H:i:s'),
-                // 'updated_by'     =>
+                'updated_by'     => $this->session->get('user_name')
             ]);
 
             // Retrieve the new contract ID
@@ -312,7 +312,7 @@ class Contracts extends BaseController
                     'get_out'        => $this->request->getPost('getOut'),
                     'misc_terms'     => $this->request->getPost('terms'),
                     'updated_on'     => date('Y-m-d H:i:s'),
-   // 'updated_by'     =>
+                    'updated_by'     => $this->session->get('user_name'),
                     'contract'       => $contractPath,
                     'quote'          => $quotePath
                 ]);

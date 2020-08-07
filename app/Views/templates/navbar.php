@@ -13,8 +13,9 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <!-- Current user name and link to change password -->
-                <a class="nav-link" id="Current_user" href="<?= base_url('/user_edit'); ?>">
-                    Jane Doe
+                <a class="nav-link" id="Current_user"
+                   href="<?= base_url('staff/password/'.session()->get('user_id')); ?>">
+                    <?= session()->get('user_name') ?>
                 </a>
             </li>
         </ul>
@@ -33,11 +34,15 @@
                     Customers
                 </a>
             </li>
+
+            <?php if(session()->get('access') != 'Staff') : ?>
+                <li class="nav-item">
+                    <a class="nav-link" id="Venue" href="<?= base_url('/venue'); ?>">Venue</a>
+                </li>
+            <?php endif; ?>
+
             <li class="nav-item">
-                <a class="nav-link" id="Venue" href="<?= base_url('/venue'); ?>">Venue</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('/login'); ?>">Log out</a>
+                <a class="nav-link" href="<?= base_url('/logout'); ?>">Log out</a>
             </li>
         </ul>
     </div>

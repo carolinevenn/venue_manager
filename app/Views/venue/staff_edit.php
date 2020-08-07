@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col-md-8 col-lg-6 mx-auto">
-            <a href="<?= base_url('/staff/'.esc($staff['staff_id'])); ?>">&lt; Back</a>
+            <a href="<?= base_url('staff/'.esc($staff['staff_id'])); ?>">&lt; Back</a>
         </div>
     </section>
     <section class="row my-4">
@@ -93,7 +93,7 @@
                     <div class="col-5">
                         <!-- Cancel Changes -->
                         <a class="btn btn-outline-danger btn-lg btn-block"
-                           href="<?= base_url('/staff/'.esc($staff['staff_id'])); ?>">Cancel</a>
+                           href="<?= base_url('staff/'.esc($staff['staff_id'])); ?>">Cancel</a>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
     <section class="row mt-2">
         <div class="col-auto mx-auto">
             <a class="btn btn-outline-danger"
-               href="<?= base_url('/staff/password/'.esc($staff['staff_id'])); ?>">
+               href="<?= base_url('staff/password/'.esc($staff['staff_id'])); ?>">
                 Reset
             </a>
         </div>

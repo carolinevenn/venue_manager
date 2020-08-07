@@ -16,6 +16,7 @@ class Pages extends BaseController
 
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
+        // Load homepage (Calendar)
         if ($page == 'home')
         {
             $cal = new Calendar_model();
@@ -50,12 +51,8 @@ class Pages extends BaseController
             echo view('pages/home', $data);
             echo view('templates/footer', $data);
         }
-        else if ($page == 'login')
-        {
-            echo view('templates/header', $data);
-            echo view('pages/'.$page, $data);
-            echo view('templates/footer', $data);
-        }
+
+        // Load any other page
         else {
             echo view('templates/header', $data);
             echo view('templates/navbar');

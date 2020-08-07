@@ -38,6 +38,21 @@ class Venue_model extends Model
         }
     }
 
+    public function login($email, $password)
+    {
+        $user = $this->where('email', $email)
+            ->first();
+
+        if ($user != null && password_verify($password, $user['password']))
+        {
+            return $user;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 
 
     public function get_rooms()

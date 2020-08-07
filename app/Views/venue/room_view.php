@@ -12,13 +12,15 @@
                     <!-- Room Name -->
                     <h2><?= esc($room['name']); ?></h2>
                 </div>
-                <div class="col-auto">
-                    <!-- Edit Room details -->
-                    <a class="btn btn-info" href="<?= base_url(
-                            '/rooms/edit/'.esc($room['room_id'])); ?>">
-                        Edit room details
-                    </a>
-                </div>
+                <?php if(session()->get('access') == 'Administrator') : ?>
+                    <div class="col-auto">
+                        <!-- Edit Room details -->
+                        <a class="btn btn-info" href="<?= base_url(
+                                '/rooms/edit/'.esc($room['room_id'])); ?>">
+                            Edit room details
+                        </a>
+                    </div>
+                <?php endif; ?>
             </section>
 
             <!-- Room Details -->

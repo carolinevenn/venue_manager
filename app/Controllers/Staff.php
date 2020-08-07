@@ -145,6 +145,12 @@ class Staff extends BaseController
 
     public function password($id = false)
     {
+        // Redirect if user doesn't have permission
+        if ($this->session->get('access') == 'Staff' && $this->session->get('user_id') != $id)
+        {
+            return redirect()->to(base_url());
+        }
+
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
@@ -171,10 +177,19 @@ class Staff extends BaseController
                 ]
             ]))
             {
+                if ($id == $this->session->get('user_id'))
+                {
+                    $url = "";
+                }
+                else
+                {
+                    $url = "staff/".$id;
+                }
+
                 $data = [
                     'method'     => $this->request->getMethod(),
                     'validation' => $this->validator,
-                    'url'        => "staff/".$id
+                    'url'        => $url
                 ];
 
                 // If validation fails, load the 'Edit Password' page
