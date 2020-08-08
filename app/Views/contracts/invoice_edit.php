@@ -3,7 +3,7 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
             <section class="row mt-2">
                 <div class="col">
-                    <a href="<?= base_url('/contracts/'.$invoice['contract_id']); ?>">
+                    <a href="<?= base_url('contracts/'.$invoice['contract_id']); ?>">
                         &lt; Back to contract
                     </a>
                 </div>
@@ -127,7 +127,7 @@
                             <div class="col-5">
                                 <!-- Cancel changes -->
                                 <a class="btn btn-outline-danger btn-lg btn-block"
-                                   href="<?= base_url('/contracts/'.$invoice['contract_id']); ?>">
+                                   href="<?= base_url('contracts/'.$invoice['contract_id']); ?>">
                                     Cancel
                                 </a>
                             </div>

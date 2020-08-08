@@ -4,6 +4,9 @@ use App\Models\Venue_model;
 
 class Venue extends BaseController
 {
+    /**
+     * View venue overview, including rooms and staff
+     */
     public function index()
     {
         $model = new Venue_model();
@@ -21,12 +24,18 @@ class Venue extends BaseController
         echo view('templates/footer', $data);
     }
 
-    public function edit($id = false)
+
+    /**
+     * Edits venue details
+     * @param int $id The venue ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function edit($id = null)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
 
         $model = new Venue_model();
@@ -36,6 +45,7 @@ class Venue extends BaseController
             'method'  => $this->request->getMethod()
         ];
 
+        // Check venue exists
         if ($data['venue'] != null)
         {
             // Validate data
@@ -45,7 +55,7 @@ class Venue extends BaseController
             {
                 $data ['validation'] = $this->validator;
 
-                // If validation fails, load the 'Edit Customer' page
+                // If validation fails, load the 'Edit Venue' page
                 echo view('templates/header');
                 echo view('templates/navbar');
                 echo view('venue/venue_edit', $data);
@@ -57,12 +67,14 @@ class Venue extends BaseController
                 $model->update_venue($id, [
                     'venue_name'  => $this->request->getPost('name')
                 ]);
-                return redirect()->to(base_url('/venue'));
+                // Return to venue overview
+                return redirect()->to(base_url('venue'));
             }
         }
+        // If venue ID is incorrect
         else
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
     }
 }

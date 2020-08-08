@@ -4,7 +4,7 @@
             <h2>Customers</h2>
         </div>
         <div class="col-auto order-md-3 mb-2 mb-md-0">
-            <a class="btn btn-info" href="<?= base_url('/customers/add'); ?>">New Customer</a>
+            <a class="btn btn-info" href="<?= base_url('customers/add'); ?>">New Customer</a>
         </div>
         <div class="col-md-6 order-md-2">
             <!-- Search Customers -->
@@ -28,7 +28,7 @@
             foreach ($customers as $item): ?>
                 <!-- Individual customer card -->
                 <div class="col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-                    <a href="<?= base_url('/customers/'.esc($item['customer_id'])); ?>"
+                    <a href="<?= base_url('customers/'.esc($item['customer_id'])); ?>"
                        class='w-100 d-flex align-items-stretch text-reset'>
                         <div class='card w-100 mb-4'>
                             <!-- Company name -->

@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col">
-            <a href="<?= base_url('/contracts/'.esc($contract['contract_id'])); ?>">
+            <a href="<?= base_url('contracts/'.esc($contract['contract_id'])); ?>">
                 &lt; Back to contract
             </a>
         </div>
@@ -41,7 +41,7 @@
                     <!-- Link to create new customer -->
                     <div class="col-auto align-self-end form-group">
                         <a class="btn btn-outline-info"
-                           href="<?= base_url('/customers/add'); ?>">New Customer</a>
+                           href="<?= base_url('customers/add'); ?>">New Customer</a>
                     </div>
                 </div>
                 <div class="row mt-3 mb-2">
@@ -252,7 +252,7 @@
                     <div class="col-5">
                         <!-- Cancel Changes -->
                         <a class="btn btn-outline-danger btn-lg btn-block"
-                           href="<?= base_url('/contracts/'.esc($contract['contract_id'])); ?>">
+                           href="<?= base_url('contracts/'.esc($contract['contract_id'])); ?>">
                             Cancel
                         </a>
                     </div>

@@ -8,6 +8,7 @@ class Authenticate implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        // Block access unless user is logged in
         if (! session()->get('user_id'))
         {
             return redirect()->to(base_url('login'));

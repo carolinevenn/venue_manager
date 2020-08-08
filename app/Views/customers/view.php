@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col">
-            <a href="<?= base_url('/customers'); ?>">&lt; Back to customer list</a>
+            <a href="<?= base_url('customers'); ?>">&lt; Back to customer list</a>
         </div>
     </section>
     <section class="row mt-3 mb-4 justify-content-between">
@@ -12,12 +12,12 @@
         <div class="col-auto">
             <!-- Create new contract for this customer -->
             <a class="btn btn-info"
-               href="<?= base_url('/contracts/add/'.esc($customer['customer_id'])); ?>">
+               href="<?= base_url('contracts/add/'.esc($customer['customer_id'])); ?>">
                 New Contract
             </a>
             <!-- Edit this customer -->
             <a class="btn btn-outline-info"
-               href="<?= base_url('/customers/edit/'.esc($customer['customer_id'])); ?>">
+               href="<?= base_url('customers/edit/'.esc($customer['customer_id'])); ?>">
                 Edit customer details
             </a>
         </div>
@@ -103,7 +103,7 @@
                                     }?>
                                     <!-- Contract details -->
                                     <tr class="<?= $shading ?>" data-href="<?= base_url(
-                                            '/contracts/'.esc($item['contract_id'])); ?>">
+                                            'contracts/'.esc($item['contract_id'])); ?>">
                                         <td><?= esc($item['start_date']); ?></td>
                                         <td><?= esc($item['end_date']); ?></td>
                                         <td><?= esc($item['room']); ?></td>
@@ -155,7 +155,7 @@
                                         }?>
                                         <!-- Contract details -->
                                         <tr class="<?= $shading ?>" data-href="<?= base_url(
-                                                '/contracts/'.esc($item['contract_id'])); ?>">
+                                                'contracts/'.esc($item['contract_id'])); ?>">
                                             <td><?= esc($item['start_date']); ?></td>
                                             <td><?= esc($item['end_date']); ?></td>
                                             <td><?= esc($item['room']); ?></td>

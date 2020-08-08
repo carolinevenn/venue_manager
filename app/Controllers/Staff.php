@@ -4,33 +4,48 @@ use App\Models\Venue_model;
 
 class Staff extends BaseController
 {
-    public function view($id = false)
+    /**
+     * View an individual staff record
+     * @param int $id The staff ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function view($id = null)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
 
         $model = new Venue_model();
 
+        // Retrieve staff record
         $data = [
             'staff' => $model->get_staff_member($id)
         ];
 
+        // Check the staff record exists
         if ($data['staff'] != null)
         {
+            // Load page
             echo view('templates/header');
             echo view('templates/navbar');
             echo view('venue/staff_view', $data);
             echo view('templates/footer');
         }
+        // If staff record not found
         else
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
     }
 
+
+    /**
+     * Create new staff record
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
     public function add()
     {
         $model = new Venue_model();
@@ -72,7 +87,7 @@ class Staff extends BaseController
             $password = $this->request->getPost('password1');
             $passHash = password_hash(trim($password), PASSWORD_DEFAULT);
 
-            // Save the data and view the new staff member's details
+            // Save the data and view the new staff record
             $model->insert([
                 'name'         => $this->request->getPost('name'),
                 'email'        => $this->request->getPost('email'),
@@ -82,25 +97,34 @@ class Staff extends BaseController
                 'phone'        => $this->request->getPost('phone'),
                 'venue_id'     => '1'
             ]);
-            return redirect()->to(base_url('/staff/'.$model->insertID()));
+            return redirect()->to(base_url('staff/'.$model->insertID()));
         }
     }
 
-    public function edit($id = false)
+
+    /**
+     * Edit an individual Staff record
+     * @param int $id The staff ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
+    public function edit($id = null)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
 
         $model = new Venue_model();
 
         $data = [
+            // Retrieve staff record
             'staff' => $model->get_staff_member($id),
             'method' => $this->request->getMethod()
         ];
 
+        // Check the staff record exists
         if ($data['staff'] != null)
         {
             // Validate data
@@ -133,19 +157,27 @@ class Staff extends BaseController
                     'role'         => $this->request->getPost('role'),
                     'phone'        => $this->request->getPost('phone'),
                 ]);
-                return redirect()->to(base_url('/staff/'.$id));
+                return redirect()->to(base_url('staff/'.$id));
             }
         }
+        // If staff record not found
         else
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
     }
 
 
-    public function password($id = false)
+    /**
+     * Update the password for an individual Staff record
+     * @param int $id The staff ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
+    public function password($id = null)
     {
         // Redirect if user doesn't have permission
+        // ('Staff' access levels can only change their own password)
         if ($this->session->get('access') == 'Staff' && $this->session->get('user_id') != $id)
         {
             return redirect()->to(base_url());
@@ -154,13 +186,15 @@ class Staff extends BaseController
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
 
         $model = new Venue_model();
 
+        // Retrieve staff record
         $staff = $model->get_staff_member($id);
 
+        // Check staff record exists
         if ($staff != null)
         {
             // Validate data
@@ -177,19 +211,11 @@ class Staff extends BaseController
                 ]
             ]))
             {
-                if ($id == $this->session->get('user_id'))
-                {
-                    $url = "";
-                }
-                else
-                {
-                    $url = "staff/".$id;
-                }
 
                 $data = [
                     'method'     => $this->request->getMethod(),
                     'validation' => $this->validator,
-                    'url'        => $url
+                    'staff_id'   => $id
                 ];
 
                 // If validation fails, load the 'Edit Password' page
@@ -204,44 +230,55 @@ class Staff extends BaseController
                 $password = $this->request->getPost('password1');
                 $passHash = password_hash(trim($password), PASSWORD_DEFAULT);
 
-                // Save the data and view the new customer's details
+                // Update the database
                 $model->update($id, [
                     'password' => $passHash
                 ]);
-                return redirect()->to(base_url('/staff/'.$id));
+                // Return to staff record
+                return redirect()->to(base_url('staff/'.$id));
             }
         }
+        // If staff record not found
         else
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
     }
 
 
-    public function delete($id = false)
+    /**
+     * Deletes an individual Staff record
+     * @param int $id The staff ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function delete($id = null)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
 
         $model = new Venue_model();
 
+        // Retrieve staff record
         $staff = $model->get_staff_member($id);
 
+        // Check staff record exists
         if ($staff != null)
         {
+            // Delete staff record
             if ($this->request->getMethod() == 'post')
             {
                 $model->where('staff_id', $id)
                     ->delete();
             }
-            return redirect()->to(base_url('/venue/'));
+            return redirect()->to(base_url('venue'));
         }
+        // If staff record not found
         else
         {
-            return redirect()->to(base_url('/venue'));
+            return redirect()->to(base_url('venue'));
         }
     }
 

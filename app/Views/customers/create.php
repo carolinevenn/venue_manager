@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col">
-            <a href="<?= base_url('/customers'); ?>">&lt; Back to customer list</a>
+            <a href="<?= base_url('customers'); ?>">&lt; Back to customer list</a>
         </div>
     </section>
     <section class="row my-4">

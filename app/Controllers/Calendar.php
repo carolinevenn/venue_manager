@@ -4,6 +4,10 @@ use App\Models\Calendar_model;
 
 class Calendar extends BaseController
 {
+    /**
+     * Create a new Room Booking record
+     * @throws \ReflectionException
+     */
     public function add()
     {
         if ($this->request->isAJAX()) {
@@ -19,6 +23,10 @@ class Calendar extends BaseController
         }
     }
 
+
+    /**
+     * Update an individual Room Booking record
+     */
     public function update()
     {
         if ($this->request->isAJAX()) {
@@ -32,10 +40,15 @@ class Calendar extends BaseController
 
             $model->update_booking($id, $start, $end, $room);
         }
-
     }
 
-    public function delete($id = false)
+
+    /**
+     * Delete an individual Room Booking record
+     * @param int $id The booking ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function delete($id = null)
     {
         $model = new Calendar_model();
 
@@ -47,16 +60,19 @@ class Calendar extends BaseController
                 return redirect()->to(base_url());
             }
 
+            // Retrieve the contract ID
             $contract = $model->get_contract_id($id);
 
+            // Delete the room booking record
             $model->where('booking_id', $id)
                 ->delete();
 
-            return redirect()->to(base_url('/contracts/'.$contract));
+            // Return to the contract view
+            return redirect()->to(base_url('contracts/'.$contract));
         }
         else
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
     }
 

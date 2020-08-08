@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col">
-            <a href="<?= base_url('/customers/'.esc($customer['customer_id'])); ?>">
+            <a href="<?= base_url('customers/'.esc($customer['customer_id'])); ?>">
                 &lt; Back to customer
             </a>
         </div>
@@ -114,7 +114,7 @@
                     <div class="col-5">
                         <!-- Cancel Changes -->
                         <a class="btn btn-outline-danger btn-lg btn-block"
-                           href="<?= base_url('/customers/'.esc($customer['customer_id'])); ?>">
+                           href="<?= base_url('customers/'.esc($customer['customer_id'])); ?>">
                             Cancel
                         </a>
                     </div>

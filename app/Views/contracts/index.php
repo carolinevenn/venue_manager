@@ -5,7 +5,7 @@
         </div>
         <!-- Link to create new contract -->
         <div class="col-auto">
-            <a class="btn btn-info" href="<?= base_url('/contracts/add'); ?>">New Contract</a>
+            <a class="btn btn-info" href="<?= base_url('contracts/add'); ?>">New Contract</a>
         </div>
     </section>
 
@@ -90,7 +90,7 @@
             }?>
             <!-- Individual contract card -->
             <div class="col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-                <a href="<?= base_url('/contracts/' . esc($item['contract_id'])); ?>"
+                <a href="<?= base_url('contracts/' . esc($item['contract_id'])); ?>"
                    class='w-100 d-flex align-items-stretch text-reset'>
                     <div class='card w-100 mb-4'>
                         <!-- Event Title -->

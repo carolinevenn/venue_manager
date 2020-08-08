@@ -54,7 +54,7 @@
                     <div class="col-6">
                         <!-- Cancel Changes -->
                         <a class="btn btn-outline-danger btn-lg btn-block"
-                           href="<?= base_url(esc($url)); ?>">Cancel</a>
+                           href="<?= base_url('staff/'.esc($staff_id)); ?>">Cancel</a>
                     </div>
                 </div>
             </div>

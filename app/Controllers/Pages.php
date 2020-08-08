@@ -6,31 +6,37 @@ use App\Models\Venue_model;
 
 class Pages extends BaseController
 {
+    /**
+     * View a page
+     * @param string $page Page name
+     */
     public function view($page = 'home')
     {
+        // Generate error if page doesn't exist
         if ( ! is_file(APPPATH.'/Views/pages/'.$page.'.php'))
         {
             // Whoops, we don't have a page for that!
             throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
         }
 
-        $data['title'] = ucfirst($page); // Capitalize the first letter
+        // Capitalize the first letter of page name, and set as title
+        $data['title'] = ucfirst($page);
 
-        // Load homepage (Calendar)
+        // Load default homepage (Calendar)
         if ($page == 'home')
         {
             $cal = new Calendar_model();
             $venue = new Venue_model();
             $contract_model = new Contract_model();
 
-            // Create array of contract IDs and names, for dropdown
+            // Create array of contract IDs and names, for dropdown in new booking form
             $c_array[""] = "";
             $c = $contract_model->get_all_contracts();
             foreach ($c as $item):
                 $c_array[$item['contract_id']] = $item['event_title'];
             endforeach;
 
-            // Create array of room IDs and names, for dropdown
+            // Create array of room IDs and names, for dropdown in new booking form
             $room_array[""] = "";
             $r = $venue->get_rooms();
             foreach ($r as $item):

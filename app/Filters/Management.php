@@ -8,6 +8,7 @@ class Management implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        // Block access to users with the Access Level 'Manager' or 'Staff'
         if (session()->get('access') == 'Manager' || session()->get('access') == 'Staff')
         {
             return redirect()->to(base_url());

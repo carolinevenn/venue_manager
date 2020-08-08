@@ -5,19 +5,24 @@ use App\Models\Invoice_model;
 
 class Invoices extends BaseController
 {
-    public function add($contract = false)
+    /** Create a new Invoice record with the given contract ID
+     * @param int $contract The contract ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
+    public function add($contract = null)
     {
         // Check $contract value is numeric
         if (!is_numeric($contract))
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
-        // Check if valid contract
+        // Check if valid contract ID
         $c_model = new Contract_model();
         if ($c_model->get_contract($contract) == null)
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
         $model = new Invoice_model();
@@ -80,22 +85,31 @@ class Invoices extends BaseController
             }
 
             // Return to the contract view
-            return redirect()->to(base_url('/contracts/'.$contract));
+            return redirect()->to(base_url('contracts/'.$contract));
         }
     }
 
-    public function edit($id = false)
+
+    /**
+     * Edit an individual Invoice record
+     * @param int $id The invoice ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
+    public function edit($id = null)
     {
-        // Check id is numeric
+        // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
         $model = new Invoice_model();
 
+        // Retrieve invoice record
         $invoice = $model->get_invoice($id);
 
+        // Check invoice record exists
         if ($invoice != null)
         {
             // Validate data
@@ -126,7 +140,7 @@ class Invoices extends BaseController
             }
             else
             {
-                // Retrieve the uploaded file
+                // If validation passes, retrieve the uploaded file
                 $file = $this->request->getFile('invoiceUpload');
 
                 // Check that the file was uploaded without errors
@@ -137,12 +151,13 @@ class Invoices extends BaseController
                     $file->move('uploads/', $filename, true);
                     $path = 'uploads/'.$filename;
                 }
+                // If no new file, keep the existing file path
                 else
                 {
                     $path = $invoice['invoice'];
                 }
 
-                // If validation passes, save the data and return to the contract view
+                // Save the data and return to the contract view
                 $model->update($id, [
                     'date'           => $this->request->getPost('date'),
                     'invoice_number' => $this->request->getPost('number'),
@@ -151,43 +166,55 @@ class Invoices extends BaseController
                     'invoice'        => $path
                 ]);
 
-                return redirect()->to(base_url('/contracts/'.$invoice['contract_id']));
+                return redirect()->to(base_url('contracts/'.$invoice['contract_id']));
             }
         }
+        // If invoice record not found
         else
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
-
     }
 
-    public function delete($id = false)
+
+    /**
+     * Delete an individual Invoice record
+     * @param int $id The invoice ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function delete($id = null)
     {
-        // Check id is numeric
+        // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
         $model = new Invoice_model();
 
+        // Retrieve the invoice record
         $invoice = $model->get_invoice($id);
 
+        // Check the invoice record exists
         if ($invoice != null)
         {
+            // Extract the contract ID
             $contract = $invoice['contract_id'];
 
+            // Delete the invoice record
             if ($this->request->getMethod() == 'post')
             {
                 $model->where('invoice_id', $id)
                     ->delete();
             }
 
-            return redirect()->to(base_url('/contracts/' . $contract));
+            // Return to the contract view
+            return redirect()->to(base_url('contracts/' . $contract));
         }
+        // If invoice record not found
         else
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
     }
 

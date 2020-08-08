@@ -15,7 +15,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
-          href="<?= base_url('/bootstrap/css/bootstrap.min.css'); ?>">
+          href="<?= base_url('bootstrap/css/bootstrap.min.css'); ?>">
 
     <!-- FullCalendar initialisation (where required) -->
     <?php
@@ -26,10 +26,10 @@
     ?>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= base_url('/styles.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('styles.css'); ?>">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= base_url('/favicon.png'); ?>">
+    <link rel="icon" type="image/png" href="<?= base_url('favicon.png'); ?>">
 
     <title>Venue Manager</title>
 </head>

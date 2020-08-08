@@ -3,7 +3,7 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
             <section class="row mt-2">
                 <div class="col">
-                    <a href="<?= base_url('/contracts/'.$contract); ?>">&lt; Back to contract</a>
+                    <a href="<?= base_url('contracts/'.$contract); ?>">&lt; Back to contract</a>
                 </div>
             </section>
             <section class="row my-4">

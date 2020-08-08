@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col-md-8 col-lg-6 mx-auto">
-            <a href="<?= base_url('/rooms/'.esc($room['room_id'])); ?>">
+            <a href="<?= base_url('rooms/'.esc($room['room_id'])); ?>">
                 &lt; Back to room details
             </a>
         </div>
@@ -69,7 +69,7 @@
                     <div class="col-5">
                         <!-- Cancel Changes -->
                         <a class="btn btn-outline-danger btn-lg btn-block"
-                           href="<?= base_url('/rooms/'. esc($room['room_id'])); ?>">Cancel</a>
+                           href="<?= base_url('rooms/'. esc($room['room_id'])); ?>">Cancel</a>
                     </div>
                 </div>
             </div>

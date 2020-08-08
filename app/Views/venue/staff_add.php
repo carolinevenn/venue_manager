@@ -1,7 +1,7 @@
 <main class="container-xl">
     <section class="row mt-2">
         <div class="col-md-8 col-lg-6 mx-auto">
-            <a href="<?= base_url('/venue'); ?>">&lt; Back</a>
+            <a href="<?= base_url('venue'); ?>">&lt; Back</a>
         </div>
     </section>
     <section class="row my-4">

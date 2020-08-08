@@ -4,18 +4,26 @@ use App\Models\Event_model;
 
 class Events extends BaseController
 {
-    public function add($event = false)
+    /**
+     * Create a new Event Instance record
+     * @param int $event The event ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
+    public function add($event = null)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($event))
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
         $model = new Event_model();
 
+        // Retrieve the contract ID, also checking that the event record exists
         $contract = $model->get_contract_id($event);
 
+        // Check contract record exists
         if ($contract != null)
         {
             // Validate data
@@ -29,7 +37,7 @@ class Events extends BaseController
                     'contract'   => $contract
                 ];
 
-                // If validation fails, load the 'Add Customer' page
+                // If validation fails, load the 'Add Event Instance' page
                 echo view('templates/header');
                 echo view('templates/navbar');
                 echo view('contracts/event_add', $data);
@@ -37,7 +45,7 @@ class Events extends BaseController
             }
             else
             {
-                // If validation passes, save the data and view the new customer's details
+                // If validation passes, save the data and return to the contract view
                 $model->insert([
                     'event_id'   => $event,
                     'show_time'  => $this->request->getPost('showTime'),
@@ -46,28 +54,39 @@ class Events extends BaseController
                     'student'    => $this->request->getPost('student')
                 ]);
 
-                return redirect()->to(base_url('/contracts/'.$contract));
+                return redirect()->to(base_url('contracts/'.$contract));
             }
         }
+        // If contract not found
         else
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
     }
 
-    public function edit($id = false)
+
+    /**
+     * Edit an individual Event Instance
+     * @param int $id The instance ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @throws \ReflectionException
+     */
+    public function edit($id = null)
     {
         // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
         $model = new Event_model();
 
+        // Retrieve event instance record
         $event_instance = $model->get_event_instance($id);
+        // Retrieve contract ID
         $contract = $model->get_contract_id($event_instance['event_id']);
 
+        // Check event instance record exists
         if ($event_instance != null)
         {
             // Validate data
@@ -98,38 +117,50 @@ class Events extends BaseController
                     'student'    => $this->request->getPost('student')
                 ]);
 
-                return redirect()->to(base_url('/contracts/'.$contract));
+                return redirect()->to(base_url('contracts/'.$contract));
             }
         }
+        // In event instance record not found
         else
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
     }
 
-    public function delete($id = false)
+
+    /**
+     * Delete an individual Event Instance record
+     * @param int $id The event instance ID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function delete($id = null)
     {
-        // Check id is numeric
+        // Redirect if the ID is not numeric
         if (!is_numeric($id))
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
 
         $model = new Event_model();
+
+        // Retrieve event instance record
         $event_instance = $model->get_event_instance($id);
+        // Retrieve contract ID
         $contract = $model->get_contract_id($event_instance['event_id']);
 
         if ($this->request->getMethod() == 'post')
         {
+            // Delete the event instance
             $model->where('instance_id', $id)
                 ->delete();
 
-            return redirect()->to(base_url('/contracts/'.$contract));
+            // Return to contract view
+            return redirect()->to(base_url('contracts/'.$contract));
         }
         else
         {
-            return redirect()->to(base_url('/contracts'));
+            return redirect()->to(base_url('contracts'));
         }
     }
 

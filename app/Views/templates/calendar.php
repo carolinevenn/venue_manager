@@ -1,4 +1,5 @@
 <?php
+// Select event colors according to booking status
 function getColor($status)
 {
     switch ($status)
@@ -64,8 +65,8 @@ function getColor($status)
                 right: 'today prev,next prevMonth,nextMonth'
             },
             themeSystem: 'bootstrap',
-            eventOverlap: false, // will cause the event to take up entire resource height
-            resourceAreaWidth: 150,
+            eventOverlap: false,
+            resourceAreaWidth: 150, // Width available for resource names in Timeline view
             datesAboveResources: true,
             scrollTime: '08:00:00',
             views: {
@@ -76,6 +77,7 @@ function getColor($status)
                 }
             },
             resources: [
+                // Create array of room details
                 <?php if (! empty($room) && is_array($room)) :
                 foreach ($room as $item): ?>
                 {
@@ -86,6 +88,7 @@ function getColor($status)
                       endif; ?>
             ],
             events: [
+                // Create array of 'event' (room booking) details
                 <?php if (! empty($booking) && is_array($booking)) :
                 foreach ($booking as $item): ?>
                 {
@@ -101,14 +104,18 @@ function getColor($status)
                 endif; ?>
             ],
 
+            // Create new room booking when an empty timeslot is selected
             select: function(arg) {
+                // Launch and populate Booking modal
                 $('#newBookingModal').modal();
                 $('#room').val(arg.resource ? arg.resource.id : '');
                 $('#start').val(arg.start);
                 $('#end').val(arg.end);
                 $('#startTime').val(arg.startStr);
                 $('#endTime').val(arg.endStr);
+                // Ensure booking is only saved once
                 $('#mdlSave').off("click");
+                // Save booking
                 $('#mdlSave').click(function() {
 
                     var start =  $('#startTime').val();
@@ -132,19 +139,24 @@ function getColor($status)
                         },
                         complete: function()
                         {
+                            // Reload the page to show the new booking
                             location.reload();
                         }
                     });
                 });
             },
 
+            // Move an existing room booking
             eventDrop: function(info) {
-
-                if (!confirm("Are you sure about this change?")) {
+                // Ask for confirmation
+                if (!confirm("Are you sure about this change?"))
+                {
+                    // Cancel change
                     info.revert();
                 }
                 else
                 {
+                    // Save change
                     var start = info.event.startStr;
                     var end = info.event.endStr;
                     var id = info.event.id;
@@ -170,13 +182,17 @@ function getColor($status)
                     });
                 }
             },
+            // Change existing room booking start/end time
             eventResize: function(info) {
-
-                if (!confirm("Are you sure about this change?")) {
+                // Ask for confirmation
+                if (!confirm("Are you sure about this change?"))
+                {
+                    // Cancel change
                     info.revert();
                 }
                 else
                 {
+                    // Save change
                     var start = info.event.startStr;
                     var end = info.event.endStr;
                     var id = info.event.id;
@@ -204,11 +220,8 @@ function getColor($status)
             }
         });
 
+        // Render the calendar
         calendar.render();
     });
 
 </script>
-
-
-
-

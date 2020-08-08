@@ -6,17 +6,17 @@
         </div>
         <div class="col-auto">
             <!-- Create new staff record -->
-            <a class="btn btn-info mb-2" href="<?= base_url('/staff/add'); ?>">
+            <a class="btn btn-info mb-2" href="<?= base_url('staff/add'); ?>">
                 New Staff Member
             </a>
             <?php if(session()->get('access') == 'Administrator') : ?>
                 <!-- Create new room -->
-                <a class="btn btn-info mb-2" href="<?= base_url('/rooms/add'); ?>">
+                <a class="btn btn-info mb-2" href="<?= base_url('rooms/add'); ?>">
                     New Room
                 </a>
                 <!-- Edit venue details -->
                 <a class="btn btn-outline-info mb-2"
-                   href="<?= base_url('/venue/edit/'.esc($venue['venue_id'])); ?>">
+                   href="<?= base_url('venue/edit/'.esc($venue['venue_id'])); ?>">
                     Venue Details
                 </a>
             <?php endif; ?>
@@ -35,7 +35,7 @@
         foreach ($staff as $item): ?>
             <!-- Individual Staff card -->
             <div class="col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-                <a href="<?= base_url('/staff/'. esc($item['staff_id'])); ?>"
+                <a href="<?= base_url('staff/'. esc($item['staff_id'])); ?>"
                    class='w-100 d-flex align-items-stretch text-reset'>
                     <div class='card w-100 mb-4'>
                         <!-- Staff name -->
@@ -67,7 +67,7 @@
             foreach ($rooms as $item): ?>
                 <!-- Individual Room card -->
                 <div class="col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
-                    <a href="<?= base_url('/rooms/'. esc($item['room_id'])); ?>"
+                    <a href="<?= base_url('rooms/'. esc($item['room_id'])); ?>"
                        class='w-100 d-flex align-items-stretch text-reset'>
                         <div class='card w-100 mb-4'>
                             <!-- Room name -->

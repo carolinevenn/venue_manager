@@ -3,7 +3,7 @@
         <div class="col-md-8 col-lg-6 mx-auto">
             <section class="row mt-2">
                 <div class="col">
-                    <a href="<?= base_url('/venue'); ?>">&lt; Back</a>
+                    <a href="<?= base_url('venue'); ?>">&lt; Back</a>
                 </div>
             </section>
 
@@ -14,8 +14,8 @@
                 </div>
                 <div class="col-auto">
                     <!-- Edit Staff details -->
-                    <a class="btn btn-info" href="<?= base_url(
-                            '/staff/edit/'.esc($staff['staff_id'])); ?>">
+                    <a class="btn btn-info"
+                       href="<?= base_url('staff/edit/'.esc($staff['staff_id'])); ?>">
                         Edit staff details
                     </a>
                 </div>
