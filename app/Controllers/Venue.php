@@ -2,6 +2,10 @@
 
 use App\Models\Venue_model;
 
+/**
+ * Class Venue
+ * @package App\Controllers
+ */
 class Venue extends BaseController
 {
     /**
@@ -26,7 +30,7 @@ class Venue extends BaseController
 
 
     /**
-     * Edits venue details
+     * Edit venue details
      * @param int $id The venue ID
      * @return \CodeIgniter\HTTP\RedirectResponse
      */

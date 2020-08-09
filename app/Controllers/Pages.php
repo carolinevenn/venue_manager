@@ -4,6 +4,10 @@ use App\Models\Calendar_model;
 use App\Models\Contract_model;
 use App\Models\Venue_model;
 
+/**
+ * Class Pages
+ * @package App\Controllers
+ */
 class Pages extends BaseController
 {
     /**

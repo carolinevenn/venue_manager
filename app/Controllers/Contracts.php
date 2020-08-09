@@ -4,6 +4,10 @@ use App\Models\Contract_model;
 use App\Models\Customer_model;
 use App\Models\Venue_model;
 
+/**
+ * Class Contracts
+ * @package App\Controllers
+ */
 class Contracts extends BaseController
 {
     /**
@@ -98,7 +102,7 @@ class Contracts extends BaseController
 
 
     /**
-     * Create new contract record
+     * Create new Contract record
      * @param int $id The current customer ID
      * @return \CodeIgniter\HTTP\RedirectResponse
      * @throws \ReflectionException
@@ -166,6 +170,7 @@ class Contracts extends BaseController
         else
         {
             // If validation passes, save the contract data
+            // Start transaction
             $model->transStart();
             $model->insert([
                 'customer_id'    => $this->request->getPost('customer'),
@@ -226,6 +231,7 @@ class Contracts extends BaseController
                 'genre'        => $this->request->getPost('genre'),
                 'guidance'     => $this->request->getPost('guidance')
             ]);
+            // End transaction
             $model->transComplete();
 
             // View the new contract
@@ -329,6 +335,7 @@ class Contracts extends BaseController
                 }
 
                 // Update the contract record
+                // Start transaction
                 $model->transStart();
                 $model->update($id, [
                     'customer_id'    => $this->request->getPost('customer'),
@@ -356,6 +363,7 @@ class Contracts extends BaseController
                     'genre'  => $this->request->getPost('genre'),
                     'guidance'  => $this->request->getPost('guidance')
                 ]);
+                // End transaction
                 $model->transComplete();
 
                 // View the contract

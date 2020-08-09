@@ -2,6 +2,10 @@
 
 use App\Models\Calendar_model;
 
+/**
+ * Class Calendar
+ * @package App\Controllers
+ */
 class Calendar extends BaseController
 {
     /**

@@ -2,13 +2,15 @@
 
 use CodeIgniter\Model;
 
+/**
+ * Class Contract_model
+ * @package App\Models
+ */
 class Contract_model extends Model
 {
     protected $table = 'contract';
     protected $primaryKey = 'contract_id';
-
     protected $returnType = 'array';
-
     protected $allowedFields = [
         'customer_id',
         'price_agreed',
@@ -28,27 +30,32 @@ class Contract_model extends Model
     ];
 
 
-    // Return a single contract
-    public function get_contract($id = false)
+    /**
+     * Returns a single Contract record
+     * @param int $id The contract ID
+     * @return array|null Contract record
+     */
+    public function get_contract($id)
     {
-        if ($id === false) {
-            return null;
-        } else {
-            return $this->select('contract.*, event_details.*')
-                ->select('DATE_FORMAT(contract.get_in, "%e %b %Y %H:%i") AS formatted_in')
-                ->select('DATE_FORMAT(contract.get_out, "%e %b %Y %H:%i") AS formatted_out')
-                ->select('DATE_FORMAT(contract.updated_on, "%e %b %Y %H:%i:%s") AS updated_on')
-                ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
-                ->find($id);
-        }
+        return $this->select('contract.*, event_details.*')
+            ->select('DATE_FORMAT(contract.get_in, "%e %b %Y %H:%i") AS formatted_in')
+            ->select('DATE_FORMAT(contract.get_out, "%e %b %Y %H:%i") AS formatted_out')
+            ->select('DATE_FORMAT(contract.updated_on, "%e %b %Y %H:%i:%s") AS updated_on')
+            ->join('event_details', 'event_details.contract_id = contract.contract_id', 'left')
+            ->find($id);
     }
 
 
-    // Return all room booking details for a single contract
+    /**
+     * Returns all Room Booking records for a single Contract, ordered by start date
+     * @param int $id The contract ID
+     * @return array|null Room Booking records
+     */
     public function get_bookings($id)
     {
-        $query = $this->query("SELECT *, DATE_FORMAT(booking.start_time, \"%e %b %Y %H:%i\") AS 'start',
-                                    DATE_FORMAT(booking.end_time, \"%e %b %Y %H:%i\") AS 'end'
+        $query = $this->query("SELECT *, 
+                                    DATE_FORMAT(booking.start_time, '%e %b %Y %H:%i') AS 'start',
+                                    DATE_FORMAT(booking.end_time, '%e %b %Y %H:%i') AS 'end'
                                 FROM booking
                                 LEFT JOIN room ON booking.room_id = room.room_id
                                 WHERE contract_id =".$this->escape($id)."
@@ -57,10 +64,15 @@ class Contract_model extends Model
     }
 
 
-    // Return all event instance details for a single contract
+    /**
+     * Returns all Event Instance records for a single Contract, ordered by show_time
+     * @param int $id The contract ID
+     * @return array|null Event Instance records
+     */
     public function get_events($id)
     {
-        $query = $this->query("SELECT event_instance.*, DATE_FORMAT(event_instance.show_time, \"%e %b %Y @ %H:%i\") AS 'show'
+        $query = $this->query("SELECT event_instance.*, 
+                                    DATE_FORMAT(event_instance.show_time, '%e %b %Y @ %H:%i') AS 'show'
                                 FROM event_instance
                                 LEFT JOIN event_details ON event_details.event_id = event_instance.event_id
                                 WHERE event_details.contract_id =".$this->escape($id)."
@@ -69,10 +81,14 @@ class Contract_model extends Model
     }
 
 
-    // Return all invoice details for a single contract
+    /**
+     * Returns all Invoice records for a single Contract, ordered by date DESC
+     * @param int $id The contract ID
+     * @return array|null Invoice records
+     */
     public function get_invoices($id)
     {
-        $query = $this->query("SELECT *, DATE_FORMAT(date, \"%e %b %Y\") AS 'invoice_date'
+        $query = $this->query("SELECT *, DATE_FORMAT(date, '%e %b %Y') AS 'invoice_date'
                                 FROM invoice
                                 WHERE contract_id =".$this->escape($id)."
                                 ORDER BY date DESC");
@@ -80,14 +96,25 @@ class Contract_model extends Model
     }
 
 
-    // Return multiple contracts
-    public function get_all_contracts($search = false, $status = false, $room = false, $sort = false)
+    /**
+     * Returns overviews of all Contract records, ordered by updated_on DESC
+     * Optionally limited by search term, status and room filters
+     * Optionally ordered according to $sort parameter
+     * @param string $search Search term
+     * @param string $status Selected status
+     * @param int $room Selected room ID
+     * @param string $sort Selected sort order
+     * @return array Contract overviews
+     */
+    public function get_all_contracts($search = null, $status = null, $room = null, $sort = null)
     {
-        if ($search === false) {
+        // If search parameter not set, return overviews for all Contract records
+        if ($search == null)
+        {
             $query = $this->query("SELECT C.contract_id, 
                                       C.booking_status,
-                                      DATE_FORMAT(MIN(B.start_time), \"%d %b %Y\") AS start_date, 
-                                      DATE_FORMAT(MAX(B.end_time), \"%d %b %Y\") AS end_date, 
+                                      DATE_FORMAT(MIN(B.start_time), '%d %b %Y') AS start_date, 
+                                      DATE_FORMAT(MAX(B.end_time), '%d %b %Y') AS end_date, 
                                       E.event_title, 
                                       R.name AS room 
                                 FROM contract C
@@ -97,7 +124,10 @@ class Contract_model extends Model
                                 GROUP BY C.contract_id
                                 ORDER BY C.updated_on DESC");
             return $query->getResultArray();
-        } else {
+        }
+        // If search parameter is set, return only selected Contract overviews
+        else
+        {
             $query = $this->select('contract.contract_id, contract.booking_status, contract.updated_on, 
                                 event_details.event_title, room.name AS room')
                 ->select('DATE_FORMAT(MIN(booking.start_time), "%d %b %Y") AS start_date')
@@ -129,7 +159,7 @@ class Contract_model extends Model
                 $query->where('room.room_id', $room);
             }
 
-            // Sort results
+            // Order results
             switch ($sort)
             {
                 case "altered":
@@ -146,12 +176,17 @@ class Contract_model extends Model
                     break;
             }
 
+            // Return selected Contract overviews
             return $query->findAll();
         }
     }
 
 
-    // Create new event
+    /**
+     * Creates a new Event Details record
+     * @param array $event The new event data
+     * @return bool TRUE on success, FALSE on failure
+     */
     public function save_event($event)
     {
         $db      = \Config\Database::connect();
@@ -161,7 +196,12 @@ class Contract_model extends Model
     }
 
 
-    // Update an event
+    /**
+     * Updates an existing Event Details record
+     * @param int $id The event ID
+     * @param array $event The replacement event data
+     * @return bool TRUE on success, FALSE on failure
+     */
     public function update_event($id, $event)
     {
         $db      = \Config\Database::connect();
@@ -172,7 +212,12 @@ class Contract_model extends Model
     }
 
 
-    // Return contract, event and customer details for export
+    /**
+     * Returns a single Contract record, for export
+     * Including Event Details record and Customer record
+     * @param int $id The ocntract ID
+     * @return array|null Combined Contract, Event Details, and Customer record
+     */
     public function get_contract_export($id)
     {
         return $this->select('customer.*, contract.*, event_details.*')

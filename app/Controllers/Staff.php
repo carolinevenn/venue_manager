@@ -2,6 +2,10 @@
 
 use App\Models\Venue_model;
 
+/**
+ * Class Staff
+ * @package App\Controllers
+ */
 class Staff extends BaseController
 {
     /**
@@ -247,7 +251,7 @@ class Staff extends BaseController
 
 
     /**
-     * Deletes an individual Staff record
+     * Delete an individual Staff record
      * @param int $id The staff ID
      * @return \CodeIgniter\HTTP\RedirectResponse
      */

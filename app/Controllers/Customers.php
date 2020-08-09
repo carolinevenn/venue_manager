@@ -2,6 +2,10 @@
 
 use App\Models\Customer_model;
 
+/**
+ * Class Customers
+ * @package App\Controllers
+ */
 class Customers extends BaseController
 {
     /**

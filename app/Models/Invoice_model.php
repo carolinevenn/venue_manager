@@ -2,13 +2,15 @@
 
 use CodeIgniter\Model;
 
+/**
+ * Class Invoice_model
+ * @package App\Models
+ */
 class Invoice_model extends Model
 {
     protected $table = 'invoice';
     protected $primaryKey = 'invoice_id';
-
     protected $returnType = 'array';
-
     protected $allowedFields = [
         'contract_id',
         'date',
@@ -18,20 +20,15 @@ class Invoice_model extends Model
         'invoice'
     ];
 
-    // Return a single invoice
-    public function get_invoice($id = false)
+
+    /**
+     * Returns a single Invoice record
+     * @param int $id The invoice ID
+     * @return array|null Invoice record
+     */
+    public function get_invoice($id)
     {
-        if ($id === false)
-        {
-            return null;
-        }
-        else
-        {
-            return $this->find($id);
-        }
+        return $this->find($id);
     }
-
-
-
 
 }

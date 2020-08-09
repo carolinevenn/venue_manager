@@ -2,6 +2,10 @@
 
 use App\Models\Venue_model;
 
+/**
+ * Class Rooms
+ * @package App\Controllers
+ */
 class Rooms extends BaseController
 {
     /**

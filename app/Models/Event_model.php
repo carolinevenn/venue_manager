@@ -2,13 +2,15 @@
 
 use CodeIgniter\Model;
 
+/**
+ * Class Event_model
+ * @package App\Models
+ */
 class Event_model extends Model
 {
     protected $table = 'event_instance';
     protected $primaryKey = 'instance_id';
-
     protected $returnType = 'array';
-
     protected $allowedFields = [
         'event_id',
         'show_time',
@@ -17,22 +19,26 @@ class Event_model extends Model
         'student'
     ];
 
-    // Return a single event instance
-    public function get_event_instance($id = false)
+
+    /**
+     * Returns a single Event Instance record
+     * @param int $id The instance ID
+     * @return array|null Event Instance record
+     */
+    public function get_event_instance($id)
     {
-        if ($id === false)
-        {
-            return null;
-        }
-        else
-        {
-            return $this->find($id);
-        }
+        return $this->find($id);
     }
 
+    /**
+     * Returns the ID of the Contract that an Event Instance is attached to
+     * @param int $event The event ID
+     * @return int|null Contract ID
+     */
     public function get_contract_id($event)
     {
-        $query = $this->query("SELECT * FROM event_details WHERE event_id =".$event);
+        $query = $this->query("SELECT * FROM event_details 
+                                WHERE event_id =".$this->escape($event));
         $contract = $query->getRowArray();
         if ($contract != null)
         {
@@ -42,10 +48,6 @@ class Event_model extends Model
         {
             return null;
         }
-
     }
-
-
-
 
 }

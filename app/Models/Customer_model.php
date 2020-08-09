@@ -2,13 +2,15 @@
 
 use CodeIgniter\Model;
 
+/**
+ * Class Customer_model
+ * @package App\Models
+ */
 class Customer_model extends Model
 {
     protected $table      = 'customer';
     protected $primaryKey = 'customer_id';
-
     protected $returnType = 'array';
-
     protected $allowedFields = [
         'company_name',
         'address',
@@ -22,26 +24,26 @@ class Customer_model extends Model
         'other_details'
     ];
 
- //   protected $validationRules    = [];
- //   protected $validationMessages = [];
 
-    // Return a single customer
-    public function get_customer($id = false)
+    /**
+     * Returns a single Customer record
+     * @param int $id The customer ID
+     * @return array|null Customer record
+     */
+    public function get_customer($id)
     {
-        if ($id === false)
-        {
-            return null;
-        }
-        else
-        {
-            return $this->find($id);
-        }
+        return $this->find($id);
     }
 
-    // Return multiple customers
-    public function get_all_customers($search = false)
+    /**
+     * Returns all Customer records, ordered by company_name
+     * Optionally limited by a search term
+     * @param string $search The search term
+     * @return array Customer records
+     */
+    public function get_all_customers($search = null)
     {
-        if ($search === false)
+        if ($search === null)
         {
             return $this->orderBy('company_name', 'ASC')
                 ->findAll();
@@ -55,13 +57,17 @@ class Customer_model extends Model
         }
     }
 
-    // Return current bookings
+    /**
+     * Returns current contract overviews for a single Customer
+     * @param int $id The customer ID
+     * @return array Contract overviews
+     */
     public function get_current($id)
     {
         $query = $this->query("SELECT CONT.contract_id, 
                                     CONT.booking_status, 
-                                    DATE_FORMAT(MIN(B.start_time), \"%d %b %Y\") AS start_date, 
-                                    DATE_FORMAT(MAX(B.end_time), \"%d %b %Y\") As end_date, 
+                                    DATE_FORMAT(MIN(B.start_time), '%d %b %Y') AS start_date, 
+                                    DATE_FORMAT(MAX(B.end_time), '%d %b %Y') As end_date, 
                                     E.event_title, 
                                     R.name AS room 
                                 FROM customer CUST
@@ -81,13 +87,17 @@ class Customer_model extends Model
         return $query->getResultArray();
     }
 
-    // Return historical bookings
+    /**
+     * Returns historical contract overviews for a single Customer
+     * @param int $id The customer ID
+     * @return array Contract overviews
+     */
     public function get_history($id)
     {
         $query = $this->query("SELECT CONT.contract_id, 
                                     CONT.booking_status, 
-                                    DATE_FORMAT(MIN(B.start_time), \"%d %b %Y\") AS start_date, 
-                                    DATE_FORMAT(MAX(B.end_time), \"%d %b %Y\") As end_date, 
+                                    DATE_FORMAT(MIN(B.start_time), '%d %b %Y') AS start_date, 
+                                    DATE_FORMAT(MAX(B.end_time), '%d %b %Y') As end_date, 
                                     E.event_title, 
                                     R.name AS room 
                                 FROM customer CUST

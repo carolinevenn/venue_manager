@@ -8,7 +8,7 @@ class Staff implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        // Block access to users with the Access Level 'Staff'
+        // Redirect users with the Access Level 'Staff'
         if (session()->get('access') == 'Staff')
         {
             return redirect()->to(base_url());

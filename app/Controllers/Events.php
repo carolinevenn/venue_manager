@@ -2,6 +2,10 @@
 
 use App\Models\Event_model;
 
+/**
+ * Class Events
+ * @package App\Controllers
+ */
 class Events extends BaseController
 {
     /**

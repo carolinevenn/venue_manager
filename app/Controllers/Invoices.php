@@ -3,6 +3,10 @@
 use App\Models\Contract_model;
 use App\Models\Invoice_model;
 
+/**
+ * Class Invoices
+ * @package App\Controllers
+ */
 class Invoices extends BaseController
 {
     /** Create a new Invoice record with the given contract ID
