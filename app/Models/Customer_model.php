@@ -83,6 +83,7 @@ class Customer_model extends Model
                                 AND NOT CONT.booking_status = \"Cancelled\"
                                 GROUP BY B.contract_id
                                 HAVING MAX(B.end_time) >= '".date('Y-m-d')."'
+                                OR MAX(B.end_time) IS NULL
                                 ORDER BY start_date ASC;");
         return $query->getResultArray();
     }
