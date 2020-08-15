@@ -28,10 +28,10 @@ class Contracts extends BaseController
         }
         else
         {
-            $search = false;
-            $status = false;
-            $room = false;
-            $sort = false;
+            $search = null;
+            $status = null;
+            $room = null;
+            $sort = null;
         }
 
         // Create array of room IDs and names, for filter dropdown

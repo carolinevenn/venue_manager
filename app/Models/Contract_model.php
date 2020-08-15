@@ -109,7 +109,7 @@ class Contract_model extends Model
     public function get_all_contracts($search = null, $status = null, $room = null, $sort = null)
     {
         // If search parameter not set, return overviews for all Contract records
-        if ($search == null)
+        if ($search === null)
         {
             $query = $this->query("SELECT C.contract_id, 
                                       C.booking_status,
