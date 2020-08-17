@@ -16,7 +16,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Pages');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -30,7 +30,36 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+  // Contracts
+$routes->get('contracts/(:num)', 'Contracts::view/$1');
+$routes->match(['get', 'post'],'contracts/(:any)', 'Contracts::$1');
+$routes->match(['get', 'post'],'contracts', 'Contracts::index');
+  // Customers
+$routes->get('customers/(:num)', 'Customers::view/$1');
+$routes->match(['get', 'post'],'customers/(:any)', 'Customers::$1');
+$routes->match(['get', 'post'],'customers', 'Customers::index');
+  // Calendar
+$routes->post('calendar/(:any)', 'Calendar::$1');
+  // Events
+$routes->match(['get', 'post'],'events/(:any)', 'Events::$1');
+  // Invoices
+$routes->match(['get', 'post'],'invoices/(:any)', 'Invoices::$1');
+  // Rooms
+$routes->get('rooms/(:num)', 'Rooms::view/$1');
+$routes->match(['get', 'post'],'rooms/(:any)', 'Rooms::$1');
+  // Staff
+$routes->get('staff/(:num)', 'Staff::view/$1', ['filter' => 'staff']);
+$routes->match(['get', 'post'],'staff/password/(:any)', 'Staff::password/$1');
+$routes->match(['get', 'post'],'staff/(:any)', 'Staff::$1', ['filter' => 'staff']);
+  // Venue
+$routes->match(['get', 'post'],'venue/(:any)', 'Venue::$1');
+$routes->get('venue', 'Venue::index');
+  // Login
+$routes->match(['get', 'post'],'login', 'Users::login');
+  // Logout
+$routes->match(['get', 'post'],'logout', 'Users::logout');
+  // Pages
+$routes->get('/', 'Pages::view');
 $routes->get('(:any)', 'Pages::view/$1');
 
 /**

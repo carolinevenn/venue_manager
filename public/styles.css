@@ -1,0 +1,139 @@
+html,
+body {
+    height: 100%;
+}
+body {
+    /* Leave space for navbar */
+    padding-top: 56px;
+}
+
+/* Links */
+a {
+    color: #148c9f;
+}
+a:hover {
+    text-decoration: none;
+    color: #0e6471;
+}
+
+/* Navbar color */
+.bg-info {
+    background-color: #117888 !important;
+}
+
+/* Calendar size */
+.row.calendar {
+    height: 90vh;
+}
+
+/* Pills */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #17a2b8;
+}
+
+/* Tab panes */
+.tab-pane table {
+    border: 1px solid #dee2e6;
+}
+
+/* Search bar */
+.input-group-append .btn-light {
+    border: 1px solid #ced4da;
+    border-left-style: none;
+}
+
+/* Border separating two columns of form */
+@media (min-width: 992px) {
+    .borderLeft {
+        border-left: 1px solid #b6c0c8 !important;
+    }
+}
+
+
+/*------------------------
+  Cards
+--------------------------*/
+[data-href] {
+    cursor: pointer;
+}
+a .card:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+.card-primary {
+    background-color: #b8daff;
+}
+.card-secondary {
+    background-color: #d6d8db;
+}
+.card-success {
+    background-color: #c3e6cb;
+}
+.card-danger {
+    background-color: #f5c6cb;
+}
+.card-warning {
+    background-color: #ffeeba;
+}
+
+
+/*------------------------
+  Buttons
+--------------------------*/
+.btn-primary {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.btn-primary:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+.btn-primary:focus, .btn-primary.focus {
+    background-color: #138496;
+    border-color: #117a8b;
+    box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+}
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: #117a8b;
+    border-color: #10707f;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+}
+
+
+/*------------------------
+  Login Page
+--------------------------*/
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
