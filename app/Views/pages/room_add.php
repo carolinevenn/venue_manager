@@ -16,7 +16,7 @@
                 <div class="row">
                     <!-- Room name -->
                     <div class="col mb-3">
-                        <label for="name">Room Name</label>
+                        <label for="name">Room Name <span class="font-italic small text-muted">(required)</span></label>
                         <input type="text" class="form-control" id="name" name="name" required>
                         <div class="invalid-feedback">
                             Please enter the room name

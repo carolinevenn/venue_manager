@@ -56,11 +56,11 @@ class Staff extends BaseController
 
         // Validate data
         if (! $this->validate([
-            'name' => 'required',
-            'email' => 'required|valid_email|is_unique[staff.email]',
+            'name'      => 'required',
+            'email'     => 'required|valid_email|is_unique[staff.email]',
             'password1' => 'required|min_length[8]',
             'password2' => 'required|matches[password1]',
-            'access' => 'required',
+            'access'    => 'required',
         ],[
             // Validation error messages
             'password1' => [
@@ -124,7 +124,7 @@ class Staff extends BaseController
 
         $data = [
             // Retrieve staff record
-            'staff' => $model->get_staff_member($id),
+            'staff'  => $model->get_staff_member($id),
             'method' => $this->request->getMethod()
         ];
 
@@ -133,8 +133,8 @@ class Staff extends BaseController
         {
             // Validate data
             if (! $this->validate([
-                'name' => 'required',
-                'email' => 'required|valid_email|is_unique[staff.email,staff_id,{staffId}]',
+                'name'   => 'required',
+                'email'  => 'required|valid_email|is_unique[staff.email,staff_id,{staffId}]',
                 'access' => 'required',
             ],[
                 // Validation error messages

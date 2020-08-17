@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="text-center mt-3">
-    <em>Venue Manager | 2020</em>
+    <em>Venue Manager | &copy; 2020</em>
 </footer>
 
 <!-- JavaScript -->

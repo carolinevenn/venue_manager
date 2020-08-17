@@ -16,7 +16,7 @@
                 <div class="row">
                     <!-- Staff name -->
                     <div class="col mb-3">
-                        <label for="name">Name</label>
+                        <label for="name">Name <span class="font-italic small text-muted">(required)</span></label>
                         <input type="text" class="form-control" id="name" name="name" required>
                         <div class="invalid-feedback">
                             Please enter the name
@@ -26,7 +26,7 @@
                 <div class="row">
                     <!-- Email address -->
                     <div class="col-sm-6 mb-3">
-                        <label for="email">Email</label>
+                        <label for="email">Email <span class="font-italic small text-muted">(required)</span></label>
                         <input type="email" class="form-control" id="email" name="email" required>
                         <div class="invalid-feedback">
                             Please enter a valid email address
@@ -46,7 +46,7 @@
                     </div>
                     <!-- Access Level -->
                     <div class="col-sm-6 mb-3">
-                        <label for="access">Access Level</label>
+                        <label for="access">Access Level <span class="font-italic small text-muted">(required)</span></label>
                         <select class="form-control d-block w-100" id="access" name="access" required>
                             <option value="">Choose...</option>
                             <option>Staff</option>
@@ -58,24 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Password -->
-                    <div class="col-sm-6 mb-3">
-                        <label for="password1">Password</label>
-                        <input type="password" class="form-control" id="password1" name="password1" required>
-                        <div class="invalid-feedback">
-                            Please enter a password
-                        </div>
-                    </div>
-                    <!-- Password confirmation -->
-                    <div class="col-sm-6 mb-3">
-                        <label for="password2">Confirm Password</label>
-                        <input type="password" class="form-control" id="password2" name="password2" required>
-                        <div class="invalid-feedback">
-                            Please re-enter the password
-                        </div>
-                    </div>
-                </div>
+
                 <div class="row mt-2">
                     <div class="col-7">
                         <!-- Button -->
