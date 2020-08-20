@@ -7,6 +7,21 @@ Including:
 - FullCalendar Scheduler 5.1.0
 - Bootstrap 4.5.0
 
+
+## Initial Configuration & Set Up
+Open the app/Config/App.php file with a text editor and set your base URL.
+
+Open the app/Config/Database.php file with a text editor and set your database settings. 
+
+To disable PHP error reporting and any other development-only functionality,
+the ENVIRONMENT constant must be set to “production” in the .env file.
+
+More information can be found in the CodeIgniter [documentation](https://codeigniter.com/user_guide/installation/running.html).
+
+## Database
+The database structure is included in the database_structure.sql file. 
+This includes an Administrator user, with the password set to password123
+
 ## CodeIgniter 4
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
 More information can be found at the [official site](http://codeigniter.com).
